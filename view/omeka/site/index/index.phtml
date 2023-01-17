@@ -1,0 +1,69 @@
+<?php 
+$query = $this->params()->fromQuery();
+$heroimg = $this->assetUrl('img/10krantlezen.jpg');
+$sg = $this->assetUrl('img/JacquesEnPeter.png');
+$locations = $this->assetUrl('img/locations.jpg');
+$organizations = $this->assetUrl('img/homehero2.jpg');
+$subjects = $this->assetUrl('img/subjects.jpg');
+
+?>
+<div id="home">
+    <div id="search" class="home-hero" style="background-image: url('<?php echo $heroimg; ?>');min-height:<?php echo $this->themeSetting('cover_vh'); ?>vh">
+        <div id="home-hero-content" >
+            <div id="searchbar">
+                <?php echo $this->partial('common/search-form'); ?>
+                <!--
+                <?php echo $this->hyperlink($this->translate('Advanced search'), $this->url('site/resource', ['controller' => 'item', 'action' => 'search'], ['query' => $query], true), ['class' => 'advanced-search']); ?>
+                -->
+                <a role="button" id="browse-button" href="<?php echo $site->url(); ?>/explore">Explore</a>
+            </div>
+            <div id="strapline"><?php echo $this->themeSetting('searchTitle'); ?></div>
+        </div>
+    </div>
+    <ul id="home-promo">
+        <li class="promo-item">
+            <div class="promo-block" style="background-image: url('<?php echo $sg; ?>'); ">
+                <a href="<?php echo $site->url(); ?>/page/highlight_1"></a>
+                <div class="category-flag"><a href="<?php echo $site->url(); ?>/page/highlight_1">Highlight 1</a></div>
+            </div>
+        </li>
+        <li class="promo-item">
+            <div class="promo-block" style="background-image: url('<?php echo $organizations; ?>');  ">
+                <a href="<?php echo $site->url(); ?>/reference/organizations"></a>
+                <div class="category-flag"><a href="<?php echo $site->url(); ?>/reference/organizations">Organizations</a></div>
+            </div>
+        </li>
+        <li class="promo-item">
+            <div class="promo-block" style="background-image: url('<?php echo $locations; ?>'); ">
+                <a href="<?php echo $site->url(); ?>/reference/locations"></a>
+                <div class="category-flag"><a href="<?php echo $site->url(); ?>/reference/locations">Locations</a></div>
+            </div>
+        </li>
+        <li class="promo-item">
+            <div class="promo-block" style="background-image: url('<?php echo $subjects; ?>'); ">
+                <a href="<?php echo $site->url(); ?>/reference/subjects"></a>
+                <div class="category-flag"><a href="<?php echo $site->url(); ?>/reference/subjects">Subjects</a></div>
+            </div>
+        </li>
+    </ul>
+    </div>
+    <hr class="decorative-hr"  />
+    <div id="home-users">
+        <?php if ($mainTextcontent = $this->themeSetting('mainText')): ?>
+		<?php echo $mainTextcontent; ?>
+		<?php else: ?>
+		<?php echo $this->translate('Main Text element'); ?>
+        <?php endif; ?>
+		
+        
+    </div>
+
+    <footer>
+                    <?php if ($footerContent = $this->themeSetting('footer')): ?>
+                    <?php echo $footerContent; ?>
+                    <?php else: ?>
+                        <?php echo $this->translate('Powered by Omeka S'); ?>
+                    <?php endif; ?>
+    </footer>
+                
+</div>

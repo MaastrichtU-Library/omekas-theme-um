@@ -1,0 +1,136 @@
+<?php
+
+$translate = $this->plugin('translate');
+$hyperlink = $this->plugin('hyperlink');
+$url = $this->plugin('url');
+$this->htmlElement('body')->appendAttribute('class', 'index search');
+?>
+
+<?php echo $this->pageTitle(sprintf($translate('Search results for “%s”'), $query)); ?>
+
+<?php if (empty($results)): ?>
+    <p><?php echo $translate('No result found'); ?></p>
+<?php else: ?>
+	 
+
+<?php
+$resourceLabels = [
+    'site_pages' => 'Site pages', // @translate
+    'items' => 'Items', // @translate
+    'item_sets' => 'Item sets', // @translate
+    'media' => 'Media', // @translate
+];
+$resourceControllers = [
+    'site_pages' => 'page',
+    'items' => 'item',
+    'item_sets' => 'item-set',
+    'media' => 'media',
+];
+?>
+    <?php foreach ($results as $resourceName => $result): 
+	
+		$tagTerms = ['modsrdf:subject', 'modsrdf:namePrincipal','schema:contributor', 'schema:dateIssued'];
+		$showLabel = true;
+	
+	
+	
+	?>
+	
+<div class="<?php echo $resourceName; ?> results">
+	<h2><?php echo $translate($resourceLabels[$resourceName]); ?></h2>
+
+        <?php $titleMethod = $resourceName === 'site_pages' ? 'title' : 'displayTitle'; ?>
+    <ul>
+        <?php foreach ($result['resources'] as $resource): 
+			$vals = $resource->values();
+			$tagHtml = '';
+			foreach ($tagTerms as $tagTerm)
+			{       
+				if(isset($vals[$tagTerm]))
+				{
+					$fields = $vals[$tagTerm]['values'];
+					if(($fields!=null)&&(count($fields))){
+						$tagHtml .= '<div class="tag-group ' . str_replace(':', '\:', $tagTerm) . '">';
+						if($showLabel)
+						{
+							//if($fields[0]->property()-alternate())
+								//$label =$fields[0]->property()->alternate();
+							//else
+							
+							
+							//$tester .= 'prop: '. $fields[0]->property()->alternateLabel();
+							
+							
+							$label = $fields[0]->property()->label();
+							
+							$tagLabel=$label;
+							switch($label)
+							{
+								case "Subject":
+									$tagLabel="Study discipline";
+								break;	
+								case "Name -  Principle":
+									$tagLabel="Author";
+								break;
+								case "contributor":
+									$tagLabel="Supervisor";
+								break;
+								case "dateIssued":
+									$tagLabel="Publication Year";
+								break;
+							}
+							$tagHtml .= '<span class="tag-label">'.$tagLabel.'</span>:&nbsp;';
+						}
+						
+						
+						foreach ($fields as $val)
+						{
+							try
+							{
+								$f_id = $val->property()->id();
+								if($val)
+								{
+									// To make the field browsable with a link
+									$tquery = ['query' => ['Search' => '', 'property[0][property]' => $f_id, 'property[0][type]' => 'eq', 'property[0][text]' => strval($val)]];
+									$tagHtml .= $this->hyperlink(strval($val), $this->url('site/resource', ['controller' => 'item', 'action' => 'browse'], $tquery, true), ['class' => 'tag'])." ";
+								}
+							} catch (\Throwable $th) {
+						}
+					}
+					}$tagHtml .= '</div>';
+					
+				}
+			}
+		
+		
+		?>
+		<hr class="decorative-search" />   
+        <?php $hasThumbnail = $resource->primaryMedia(); ?>
+        <li>
+            <?php if (!$hasThumbnail): ?>
+            <?php echo $resource->link($resource->$titleMethod()); ?>
+            <?php else: ?>
+            <?php 
+				$titleDiv='<div class="title-group">';
+				$titleDiv.= $resource->linkPretty();
+				$titleDiv.= '</div>';
+			echo $titleDiv;	
+			echo $tagHtml;
+
+			?>
+            <?php endif; ?>
+        </li>
+        <?php endforeach; ?>
+    </ul>
+        <?php echo $hyperlink(
+            sprintf($translate('View all results (%s total)'), $result['total']),
+            $url(
+                'site/resource',
+                ['controller' => $resourceControllers[$resourceName], 'action' => 'browse'],
+                ['query' => ['fulltext_search' => $query]],
+                true
+            )
+        ); ?>
+</div>
+    <?php endforeach; ?>
+<?php endif; ?>
