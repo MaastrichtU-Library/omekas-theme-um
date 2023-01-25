@@ -1,4 +1,5 @@
 <?php
+$timestamp=time();
 $escape = $this->plugin('escapeHtml');
 $this->htmlElement('html')->setAttribute('lang', $this->lang());
 $this->headMeta()->setCharset('utf-8');
@@ -11,9 +12,11 @@ $this->headLink()->prependStylesheet('//fonts.googleapis.com/css?family=Open+San
 $this->headLink()->prependStylesheet('//fonts.googleapis.com/css?family=Nunito:wght@300&display=swap');
 $this->headScript()->prependFile($this->assetUrl('js/desandroimagesloaded.js'));
 $this->headScript()->prependFile($this->assetUrl('js/desandromasonry.js'));
+$this->headScript()->prependFile($this->assetUrl('js/um_theme.js'));
 $this->headScript()->prependFile($this->assetUrl('js/default.js'));
 $this->headScript()->prependFile($this->assetUrl('js/global.js', 'Omeka'));
 $this->headScript()->prependFile($this->assetUrl('vendor/jquery/jquery.min.js', 'Omeka'));
+
 
 $this->trigger('view.layout');
 $title = $this->pageTitle($site->title());
@@ -36,15 +39,7 @@ $query = $this->params()->fromQuery();
         <?php echo $this->headLink(); ?>
         <?php echo $this->headStyle(); ?>
         <?php echo $this->headScript(); ?>
-		
-		<!-- Afstemmen met Maarten Coonen: Hoe bouwen we een dergelijke link in?
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet">
-		 Eind -->
-		
-		
-		
+
     </head>
 
     <?php echo $this->htmlElement('body'); ?>
@@ -68,37 +63,47 @@ $query = $this->params()->fromQuery();
 					
                 <?php endif; ?>
             </div>
-            <div id="nav-about">
+            
+            <div id="header-main">
+			<div id="MsgDiv">test</div>
+                <nav>
+                    <?php echo $site->publicNav()->menu()->renderMenu(null, [
+                'maxDepth' => $this->themeSetting('nav_depth') - 1]);?>
+				
+                </nav>
+				
+				<div id="search-head">
+			  <?php 
+				$whatPage = $_SERVER['REQUEST_URI'];
+				//echo $whatPage;
+				$displaySearch = 1;
+				if($whatPage=="/" || $whatPage=="/home" || $whatPage=="/index" || $whatPage=="/about" || $whatPage=="/item/search" || $whatPage=="/explore") $displaySearch=0;
+				?>
+				<?php if($_SERVER['REQUEST_URI'] != $site->url()  && $displaySearch==1){ ?>
+					<div id="search" <?php 
+				if (strlen($userBar) > 1){ echo "class='logged-in'"; } ?>>
+						<!--div id="interior-hero-content"-->
+							<?php echo $this->partial('common/search-form'); ?>
+							<?php echo $this->hyperlink(); ?>
+						<!--/div-->
+					</div>
+				<?php } ?>
+						
+				</div>
+				
+				<div id="nav-about">
 				<?php if ($this->themeSetting('supportPage')):?>
 			
                     <a href="<?php echo $this->themeSetting('supportPage') ?>" target="_blank">Support</a>
 					<?php else: ?>
 					<a href="https://library.maastrichtuniversity.nl" target="_blank">Support</a>
 				<?php endif; ?>
+				</div>
             </div>
-            <div id="header-main">
-                <nav>
-                    <?php echo $site->publicNav()->menu()->renderMenu(null, [
-                'maxDepth' => $this->themeSetting('nav_depth') - 1]);?>
-				
-                </nav>
-            </div>
+		
+			
         </header>
-        <?php 
-            $whatPage = $_SERVER['REQUEST_URI'];
-            //echo $whatPage;
-            $displaySearch = 1;
-            if($whatPage=="/" || $whatPage=="/home" || $whatPage=="/index" || $whatPage=="/about" || $whatPage=="/item/search" || $whatPage=="/explore") $displaySearch=0;
-        ?>
-        <?php if($_SERVER['REQUEST_URI'] != $site->url()  && $displaySearch==1){ ?>
-            <div id="search" <?php 
-        if (strlen($userBar) > 1){ echo "class='logged-in'"; } ?>>
-                <div id="interior-hero-content">
-                    <?php echo $this->partial('common/search-form'); ?>
-                    <?php echo $this->hyperlink(); ?>
-                </div>
-            </div>
-        <?php } ?>
+      
         <div id="content" role="main">
             <?php if($_SERVER['REQUEST_URI'] != $site->url()){ ?>
                     <?php echo $this->content; ?>

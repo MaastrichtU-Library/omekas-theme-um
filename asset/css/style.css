@@ -1,7 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap');
 
-
 @font-face {
     font-family: 'alegreyaregular';
     src: url('alegreya-variablefont_wght-webfont.woff2') format('woff2'),
@@ -10,6 +9,8 @@
     font-style: normal;
 
 }
+
+#MsgDiv {display:none;}
 @media screen {
     * {
         box-sizing: border-box
@@ -21,7 +22,8 @@
 
     }
     body {
-        background-color: #F9F8F4;
+        /* background-color: #F9F8F4; */
+		background-color: #FFFFFF;
         font-family: "Open Sans", sans-serif;
         font-size: 16px;
         line-height: 30px;
@@ -39,11 +41,13 @@
     }
     a:active,
     a:hover {
-        color: #6F88A0;
+        /* color: #6F88A0; */
         text-decoration: underline;
+		opacity: 1;
+		
     }
     a:hover img {
-        opacity: .7;
+        opacity: .9; 
     }
     h1 {
         font-size: 40px;
@@ -95,7 +99,7 @@
         -moz-appearance: none;
         appearance: none;
         border-radius: 0;
-        height: 45px;
+        height: 38px;
         border: 1px solid #dedede;
         padding: 6.5px 1.69492%;
         margin: 0
@@ -142,8 +146,12 @@
     [type="submit"]:hover {
         text-decoration: underline;
         background-color: #55A5CB;
-        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        /* box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22); */
     }
+	header [type="submit"]:hover {
+		
+	}
+	
     select {
         background-color: #fff;
         padding: 7.5px;
@@ -163,17 +171,27 @@
     :-ms-input-placeholder {
         font-style: italic
     }
+	#advanced-search-form-wrapper{
+		background-color: #e84e10;
+		border-radius:5px;
+		padding:5px;
+	}
+	
+	
+	
     .field {
        /* margin: 34px 0;
         padding-bottom: 34px;
         border-bottom: 1px solid #dedede; aangepast op 3-5-2022*/
-        margin: 34px 0;
+		display: flex;
+        margin: 5px 0;
         padding: 0.5rem;/* border-bottom: 1px solid #dedede; */
-        box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
-        border-top-right-radius: 9px;
-        border-top-left-radius: 9px;
-        border-bottom-left-radius: 9px;
-        border-bottom-right-radius: 9px;
+        /* box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%); */
+        /* border-top-right-radius: 9px; */
+        /* border-top-left-radius: 9px; */
+        /* border-bottom-left-radius: 9px; */
+        /* border-bottom-right-radius: 9px; */
+		/* border-radius: 4px; */
         background-color: #EDEAE8;
         
         
@@ -252,9 +270,9 @@
     }
  
    header #top-bar {
-        padding-top: 14px;
-        padding-bottom: 14px;
-        width: 100%;
+        /* padding-top: 14px; */
+        /* padding-bottom: 14px; */
+        width: 80%;
         background-color: #ffffff;
         display: flex;
 		flex-wrap: wrap;
@@ -269,7 +287,8 @@
     }
     header #top-bar #institution-logo img {
         height: 80px;
-		
+		clip:rect(0px,400px,20px,0px );
+		transition: height 0.5s, width 0.5s;
         
     }
     header a:link.site-title, header a:visited.site-title {
@@ -291,6 +310,7 @@
         border-top: 2px solid #E84E10;
         font-weight: 800;
         text-transform: uppercase;
+		display:none;
     }
     #nav-about a {
         background: #E84E10;
@@ -311,14 +331,15 @@
         min-height: 65px;
         font-size: 23px; /*toegevoegd op 2-5 Joke*/
     }
-    header a:link, header a:visited {
+    header a:link, header a:visited, header a:hover {
         color: #001C3D;
         font-weight: 600; /* color: #EAE8DE; aangepast op 19-04*/
     }
 
-    header a:hover {
+    header a:hover, header a:active {
         color: #001C3D;
-        text-decoration-color: #E84E10; /* color: #EAE8DE; aangepast op 19-04*/
+		text-decoration-color: #E84E10; /* color: #EAE8DE; aangepast op 19-04*/ 
+		text-underline-offset:5px;
     }
     a.institution-logo {
         color: #444444 !important;
@@ -366,8 +387,8 @@
         list-style: none;
         position: relative;
         margin: 0 auto;
-      /*  background-color: #2C4C6B;*/
-        background-color:#E84E10;
+        /*  background-color: #2C4C6B;*/
+        /* background-color:#E84E10; */
     }
     header nav ul a {
         display: inline-block;
@@ -376,10 +397,15 @@
     }
     header nav ul a:hover {
         border-bottom: 0;
-        background-color: #233C55;
+        /* background-color: #233C55; */
+		/* text-decoration: underline; */
     }
     header nav ul li {
         position: relative;
+    }
+	 header nav ul li:hover {
+       
+		
     }
     header nav ul li li:last-of-type {
         padding-bottom: 0
@@ -518,18 +544,18 @@
         margin: 0;
         width:100%;
         z-index: 150;
-        padding-bottom: 14px;
-        /*position: fixed;
-        top: 0;*/
+        /* padding-bottom: 14px; */
+        position: fixed;
+        top: 0;
     }
     header.logged-in {
-        top: 36px;
+        /* top: 36px; */
     }
     header>* {
         /* max-width: 1700px; */
         margin-left: auto;
         margin-right: auto;
-        padding: 0 1.69492%;
+        /* padding: 0 1.69492%; */
         display: block
     }
     .site-title:hover,
@@ -583,7 +609,7 @@
         text-indent: -9999px;
         position: relative;
         border-radius: 0 3px 3px 0;
-        background-color: #00A2DB;
+        background-color:  #e84e10;
     }
     #search form button[type="submit"]:hover {
         background-color: #00A2DB;
@@ -592,7 +618,7 @@
         content: "\f002";
         font-family: "Font Awesome 5 Free";
         position: absolute;
-        top: 0;
+        top: -5px;
         left: 0;
         right: 0;
         text-align: center;
@@ -668,7 +694,7 @@
 	}
 	
 	.item #content{
-		 padding: 0 3rem; 
+		 /* padding: 0 3rem;  */
 	 }
 	 .item #content .media-embeds
 	 {
@@ -716,12 +742,14 @@
 	 
     #content {
         /* max-width: 1700px; */
+		width:80%;
         margin-left: auto;
         margin-right: auto;
-        /*
-        margin-top: 25px;
-        padding: 0 1.69492% 30px;
-        */
+		margin-top: 40px;
+        
+        margin-top: 170px;
+        /* padding: 0 1.69492% 30px; */
+        
         /*
         position: relative;
         height: 100%;
@@ -941,7 +969,7 @@
         position: relative
     }
     ul.resource-list li:nth-child(odd) {
-        background-color: #ffffff;
+        background-color: #f0f0f0;
     }
 
     
@@ -962,11 +990,12 @@
         max-width: 1000px;
     }
     ul.resource-list .resource h4 a, ul.resource-list .resource h5 a {
-        color: #E84E10;
-        color: #E84E10;
+        /* color: #E84E10; */
+		text-decoration-color: #E84E10;
+		text-underline-offset: 5px;
     }
     ul.resource-list .resource h4 a:hover, ul.resource-list .resource h5 a:hover {
-        color: #DC9797;
+        /* color: #DC9797; */
     }
     ul.resource-list .resource h5{
         padding: 9px;
@@ -1530,11 +1559,18 @@
     }
     header {
         /*position: fixed;*/
+		background-color: #fff;
         padding: 0 0 0 0;
-        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.35);
+		z-index: 10000;
+		box-shadow: 0 1px 2px 0 rgb(0 0 0 / 15%);
+}
     }
+	header.scroll{
+		/* background-color:#f0f0f0; */
+	}
+	
     header>* {
-        padding: 0 3.38983%
+        /* padding: 0 3.38983% */
     }
     footer {
         padding: 6em;
@@ -1543,7 +1579,9 @@
         align-items: center;
         text-align:left;
     }
-	.search-page #content {padding: 0 3%;}
+	.search-page #content {
+		/* padding: 0 3%; */
+		}
 	
     #footer-right {
         margin:0;
@@ -1555,6 +1593,10 @@
         /*width:900px;*/
         max-height: 90px; /*toegevoegd 16-05* Joke*/
     }
+	header.scroll #top-bar #institution-logo img {
+		height:50px;
+	}
+	
     header a:link.site-title, header a:visited.site-title {
         color: #ffffff;
         padding-left: 25px;
@@ -1563,16 +1605,18 @@
         /*border-left: 1px solid #cccccc;*/
     }
     #header-main {
-		max-width: 1700px;
+		/* max-width: 1700px; */
         min-height: inherit;
-        padding-left: 6rem; /*2-05 toegevoegd door joke*/
+		width:80%;
     }
     header nav {
-		margin: 0;
-        position: static;
-        padding: 0;
+		margin: 0 auto;
+    position: static;
+    padding: 0;
+    width: 80%;
+	}
 
-    }
+    
     header nav:before {
         content: "";
         border: 0;
@@ -1593,7 +1637,7 @@
         overflow: visible
     }
     header nav ul a:hover {
-        background-color: transparent
+        /* background-color: transparent */
     }
     header nav ul li,
     header nav>ul li:last-child,
@@ -1601,8 +1645,10 @@
         border: 0
     }
     header nav ul.navigation {
-        margin-left: -7.5px;
         position: static;
+		display: flex;
+		justify-content: flex-end;
+	
     }
     header nav ul.navigation li ul:before {
         display: none
@@ -1701,7 +1747,7 @@
     header nav>ul>li>ul>li a:hover,
     header nav>ul>li>ul>li>ul>li a:hover {
         color: #A9DAF1;
-    }
+	}
     .sub-menu ul {
         border-bottom: 1px solid #dedede;
         padding-bottom: 14px
@@ -1718,10 +1764,10 @@
     }
     #search {
         /* height: 200px; */
-        /*margin-top:135px;*/
+        /* margin-top:135px; */
 		margin: 0;
         position: relative;
-        margin-bottom: 4rem;
+        /* margin-bottom: 4rem; */
     }
     #search.logged-in {
         /*margin-top: 172px;*/
@@ -1736,17 +1782,17 @@
         justify-content: space-between;
     }
     #search form {
-        width: 38.5em;
+        /* width: 38.5em; */
     }
     #search form input[type="text"],
     #search form button[type="submit"] {
-        height: 48px;
-        font-size: 20px;
-        line-height: 30px
+        /* height: 48px; */
+        /* font-size: 20px; */
+        /* line-height: 30px */
     }
     #search form button[type="submit"] {
         width: 48px;
-        height: 48px;
+        height: 38px;
         padding: 0
     }
     #search form button[type="submit"]:before {
@@ -2006,7 +2052,15 @@
         display: inline-block;
         width: 100%;
     }
-    
+    .search-results .search-filters .filter a::after {
+    content: "x";
+    float: right;
+    margin: 0 9px 0 1px;
+    font-size: 0.8em;
+    font-weight: normal;
+    bottom: 5px;
+    position: relative;
+}
 }
 @media only screen and (max-width: 600px){
 	body {width:100%;} 
