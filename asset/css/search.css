@@ -1,0 +1,4 @@
+.search-results .resource-list {
+    display: flex;
+    flex-direction: column;
+}
