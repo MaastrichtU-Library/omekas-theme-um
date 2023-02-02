@@ -1,4 +1,4 @@
-
+	
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap');
 
 @font-face {
@@ -49,14 +49,18 @@
     a:hover img {
         opacity: .9; 
     }
+	
+	h1, h2, h3, h4, h5, h6 {
+    color: #001c3d;
+	}
+	
     h1 {
-        font-size: 40px;
-        line-height: 60px
-    }
+        font-size: 2.5rem;
+       }
     h2 {
-        font-size: 36px;
-        line-height: 45px;
-        font-weight: 600;
+        font-size: 2rem;
+		font-weight: 600;    
+        
     }
     h3 {
         font-size: 25px;
@@ -127,9 +131,9 @@
         letter-spacing: .45px;
     }
     [type="submit"] {
-        background-color: #7BC0E1;
+		background-color: #001c3d;
         color: #F9F8F4;
-        border-radius: 4px;
+        border-radius: 3px;
         padding: 7.5px 15px;
         display: inline-block;
         appearance: none;
@@ -143,6 +147,47 @@
         text-transform: uppercase;
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     }
+	
+	.form-search [type="submit"]
+	{
+		background-color: #ffffff;
+		color: #001c3d;
+		padding: 0.5em 1em;
+		font-weight:800;
+		text-transform: none;
+		line-height:1em;
+	}
+	
+	.form-search [type="submit"]:hover
+	{
+		background-color: #001c3d;
+		color: #ffffff;
+		padding: 0.5em 1em;
+		font-weight:800;
+		text-transform: none;
+		line-height:1em;
+		text-decoration:none;
+	}
+	[type="submit"]:hover:after{
+		color:#ffffff;
+	}
+	
+	
+	[type="submit"]:after{
+		content: "\f061";
+		font-family: "Font Awesome 5 Free";
+		position: relative;
+		margin-left: 1em;
+		text-align: center;
+		text-indent: 0;
+		color: #D2460F;
+	}
+	
+	
+	
+	
+	
+	
     [type="submit"]:hover {
         text-decoration: underline;
         background-color: #55A5CB;
@@ -185,14 +230,14 @@
         border-bottom: 1px solid #dedede; aangepast op 3-5-2022*/
 		display: flex;
         margin: 5px 0;
-        padding: 0.5rem;/* border-bottom: 1px solid #dedede; */
+        padding: 0 0.5rem;/* border-bottom: 1px solid #dedede; */
         /* box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%); */
         /* border-top-right-radius: 9px; */
         /* border-top-left-radius: 9px; */
         /* border-bottom-left-radius: 9px; */
         /* border-bottom-right-radius: 9px; */
 		/* border-radius: 4px; */
-        background-color: #EDEAE8;
+        /* background-color: #EDEAE8; */
         
         
     }
@@ -476,9 +521,9 @@
         padding-top: 6.5px
     }
     nav.pagination {
-        margin-bottom: 30px;
-        font-size: 20px;
-        line-height: 45px
+			/* margin-bottom: 30px; */
+			/* font-size: 20px; */
+			/* line-height: 45px */
     }
     .pagination input {
         text-align: center
@@ -495,16 +540,17 @@
     .pagination .page-count {
         display: inline-block;
         vertical-align: top;
-        height: 45px
+        /* height: 45px */
     }
     .pagination .button {
-        background-color: #2C4C6B;
-        width: 45px;
-        text-align: center;
-        padding: 7.5px;
-        border-radius: 2px;
-        color: #E9C46A;
-        line-height: 30px;
+        background-color: #ffffff;
+		width: 34px;
+		text-align: center;
+		padding: 3.5px;
+		border-radius: 2px;
+		border: solid 1px #ddd;
+		color: #E9C46A;
+        /* line-height: 30px; */
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     }
     .pagination .button:hover {
@@ -972,6 +1018,10 @@
         background-color: #f0f0f0;
     }
 
+	ul.resource-list .items
+	{
+		display:flex;
+	}
     
     ul.resource-list .resource>*:last-child {
         margin-bottom: 0

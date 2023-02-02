@@ -1,9 +1,7 @@
 <?php
-/* MC 01-06-2022: This theme file overrides modules/AdvancedSearch/view/search/search.phtml
- *
- *
+/*
  * Copyright BibLibre, 2016
- * Copyright Daniel Berthereau, 2017-2021
+ * Copyright Daniel Berthereau, 2017-2023
  *
  * This software is governed by the CeCILL license under French law and abiding
  * by the rules of distribution of free software.  You can use, modify and/ or
@@ -32,21 +30,15 @@
 /**
  * @var \Laminas\View\Renderer\PhpRenderer $this
  * @var \Omeka\Api\Representation\SiteRepresentation $site
- * @var \AdvancedSearch\Api\Representation\SearchConfigRepresentation $searchPage
+ * @var \AdvancedSearch\Api\Representation\SearchConfigRepresentation $searchConfig
+ * @var \AdvancedSearch\Api\Representation\SearchConfigRepresentation $searchPage Alias of $searchConfig
  * @var \AdvancedSearch\Query $query
  * @var \AdvancedSearch\Response $response
+ *
  * For block layout:
- * @var string $heading Unused in current template.
+ * @var string $heading Used in the block layout template.
  * @var bool $skipFormAction Remove action of the form, so it uses current page.
  */
-
-// Compatibility with old theme for module Search.
-
-if ($this->resolver('search/index/search.phtml')) {
-    $this->logger()->warn('The file "search/index/search.phtml" of your current theme should be moved to "search/search.phtml".');
-    echo $this->partial('search/index/search.phtml', $this->vars());
-    return;
-}
 
 $plugins = $this->getHelperPluginManager();
 $api = $plugins->get('api');
@@ -60,17 +52,21 @@ $vars = $this->vars();
 // Used in case of a redirect of item-set/show to search, when used like item/browse.
 $itemSetId = $this->params()->fromRoute('item-set-id');
 // TODO Use site item set ?
+/** @var \Omeka\Api\Representation\ItemSetRepresentation $itemSet */
 $itemSet = $itemSetId ? $api->searchOne('item_sets', ['id' => $itemSetId])->getContent() : null;
 
-$isPartial = !$site;
-$skipFormAction = !empty($skipFormAction);
+$isPartial = $skipFormAction = !empty($skipFormAction);
 
-// MC (via a Daniel-KM theme):
-// The event "view.layout" is triggered before the preparation of the default
-// links and scripts, so in all cases jQuery is loaded first and custom css
-// and js of the theme are loaded last. It resolves many issues with modules.
-$this->trigger('view.layout');
-$this->headLink()->appendStylesheet($assetUrl('css/search.css'));
+$documentCount = isset($response) ? $response->getTotalResults() : 0;
+if ($documentCount):
+    $itemSetsCount = $response->getResourceTotalResults('item_sets');
+    $itemsCount = $response->getResourceTotalResults('items');
+    $displayParts = $searchConfig->setting('display', []);
+    $displayPartsHeader = array_filter($displayParts, function ($v) { return in_array($v, ['header', 'both']); });
+    $displayPartsFooter = array_filter($displayParts, function ($v) { return in_array($v, ['footer', 'both']); });
+endif;
+
+$this->headLink()->appendStylesheet($assetUrl('css/search.css', 'AdvancedSearch'));
 $this->headScript()->appendFile($assetUrl('js/search.js', 'AdvancedSearch'), 'text/javascript', ['defer' => 'defer']);
 ?>
 
@@ -79,22 +75,21 @@ $this->headScript()->appendFile($assetUrl('js/search.js', 'AdvancedSearch'), 'te
 <?php endif; ?>
 
 <?php if ($itemSet): ?>
-<div id="item-set-part">
+
     <?php
     $vars->offsetSet('itemSet', $itemSet);
     $vars->offsetSet('resourceType', 'item_sets'); // TODO Check if really needed.
     $this->htmlElement('body')->appendAttribute('class', 'search-page item-set resource browse');
     ?>
-	<h3><?= $translate('Item set') ?></h3>
     <?= $this->pageTitle($itemSet->displayTitle(), 2) ?>
-    
+    <h3><?= $translate('Item set') ?></h3>
     <div class="metadata">
         <?= $itemSet->displayValues() ?>
     </div>
     <div class="item-set-items">
         <h3><?= $translate('Items') ?></h3>
     </div>
-</div>
+
 <?php else: ?>
 
     <?php $this->htmlElement('body')->appendAttribute('class', 'search-page resource browse'); ?>
@@ -102,27 +97,22 @@ $this->headScript()->appendFile($assetUrl('js/search.js', 'AdvancedSearch'), 'te
 
 <?php endif; ?>
 
-<?= $this->searchForm($searchPage, null, $skipFormAction) ?>
+<?= $this->searchForm($searchConfig, null, $skipFormAction) ?>
 
-<?php if (isset($response)):
-$documentCount = $response->getTotalResults();
-?>
+<?php if (isset($response)): ?>
+
 <div class="search-results-wrapper">
     <div class="search-results">
-	
 
-        <?php if ($documentCount):
-            $itemSetsCount = $response->getResourceTotalResults('item_sets');
-            $itemsCount = $response->getResourceTotalResults('items');
-            $displayParts = $searchPage->setting('display', []);
-            $displayPartsHeader = array_filter($displayParts, function ($v) { return in_array($v, ['header', 'both']); });
-            $displayPartsFooter = array_filter($displayParts, function ($v) { return in_array($v, ['footer', 'both']); });
-            ?>
+        <?php if ($documentCount): ?>
 
         <?php if ($displayPartsHeader): ?>
         <div class="search-results-part search-results-header">
             <?= $partial('search/results-header-footer', [
-                'searchPage' => $searchPage,
+                'site' => $site,
+                'searchConfig' => $searchConfig,
+                // Kept for compatibility with old themes.
+                'searchPage' => $searchConfig,
                 'query' => $query,
                 'response' => $response,
                 'itemSet' => $itemSet,
@@ -136,7 +126,8 @@ $documentCount = $response->getTotalResults();
             <?php if ($itemSetsCount): ?>
             <?= $partial('search/resource-list', [
                 'site' => $site,
-                'searchPage' => $searchPage,
+                'searchConfig' => $searchConfig,
+                'searchPage' => $searchConfig,
                 'query' => $query,
                 'response' => $response,
                 'title' => sprintf($translatePlural('%s item set', '%s item sets', $itemSetsCount), $itemSetsCount),
@@ -145,11 +136,10 @@ $documentCount = $response->getTotalResults();
             <?php endif; ?>
 
             <?php if ($itemsCount): ?>
-			<?php //?>
-
             <?= $partial('search/resource-list', [
                 'site' => $site,
-                'searchPage' => $searchPage,
+                'searchConfig' => $searchConfig,
+                'searchPage' => $searchConfig,
                 'query' => $query,
                 'response' => $response,
                 'title' => sprintf($translatePlural('%s item', '%s items', $itemsCount), $itemsCount),
@@ -161,7 +151,9 @@ $documentCount = $response->getTotalResults();
         <?php if ($displayPartsFooter): ?>
         <div class="search-results-part search-results-footer">
             <?= $partial('search/results-header-footer', [
-                'searchPage' => $searchPage,
+                'site' => $site,
+                'searchConfig' => $searchConfig,
+                'searchPage' => $searchConfig,
                 'query' => $query,
                 'response' => $response,
                 'itemSet' => $itemSet,
@@ -179,9 +171,9 @@ $documentCount = $response->getTotalResults();
                 <?php elseif (empty($query) && $itemSet): ?>
                 <?= $translate('This item set has no items.') ?>
                 <?php else: ?>
-                <?php if (in_array($searchPage->subSetting('display', 'search_filters', 'header'), ['header', 'both'])): ?>
+                <?php if (in_array($searchConfig->subSetting('display', 'search_filters', 'header'), ['header', 'both'])): ?>
                 <div class="search-results-part search-results-header">
-                    <?= $this->searchingFilters($searchPage, $query, ['template' => 'common/search-filters-links']) ?>
+                    <?= $this->searchingFilters($searchConfig, $query, ['template' => 'common/search-filters-links']) ?>
                 </div>
                 <?php endif; ?>
                 <?= $translate('Your query returned no results') ?>
@@ -193,7 +185,9 @@ $documentCount = $response->getTotalResults();
     </div>
 
     <?= $partial('search/facets', [
-        'searchPage' => $searchPage,
+        'site' => $site,
+        'searchConfig' => $searchConfig,
+        'searchPage' => $searchConfig,
         'query' => $query,
         'response' => $response,
         'itemSet' => $itemSet,
