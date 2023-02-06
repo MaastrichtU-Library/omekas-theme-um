@@ -44,3 +44,21 @@ a.search-view-type {
 a.search-view-type svg.icon{
     margin-right: 0;
 }
+
+.search-results .resource-list.grid .resource{
+	padding: 1em;
+	
+}
+
+.search-results .resource-list.grid .resource .tags{
+	display:flex;
+	
+}
+.search-results .resource-list.grid .resource-thumbnail {
+	width:100%;
+	float: none;
+    /* display: block; */
+	/* clear:both; */
+    /* justify-content: center; */
+    /* padding: 29px 0; */
+}
