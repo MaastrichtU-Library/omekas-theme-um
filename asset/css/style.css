@@ -815,14 +815,9 @@
 		padding: 3rem;
 	}
 	
-	.item #content{
-		 /* padding: 0 3rem;  */
-	 }
-	 .item #content .media-embeds
-	 {
-		 width:100%;
-		 float:left;
-	 }
+
+	 
+	 
 	 .resource-thumbnail{
 		 float:left;
 	 }
@@ -914,6 +909,31 @@
 		padding: 1em;
 		margin: 1em auto;
 	}
+
+	.item #content{
+		 /* padding: 0 3rem;  */
+	 }
+	 .item #content .media-embeds
+	 {
+		 width:100%;
+		 float:left;
+	 }
+	 
+	 .item #content .media-embeds.message.split
+	 {
+		 /* padding: 3px; */
+		 /* background-color:red; */
+		 display:flex;
+		 justify-content: space-between;
+		 
+	 }
+	 .item #content .message .media-box
+	 {
+		 width:49%;
+		 float:left;
+		 margin: 2px;
+	 }
+	 
 
 	
 	

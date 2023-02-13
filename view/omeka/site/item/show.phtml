@@ -12,19 +12,47 @@ $itemMedia = $item->media();
 	
 	
 	<div id="item-page-media">
-	<?php if ($embedMedia && $itemMedia): ?>
-		<div class="media-embeds">
-		<?php foreach ($itemMedia as $media):
-			echo $media->render();
-		endforeach;
-		
-		
+	<?php 
+			
+			//	Code inserted to determine what type of document we have here 
+			//	Version: 2023-02-13 PV
+			
+			$rc=strtolower($item->resourceClass()->label());
+			$imc=count($itemMedia); //imc =item media count;
+			$mbc="";
+			if ($imc>0):$mbc = "split";
+			endif;
+
 		?>
+	<?php if ($embedMedia && $itemMedia): ?>
+		<div class="media-embeds <?php echo $rc ." ".$mbc ;?>">
+		<?php foreach ($itemMedia as $media):?>
+		<div class="media-box <?php echo $rc;?>">
+			<div class="media-box-header">
+				Media Titel:&nbsp; <?php if ($media->displayTitle()):echo $media->displayTitle();
+				endif;?>
+			</div>
+			<div class="media-box-content">
+			<?php	echo $media->render();?>
+			</div>
 		</div>
-	<?php endif; ?>
+		<?php	endforeach;?>
+		</div>
+		<?php endif; ?>
+	
 	</div>
 	<div id="item-page-properties">
 	<div class="properties">
+	
+	
+	
+	
+	<div class="resource-class">
+	<?php if ( $item->resourceClass()): ?>
+	<h4>Resource class</h4>
+		<div class="value"><?php echo $escape($translate($item->resourceClass()->label())); ?></div>
+	 <?php endif; ?>
+	</div>
 
 	<?php echo $item->displayValues(); ?>
 
@@ -45,6 +73,8 @@ $itemMedia = $item->media();
 		<h4><?php echo $translate('Media'); ?></h4>
 		<div class="values">
 		<?php foreach ($itemMedia as $media): ?>
+		
+		
 			<?php echo $media->linkPretty(); ?>
 		<?php endforeach; ?>
 		</div>
