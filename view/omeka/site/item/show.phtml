@@ -9,6 +9,20 @@ $itemMedia = $item->media();
 	<?php echo $this->pageTitle($item->displayTitle(), 2); ?>
 	<h3><?php echo $translate('Item'); ?></h3>
 	<?php $this->trigger('view.show.before'); ?>
+	
+	
+	<div id="item-page-media">
+	<?php if ($embedMedia && $itemMedia): ?>
+		<div class="media-embeds">
+		<?php foreach ($itemMedia as $media):
+			echo $media->render();
+		endforeach;
+		
+		
+		?>
+		</div>
+	<?php endif; ?>
+	</div>
 	<div id="item-page-properties">
 	<div class="properties">
 
@@ -39,18 +53,7 @@ $itemMedia = $item->media();
 	</div>
 	</div>
 	
-	<div id="item-page-media">
-	<?php if ($embedMedia && $itemMedia): ?>
-		<div class="media-embeds">
-		<?php foreach ($itemMedia as $media):
-			echo $media->render();
-		endforeach;
-		
-		
-		?>
-		</div>
-	<?php endif; ?>
-	</div>
+	
 	<?php
 	$page = $this->params()->fromQuery('page', 1);
 	$property = $this->params()->fromQuery('property');
