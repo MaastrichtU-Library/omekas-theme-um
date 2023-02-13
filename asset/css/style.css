@@ -825,6 +825,7 @@
 	 
 	 .item #content .properties{
 		 
+		 
 		 /* background-color: #e3e3e3; */
 		/* display: flex; */
 		/* flex-direction: column; */
@@ -853,6 +854,16 @@
 
 
 	 }
+	 .item #content .properties .resource-class h4
+	 {
+		 margin:0; 
+		 float:left;
+		 width: 30%;
+		 display:block;
+		 margin:0;
+		 font-size: 1em;
+	 }
+	 
 	 .item #content .properties .property{
 		 padding:0;
 		 width:100%;

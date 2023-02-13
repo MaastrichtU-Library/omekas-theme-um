@@ -14,13 +14,15 @@ $itemMedia = $item->media();
 	<div id="item-page-media">
 	<?php 
 			
-			//	Code inserted to determine what type of document we have here 
+			//	Code to determine the class of the resource
 			//	Version: 2023-02-13 PV
 			
-			$rc=strtolower($item->resourceClass()->label());
+			$rc=strtolower($item->resourceClass()->label()); //resource class add this to relevant element classes so that display can react.
 			$imc=count($itemMedia); //imc =item media count;
 			$mbc="";
-			if ($imc>0):$mbc = "split";
+			if ($imc>0):$mbc = "split"; 	//if more than one media item, 
+											//add 'split' to several element classes 
+											//$mbc=mediabox-class
 			endif;
 
 		?>
@@ -47,10 +49,10 @@ $itemMedia = $item->media();
 	
 	
 	
-	<div class="resource-class">
+	<div class="resource-class property">
 	<?php if ( $item->resourceClass()): ?>
 	<h4>Resource class</h4>
-		<div class="value"><?php echo $escape($translate($item->resourceClass()->label())); ?></div>
+		<div class="values"><div class="value"><?php echo $escape($translate($item->resourceClass()->label())); ?></div></div>
 	 <?php endif; ?>
 	</div>
 
