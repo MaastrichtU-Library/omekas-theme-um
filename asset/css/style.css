@@ -1440,10 +1440,12 @@
 		
     }
     ul#home-promo {
-        padding-top: 1.05634vw;
         list-style: none;
-        margin-bottom: 4.5em;
-        padding: 0 3.38983%;
+        margin-bottom: 1em;
+        padding: 0;
+		display: flex;
+	    justify-content: space-between;
+		
     }
     .promo-item {
         min-height: 25vw;
@@ -2087,13 +2089,12 @@
         transform: none;
     }
     .promo-item {
-        width: 22.59111%;
+        width: 24.8%;
         min-height: 20vw;
         display: inline-block;
         position: relative;
-        margin-left: .69444%;
-        margin-right: .69444%;
-    }
+        margin: 0;
+	}
     .row {
         display: flex;
         align-items: flex-start;

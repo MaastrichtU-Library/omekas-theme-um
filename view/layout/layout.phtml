@@ -85,8 +85,10 @@ $query = $this->params()->fromQuery();
 					<div id="search" <?php 
 				if (strlen($userBar) > 1){ echo "class='logged-in'"; } ?>>
 						<!--div id="interior-hero-content"-->
-							<?php echo $this->partial('common/search-form'); ?>
-							<?php echo $this->hyperlink(); ?>
+						
+						<?php echo $this->partial('search/search-form-simple'); ?>
+							<?php //echo $this->partial('common/search-form'); ?>
+							<?php //echo $this->hyperlink(); ?>
 						<!--/div-->
 					</div>
 				<?php } ?>
@@ -113,7 +115,7 @@ $query = $this->params()->fromQuery();
                 <?php echo $this->content; ?>
             <?php } ?>
         </div>
-        <?php if($_SERVER['REQUEST_URI'] != $site->url()){ ?>
+        <?php //if($_SERVER['REQUEST_URI'] != $site->url()){ ?>
             <footer>
 			<div class="footer-wrapper">
 			
@@ -129,6 +131,6 @@ $query = $this->params()->fromQuery();
 				</div>
 			</div>
             </footer>
-        <?php } ?> 
+        <?php //} ?> 
     </body>
 </html>

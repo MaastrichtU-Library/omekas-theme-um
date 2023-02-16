@@ -2,18 +2,24 @@
 $query = $this->params()->fromQuery();
 $heroimg = $this->assetUrl('img/10krantlezen.jpg');
 $sg = $this->assetUrl('img/JacquesEnPeter.png');
-$locations = $this->assetUrl('img/locations.jpg');
-$organizations = $this->assetUrl('img/homehero2.jpg');
-$subjects = $this->assetUrl('img/subjects.jpg');
+$locations = $this->assetUrl('img/uns50_corridor_students.jpg');
+$organizations = $this->assetUrl('img/GL17_poort.jpg');
+$subjects = $this->assetUrl('img/mbb_students.png');
 
 ?>
 <div id="home">
     <div id="search" class="home-hero" style="background-image: url('<?php echo $heroimg; ?>');min-height:<?php echo $this->themeSetting('cover_vh'); ?>vh">
         <div id="home-hero-content" >
             <div id="searchbar">
-                <?php echo $this->partial('common/search-form'); ?>
+                <?php //pv 2023-02-16 Code altered
+					echo $this->partial('search/search-form-simple'); 
+				//old value echo $this->partial('common/search-form'); 
+				
+				?>
                 <!--
-                <?php echo $this->hyperlink($this->translate('Advanced search'), $this->url('site/resource', ['controller' => 'item', 'action' => 'search'], ['query' => $query], true), ['class' => 'advanced-search']); ?>
+                <?php //pv 2023-02-16 Code altered
+
+				//old value echo $this->hyperlink($this->translate('Advanced search'), $this->url('site/resource', ['controller' => 'item', 'action' => 'search'], ['query' => $query], true), ['class' => 'advanced-search']); ?>
                 -->
                 <a role="button" id="browse-button" href="<?php echo $site->url(); ?>/explore">Explore</a>
             </div>
@@ -58,12 +64,4 @@ $subjects = $this->assetUrl('img/subjects.jpg');
         
     </div>
 
-    <footer>
-                    <?php if ($footerContent = $this->themeSetting('footer')): ?>
-                    <?php echo $footerContent; ?>
-                    <?php else: ?>
-                        <?php echo $this->translate('Powered by Omeka S'); ?>
-                    <?php endif; ?>
-    </footer>
-                
 </div>
