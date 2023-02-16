@@ -54,27 +54,31 @@ $tagTerms =['schema:dateIssued'];
 <tbody>
     <?php foreach ($values as $value): ?>
     <?php
-	 if($value->resource()->resourceClass()):
-	 $rcl=strtolower($value->resource()->resourceClass()->label()); //fetch the resource-label
-	 endif;
-	 if(str_contains($rcl,'publicationissue')):
-		$li_res=$value->resource();
-	endif;
-		// $tagTerm=$tagTerms[0];
-		// $fields = $li_res[$tagTerm]['values'];
 	 
-	// 
-	
-	
     $template = $value->resource()->resourceTemplate();
     $templateProperty = $template ? $template->resourceTemplateProperty($value->property()->id()) : null;
     $altLabel = $templateProperty ? $templateProperty->alternateLabel() : null;
     ?>
     <tr class="linked-resource">
+	<?php
+	//PV 2023-02-16 Added custom code to see if an object is a publicationIssue
+	//if so, the alternate label is exchanged with the publication date.
+	if($value->resource()->resourceClass()):
+	 $rcl=strtolower($value->resource()->resourceClass()->label()); //fetch the resource-label
+	 endif;
+	 if(str_contains($rcl,'publicationissue')):
+		$tagTerm=$tagTerms[0];
+		$fields=$value->resource()->values();
+		$pd=$fields[$tagTerm]['values'][0];
+		$altLabel=$pd;
+	endif;
+	
+	?>
+	
         <td><?php echo $value->resource()->linkPretty('square', null, null, null, ($filterLocale ? $lang : null)); ?></td>
         <td>
         <?php if ($altLabel): ?>
-        <span class="alternate-label"><?php echo $this->escapeHtml($altLabel); ?></span>
+        <span class="alternate-label"><?php echo $this->escapeHtml($altLabel) ?></span>
         <?php endif; ?>
         </td>
         <td>
