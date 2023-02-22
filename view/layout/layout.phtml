@@ -25,7 +25,12 @@ $summary = $this->pageTitle($site->summary());
 //$logo = $this->themeSettingAssetUrl('logo');
 $leftLogo = $this->assetUrl('img/left-logo-sample.png');
 $rightLogo = $this->assetUrl('img/right-logo-sample.png');
-$rightLogo = $this->assetUrl('img/footer-logo-sample.png');
+$footerLogo = $this->assetUrl('img/footer-logo-sample.png');
+$facebookLogo=$this->assetUrl('img/facebook.png');
+$instagramLogo=$this->assetUrl('img/Instagram.png');
+$twitterLogo=$this->assetUrl('img/Twitter.png');
+$linkedinLogo=$this->assetUrl('img/LinkedIn.png');
+$youtubeLogo=$this->assetUrl('img/Youtube.png');
 
 //if ($logo):
 //    $title = '<img src="' . $this->escapeHtml($logo) . '">';
@@ -128,6 +133,20 @@ $query = $this->params()->fromQuery();
 					<?php else: ?>
 						<?php echo $this->translate('Powered by Omeka S'); ?>
 					<?php endif; ?>
+					<div class="footer-col">
+					<h3>Follow us:</h3>
+						<div class="social">
+						<a href="https://facebook.com/MaastrichtUniversityLibrary" target="_blank" rel="noopener">
+							<img decoding="async" loading="lazy" src="<?php echo $facebookLogo; ?>"/></a>
+						
+						<a href="https://www.instagram.com/maastrichtuniversitylibrary/" target="_blank" rel="noopener">
+							<img decoding="async" loading="lazy" src="<?php echo $instagramLogo; ?>"/></a>
+						<a href="https://www.linkedin.com/company/maastricht-university-library/?viewAsMember=true" target="_blank" rel="noopener">
+								<img decoding="async" loading="lazy" src="<?php echo $linkedinLogo; ?>"/></a>
+						
+						</div>
+						</div>	
+					
 				</div>
 			</div>
             </footer>

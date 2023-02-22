@@ -773,6 +773,7 @@
 	}
 	.footer-items{
 		display:flex;
+		justify-content:space-between;
 		}
 	.footer-items .footer-col{
 		width:30%;
@@ -780,7 +781,7 @@
 		margin: 0 1em 0 0;
 		border: solid 1px #ddd;
 		/* border-left: solid 1px #aeadad; */
-		padding: 0  4em 0 0; 
+		padding: 0  1em 0 0; 
 		
 	}
 	
@@ -800,6 +801,14 @@
 		color: #D2460F;
 	}
 	
+	.footer-col h3{
+		margin:0;
+		font-size:1.5em;
+	}
+	
+	.footer-col .social img{
+		height:45px;
+	}
 	
 	
     footer a:link, footer a:visited {
