@@ -59,10 +59,10 @@ $mediaTypes3D = [
 				<?php if (in_array($media->mediaType(), $mediaTypes3D)) : ?>
 					<div class="media-box <?php echo $rc;?>">
 					<div class="media-box-header">
-					Media Titel:&nbsp; <?php if ($media->displayTitle()): echo $media->displayTitle(); endif; ?>
+						Media Titel:&nbsp; <?php if ($media->displayTitle()): echo $media->displayTitle(); endif; ?>
 					</div>
 					<div class="media-box-content">
-					<?php	echo $media->render();?>
+					<?php echo $media->render();?>
 					</div>
 				<?php endif; ?>
 			<?php endforeach; ?>
@@ -77,7 +77,7 @@ $mediaTypes3D = [
 					Media Titel:&nbsp; <?php if ($media->displayTitle()):echo $media->displayTitle(); endif; ?>
 				</div>
 				<div class="media-box-content">
-				<?php	echo $media->render();?>
+				<?php echo $media->render();?>
 				</div>
 			</div>
 			<?php endforeach;?>
