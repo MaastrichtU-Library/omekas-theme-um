@@ -30,7 +30,8 @@ $mediaTypes3D = [
 	<?php
 	// Code to determine the class of the resource
 	if ($item->resourceClass()):
-		$rc=strtolower($item->resourceClass()->label()); //resource class add this to relevant element classes so that display can react.
+		// Get the resource class label and replace spaces in order to use it in relevant element classes so that display can react.
+		$rc=str_replace(" ", "-", strtolower($item->resourceClass()->label()));
 	else:
 		$rc="none";
 	endif;
@@ -43,7 +44,7 @@ $mediaTypes3D = [
 	endif;
 
 	# Check if this itemMedia contains 3D model
-	if ($rc == "physical object"):
+	if ($rc == "physical-object"):
 		$phyObj = True ;
 	else:
 		$phyObj = False ;
