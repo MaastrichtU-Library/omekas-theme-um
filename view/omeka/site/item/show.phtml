@@ -39,7 +39,9 @@ $mediaTypes3D = [
 	$imc=count($itemMedia); //imc =item media count;
 	$mbc="";
 	if ($imc>1):
-		$mbc = "split"; 	//if more than one media item, add 'split' to several element classes
+		// if more than one media item, add 'split' to several element classes
+		// Note: Currently, only CSS class 'media-embeds.message.split' will be rendered side-by-side
+		$mbc = "split";
 		//$mbc=mediabox-class
 	endif;
 
