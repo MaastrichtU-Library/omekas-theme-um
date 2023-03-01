@@ -29,7 +29,12 @@ $mediaTypes3D = [
 	<div id="item-page-media">
 	<?php
 	// Code to determine the class of the resource
-	$rc=strtolower($item->resourceClass()->label()); //resource class add this to relevant element classes so that display can react.
+	if ($item->resourceClass()):
+		$rc=strtolower($item->resourceClass()->label()); //resource class add this to relevant element classes so that display can react.
+	else:
+		$rc="none";
+	endif;
+
 	$imc=count($itemMedia); //imc =item media count;
 	$mbc="";
 	if ($imc>0):
