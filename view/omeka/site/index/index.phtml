@@ -2,9 +2,12 @@
 $query = $this->params()->fromQuery();
 $heroimg = $this->assetUrl('img/10krantlezen.jpg');
 $sg = $this->assetUrl('img/JacquesEnPeter.png');
+$hl1_txt="Highlight 1";
 $locations = $this->assetUrl('img/uns50_corridor_students.jpg');
 $organizations = $this->assetUrl('img/GL17_poort.jpg');
 $subjects = $this->assetUrl('img/mbb_students.png');
+$highlight_1_img=$this->themeSettingAssetUrl('highlight_Image_1');
+$highlight_1_txt=$this->themeSetting('highlight_Link_Text_1');
 
 ?>
 <div id="home">
@@ -23,14 +26,24 @@ $subjects = $this->assetUrl('img/mbb_students.png');
                 -->
                 <a role="button" id="browse-button" href="<?php echo $site->url(); ?>/explore">Explore</a>
             </div>
-            <div id="strapline"><?php echo $this->themeSetting('searchTitle'); ?></div>
+            <div id="strapline"><?php echo $this->themeSetting('searchTitle');?></div>
         </div>
     </div>
+	<div id="extra" style="display:none;">
+	blub blub
+	<?php echo $this->themeSettingAssetUrl('highlight_Image_1'); ?>
+	</div>
+	
     <ul id="home-promo">
+		<?php 
+			if ($highlight_1_img): $sg=$highlight_1_img; endif;
+			if ($highlight_1_txt): $hl1_txt=$highlight_1_txt; endif;
+		
+		?>
         <li class="promo-item">
             <div class="promo-block" style="background-image: url('<?php echo $sg; ?>'); ">
                 <a href="<?php echo $site->url(); ?>/page/highlight_1"></a>
-                <div class="category-flag"><a href="<?php echo $site->url(); ?>/page/highlight_1">Highlight 1</a></div>
+                <div class="category-flag"><a href="<?php echo $site->url(); ?>/page/highlight_1"><?php echo $hl1_txt; ?></a></div>
             </div>
         </li>
         <li class="promo-item">

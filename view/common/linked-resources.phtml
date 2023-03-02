@@ -48,7 +48,7 @@ $tagTerms =['schema:dateIssued'];
     <tr>
     <th><?php echo $translate('Title'); ?></th>
     <th><?php echo $translate('Alternate label'); ?></th>
-    <th><?php echo $translate('Class'); ?></th>
+    <!--<th><?php //echo $translate('Class'); ?></th>-->
     </tr>
 </thead>
 <tbody>
@@ -81,11 +81,13 @@ $tagTerms =['schema:dateIssued'];
         <span class="alternate-label"><?php echo $this->escapeHtml($altLabel) ?></span>
         <?php endif; ?>
         </td>
+		<!-- PV 20230228 at explicit request from  Ineke is this column removed...
         <td>
-        <?php if ($value->resource()->resourceClass()): ?>
-        <span class="resource-class"><?php echo $this->escapeHtml($translate($value->resource()->resourceClass()->label())); ?></span>
-        <?php endif; ?>
-        </td>
+		-->
+        <?php //if ($value->resource()->resourceClass()): ?>
+        <!-- <span class="resource-class"><?php //echo $this->escapeHtml($translate($value->resource()->resourceClass()->label())); ?></span>-->
+        <?php //endif; ?>
+        <!--</td>-->
     </tr>
     <?php endforeach; ?>
 </tbody>

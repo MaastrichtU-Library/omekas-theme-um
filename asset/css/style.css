@@ -44,7 +44,7 @@
         /* color: #6F88A0; */
         text-decoration: underline;
 		opacity: 1;
-		
+		text-underline-offset:2px;
     }
     a:hover img {
         opacity: .9; 
@@ -1193,7 +1193,8 @@
 		text-underline-offset: 5px;
     }
     ul.resource-list .resource h4 a:hover, ul.resource-list .resource h5 a:hover {
-        /* color: #DC9797; */
+         color: #E84E10;
+		 text-decoration:none;
     }
     ul.resource-list .resource h5{
         padding: 9px;
@@ -1331,7 +1332,13 @@
 	}
     .property .value a {
         display: inline-block;
-        vertical-align: middle
+        vertical-align: middle;
+		text-decoration:underline;
+		text-underline-offset:3px;
+    }
+	 .property .value a:hover {
+		text-decoration-color: #E84E10;
+        text-underline-offset:5px;
     }
     .property .value:not(:last-child) img {
         margin-bottom: 7.5px
