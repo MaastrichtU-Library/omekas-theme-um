@@ -4,7 +4,22 @@ $escape = $this->plugin('escapeHtml');
 $this->htmlElement('body')->appendAttribute('class', 'item resource show');
 $embedMedia = $this->siteSetting('item_media_embed', false);
 $itemMedia = $item->media();
+
+// Array of MIME-types supported by ModelViewer.
+// For a complete list, see https://github.com/Daniel-KM/Omeka-S-module-ModelViewer#media-types-and-security-issue
+$mediaTypes3D = [
+		"application/octet-stream",
+		"application/vnd.threejs+json",
+		"model/gltf-binary",
+		"model/gltf+json",
+		"model/obj",
+		"model/vnd.collada+xml",
+		"model/vnd.filmbox",
+		"image/ktx2",
+		"model/mtl"
+		];
 ?>
+
 <div id="item-page">
 	<?php echo $this->pageTitle($item->displayTitle(), 2); ?>
 	<h3><?php echo $translate('Item'); ?></h3>
@@ -12,37 +27,69 @@ $itemMedia = $item->media();
 	
 	
 	<div id="item-page-media">
-	<?php 
-			
-			//	Code to determine the class of the resource
-			//	Version: 2023-02-13 PV
-			
-			$rc=strtolower($item->resourceClass()->label()); //resource class add this to relevant element classes so that display can react.
-			$imc=count($itemMedia); //imc =item media count;
-			$mbc="";
-			if ($imc>0):$mbc = "split"; 	//if more than one media item, 
-											//add 'split' to several element classes 
-											//$mbc=mediabox-class
-			endif;
+	<?php
+	// Code to determine the class of the resource
+	if ($item->resourceClass()):
+		// Get the resource class label and replace spaces in order to use it in relevant element classes so that display can react.
+		$rc=str_replace(" ", "-", strtolower($item->resourceClass()->label()));
+	else:
+		$rc="none";
+	endif;
 
-		?>
+	$imc=count($itemMedia); //imc =item media count;
+	$mbc="";
+	if ($imc>1):
+		// if more than one media item, add 'split' to several element classes
+		// Note: Currently, only CSS class 'media-embeds.message.split' will be rendered side-by-side
+		$mbc = "split";
+		//$mbc=mediabox-class
+	endif;
+
+	# Check if this itemMedia contains 3D model
+	if ($rc == "physical-object"):
+		$phyObj = True ;
+	else:
+		$phyObj = False ;
+	endif;
+	?>
+
 	<?php if ($embedMedia && $itemMedia): ?>
-		<div class="media-embeds <?php echo $rc ." ".$mbc ;?>">
-		<?php foreach ($itemMedia as $media):?>
-		<div class="media-box <?php echo $rc;?>">
-			<div class="media-box-header">
-				Media Titel:&nbsp; <?php if ($media->displayTitle()):echo $media->displayTitle();
-				endif;?>
+
+		<?php if ($phyObj): ?>
+			<!-- When 3D model data, render only the 3D itemMedia and skip all other media -->
+			<div class="media-embeds">
+			<?php foreach ($itemMedia as $media): ?>
+				<?php if (in_array($media->mediaType(), $mediaTypes3D)) : ?>
+					<div class="media-box <?php echo $rc;?>">
+					<div class="media-box-header">
+						Media Titel:&nbsp; <?php if ($media->displayTitle()): echo $media->displayTitle(); endif; ?>
+					</div>
+					<div class="media-box-content">
+					<?php echo $media->render();?>
+					</div>
+					</div>
+				<?php endif; ?>
+			<?php endforeach; ?>
 			</div>
-			<div class="media-box-content">
-			<?php	echo $media->render();?>
+
+		<?php else: ?>
+			<!-- Render all itemMedia in all other cases -->
+			<div class="media-embeds <?php echo $rc ." ".$mbc ;?>">
+			<?php foreach ($itemMedia as $media):?>
+				<div class="media-box <?php echo $rc;?>">
+				<div class="media-box-header">
+					Media Titel:&nbsp; <?php if ($media->displayTitle()):echo $media->displayTitle(); endif; ?>
+				</div>
+				<div class="media-box-content">
+				<?php echo $media->render();?>
+				</div>
+				</div>
+			<?php endforeach;?>
 			</div>
-		</div>
-		<?php	endforeach;?>
-		</div>
 		<?php endif; ?>
-	
-	</div>
+	<?php endif; ?>
+
+	</div> <!-- close div "item-page-media" -->
 	<div id="item-page-properties">
 	<div class="properties">
 	
