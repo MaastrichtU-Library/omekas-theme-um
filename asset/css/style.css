@@ -777,9 +777,9 @@
 		}
 	.footer-items .footer-col{
 		width:30%;
-		background-color: #e1e1e1;
+		/* background-color: #e1e1e1; */
 		margin: 0 1em 0 0;
-		border: solid 1px #ddd;
+		/* border: solid 1px #ddd; */
 		/* border-left: solid 1px #aeadad; */
 		padding: 0  1em 0 0; 
 		
@@ -798,7 +798,11 @@
 		float:right;
 		text-align: center;
 		text-indent: 0;
-		color: #D2460F;
+		color: #00a2db;
+		}
+	.footer-items .footer-link:hover:after{
+			color: #D2460F;
+			right: -0.2em;
 	}
 	
 	.footer-col h3{
@@ -806,7 +810,51 @@
 		font-size:1.5em;
 	}
 	
+	.footer-col .collab{
+		display:inline-block;
+		height:75px;
+	}
+	.footer-col #lol{
+		background-position: 10px 0px;
+		background-color:#fff;
+		background-size: 65%;
+		background-image: url(../img/LinkedOpenLimburg.png);
+		width: 75px;
+		background-repeat: no-repeat;
+		
+	}
+	.footer-col #tresoar{
+		background-position: 3px 20px;
+		background-color:#fff;
+		background-size: 90%;
+		background-image: url(../img/tresoar.png);
+		width: 75px;
+		background-repeat: no-repeat;
+		
+	}
+	.footer-col #nde{
+		background-color:#0a3dfa;
+		mask-image:url(../img/NDE.svg);
+		-webkit-mask-image: url(../img/NDE.svg);
+		-webkit-mask-repeat:no-repeat;
+		width: 75px;
+	}
+	.footer-col #auteursportaal{
+		background-color:#36827f;
+		-webkit-mask-position:3px 10px;
+		-mask-image:url(../img/auteursportaal.svg);
+		-webkit-mask-image: url(../img/auteursportaal.svg);
+		-webkit-mask-repeat:no-repeat;
+		width: 75px;
+		
+		
+	}
+	
+	
+	
+	
 	.footer-col .social img{
+		
 		height:45px;
 	}
 	
