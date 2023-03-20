@@ -1247,7 +1247,7 @@
     }
     ul.resource-list .resource h4 a, ul.resource-list .resource h5 a {
         /* color: #E84E10; */
-		text-decoration-color: #E84E10;
+		text-decoration-color: #e3e3e3;
 		text-underline-offset: 5px;
     }
     ul.resource-list .resource h4 a:hover, ul.resource-list .resource h5 a:hover {
