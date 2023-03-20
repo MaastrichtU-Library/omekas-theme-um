@@ -5,8 +5,16 @@ $translate = $this->plugin('translate');
 
 // $searchAction uses the "->url() API representation method". Info here: https://omeka.org/s/docs/developer/api/representations/#urls
 // The value for 'controller' needs to match the path of the search page that is configured in "Search Manager". Default = 'find'
+
+$searchController=$this->themeSetting('searchController');
+
+
 $searchAction = $this->url('site/resource', ['controller' => 'solr-obs', 'action' => null], true);
 $searchValue = $this->escapeHtml($this->params()->fromQuery('q', ''));
+
+if ($this->themeSetting('searchController')):
+$searchAction=$this->url('site/resource', ['controller' => ''.$searchController.'' ,'action' => null], true);
+endif;
 ?>
 
 <form action="<?php echo $this->escapeHtml($searchAction); ?>" id="search-form">
