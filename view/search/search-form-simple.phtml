@@ -4,8 +4,8 @@
 $translate = $this->plugin('translate');
 
 // $searchAction uses the "->url() API representation method". Info here: https://omeka.org/s/docs/developer/api/representations/#urls
-// The value for 'controller' needs to match the path of the search page that is configured in "Search Manager".
-// If you're using a custom controller (i.e. 'solr-obs' or 'my-search') you can configure this is the theme settings (Admin -> Site -> Theme -> Edit theme settings).
+// The value for 'controller' in $searchAction needs to match the path of the search page that is configured in "Search Manager".
+// If you're using a custom controller (i.e. 'solr-obs' or 'my-search') you can configure this in the theme settings (Admin -> Site -> Theme -> Edit theme settings).
 // If nothing is configured in the theme settings, the default value 'find' is used.
 
 if ($this->themeSetting('searchController')) {
