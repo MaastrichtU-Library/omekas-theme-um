@@ -46,16 +46,16 @@ $mediaTypes3D = [
 	endif;
 
 	# Check if this itemMedia contains 3D model
-	if ($rc == "physical-object"):
-		$phyObj = True ;
+	if ($rc == "3dmodel"):
+		$model3d = True ;
 	else:
-		$phyObj = False ;
+		$model3d = False ;
 	endif;
 	?>
 
 	<?php if ($embedMedia && $itemMedia): ?>
 
-		<?php if ($phyObj): ?>
+		<?php if ($model3d): ?>
 			<!-- When 3D model data, render only the 3D itemMedia and skip all other media -->
 			<div class="media-embeds">
 			<?php foreach ($itemMedia as $media): ?>
