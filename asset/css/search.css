@@ -62,3 +62,26 @@ a.search-view-type svg.icon{
     /* justify-content: center; */
     /* padding: 29px 0; */
 }
+
+aside.search-facets h3, h4{
+	
+	margin: 0;
+}
+
+aside.search-facets h4
+{
+	font-size:1em;
+}
+.search-facets-active {
+	margin:0;
+    list-style: none;
+    padding-left: 0;
+}
+.search-facets-active li {
+    display: inline-block;
+    font-size: 1em !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    vertical-align: top;
+}
+
