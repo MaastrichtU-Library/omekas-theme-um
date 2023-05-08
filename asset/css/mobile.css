@@ -16,12 +16,15 @@ Reason for splitting: Keep track and portability.
 	 width:100%;
  }
 
+h1 { font-size: 1.8rem;}
+h2 { font-size: 1.6rem;}
+h3 { 
+	font-size: 1.4rem;
+	margin: 0.2rem;
+	}
+h4 { font-size: 1.2rem;}
 
-
-  
-  
-
-  header #top-bar {display:flex;
+header #top-bar {display:flex;
   width: 100%;
   height: 40px;
   flex-wrap:nowrap;
@@ -238,6 +241,15 @@ nav.pagination .row-count{
 	}
 .search-results-header .search-results-display {
 	display:none;
+}
+
+.footer-wrapper{width:90%;}
+
+.footer-items {
+	flex-wrap:wrap;
+}
+.footer-items .footer-col {
+	width: 100%;
 }
 
  
