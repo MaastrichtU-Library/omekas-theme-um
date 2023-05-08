@@ -363,40 +363,7 @@
         vertical-align: middle;
         max-height: 80px; /* toegevoegd 16-05 Joke*/
     }
-	header.scroll #top-bar{height:14px;}
 	
-	header.scroll #site-header-title {
-		display: block;
-		position: absolute;
-		
-		top: 30px;
-		left: 36px;
-		transition: position 0.5s, top 0.5s, left 0.5s;
-	}
-	header.scroll #site-header-title h1 {
-		color: #e84e10;
-		font-weight: 600;
-		font-size: 1.1rem;
-		transition: color 0.5s, font-size 0.5s;
-	}
-	
-	header.scroll #site-header-title img {
-		 height: 10px;
-		 transition: height 0.5s, width 0.5s;
-	}
-	header.scroll .site-title img{
-		position: absolute;
-		top: 0;
-		height: 72px;
-	}
-	header.scroll #header-main{
-		position:relative;
-		top: -15px;
-	}
-	
-	header.scroll nav {
-		font-size:0.8em;
-		}
 	
     #nav-about {
         border-top: 2px solid #E84E10;
@@ -1879,11 +1846,49 @@
 		z-index: 10000;
 		box-shadow: 0 1px 2px 0 rgb(0 0 0 / 15%);
 }
-    }
+    
 	header.scroll{
 		/* background-color:#f0f0f0; */
 	}
+	header.scroll #top-bar{height:14px;}
 	
+	header.scroll #site-header-title {
+		display: block;
+		position: absolute;
+		
+		top: 30px;
+		left: 36px;
+		transition: position 0.5s, top 0.5s, left 0.5s;
+	}
+	header.scroll #site-header-title h1 {
+		color: #e84e10;
+		font-weight: 600;
+		font-size: 1.1rem;
+		transition: color 0.5s, font-size 0.5s;
+	}
+	
+	header.scroll #site-header-title img {
+		 height: 10px;
+		 transition: height 0.5s, width 0.5s;
+	}
+	header.scroll .site-title img{
+		position: absolute;
+		top: 0;
+		height: 72px;
+	}
+	header.scroll #header-main{
+		position:relative;
+		top: -15px;
+	}
+	
+	header.scroll nav {
+		font-size:0.8em;
+	}
+	header.scroll #top-bar #institution-logo img {
+		height:50px;
+	}
+	
+}
     header>* {
         /* padding: 0 3.38983% */
     }
@@ -1900,9 +1905,7 @@
         /*width:900px;*/
         max-height: 90px; /*toegevoegd 16-05* Joke*/
     }
-	header.scroll #top-bar #institution-logo img {
-		height:50px;
-	}
+	
 	
     header a:link.site-title, header a:visited.site-title {
         color: #ffffff;
@@ -2367,43 +2370,4 @@
     bottom: 5px;
     position: relative;
 }
-}
-@media only screen and (max-width: 600px){
-	body {width:100%;} 
-	header #top-bar #institution-logo{
-		top: -10px;
-		margin-bottom:-20px;
-	}
-	header #top-bar #institution-logo img
-	{
-		height:55px;
-	}
-	
-	#interior-hero-content{
-		bottom:-50%;
-	}
-	
-	#nav-about a
-	{
-		font-size:0.8em;
-		padding: 0 0.5em;
-	}
-
-	
-	
-	#site-header-title {
-		min-width: 250px;
-		margin: 0 0 0 38px;
-		min-width:280px;
-		}
-	#site-header-title h1 {
-		font-size: 1.5rem;
-		line-height: normal;
-		margin:0;
-	}
-	.site-title img {
-		max-height:30px;
-		
-	}
-	
 }
