@@ -1,9 +1,9 @@
 /** -- Mobile style sheet version --
-Omeka-S Mobile style sheet for Maastricht University
-Design and development: Peter Verberne
-May 2023
-Version: 0.1
-Reason for splitting: Keep track and portability.
+	Omeka-S Mobile style sheet for Maastricht University
+	Design and development: Peter Verberne
+	May 2023
+	Version: 0.1
+	Reason for splitting: Keep track and portability.
 */
 
 @media screen and (max-width: 600px), screen and (max-height: 600px) {
@@ -144,7 +144,7 @@ margin: 26px auto 0 auto;}
 #content {
     max-width: 800px;
     min-height: 75vh;
-    margin: 15px auto 0 auto;
+    margin: 40px auto 0 auto;
     padding: 13px;
 }
 body.resource #content>h2:first-of-type+h3 {
@@ -160,21 +160,27 @@ body.resource #content>h2:first-of-type+h3 {
 .item #content .properties {
     margin: 0;
     width: 100%;
-    float: 0;
-    padding: 0 0.5rem;
-    border-bottom-left-radius: 9px;
-    border-bottom-right-radius: 9px;
-    border-top-right-radius: 9px;
-    border-top-left-radius: 9px;
+    padding: 0;
     height: fit-content;
-    padding-top: 2.5rem;
-    box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+}
+
+#item-page-properties{
+	font-size:0.9em;
+}
+.item #content .properties h5
+{
+	font-size:0.9em;
+}
+.media-box-header{
+	font-size:0.9em;
+}
+.item #content .properties h4
+{
+	font-size:0.9em;
 }
 
 
-
-
-	.pagination form,
+.pagination form,
     .pagination .button,
     .pagination button,
     .pagination .page-count {
@@ -202,6 +208,17 @@ body.resource #content>h2:first-of-type+h3 {
 
 .item #content {
     padding: 0 1rem;
+}
+#item-page h2 {
+    font-size: 1.2em;
+    line-height: normal;
+}
+#item-page h3 {
+    font-size: 1.0em;
+	font-weight:200;
+	font-style:italic;
+    line-height: normal;
+    margin: 0;
 }
 
 
@@ -252,6 +269,5 @@ nav.pagination .row-count{
 	width: 100%;
 }
 
- 
-  
+
 }
