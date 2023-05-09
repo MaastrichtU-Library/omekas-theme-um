@@ -5,6 +5,7 @@ $this->htmlElement('html')->setAttribute('lang', $this->lang());
 $this->headMeta()->setCharset('utf-8');
 $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1');
 $this->headTitle($this->setting('installation_title', 'Omeka S'))->setSeparator(' · ');
+$this->headLink()->prependStylesheet($this->assetUrl('css/mobile.css')); //responsive specific Style behavior (PV-2023-05-08)
 $this->headLink()->prependStylesheet($this->assetUrl('css/style.css')); //Generic (institutional?) Style elements
 $this->headLink()->prependStylesheet($this->assetUrl('css/search.css')); //Modified Advanced Search style elements of theme (PV-2023-02-06)
 //$this->headLink()->prependStylesheet($this->assetUrl('css/sitestyle.css')); //Specific Style Elements.
