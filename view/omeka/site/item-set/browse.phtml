@@ -23,14 +23,18 @@ $filters = $this->searchFilters();
 <?php $this->trigger('view.browse.before'); ?>
 <div class="section">
     <hr class="decorative-hr" />
-    <ul class="resource-list">
+   <ul class="resource-list">
         <?php foreach ($itemSets as $itemSet): ?>
         <li class="item-set resource">
+		<div class="item-set-thumb">
             <?php echo $itemSet->linkRaw($this->thumbnail($itemSet, 'medium')); ?>
+		</div>
+			<div class="item-set-metadata">
             <h4><?php echo $itemSet->link($itemSet->displayTitle()); ?></h4>
             <?php if ($description = $itemSet->displayDescription()): ?>
             <div class="description"><?php echo $description; ?></div>
-            <?php endif; ?>
+			<?php endif; ?>
+			</div>
         </li>
         <?php endforeach; ?>
     </ul>

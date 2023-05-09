@@ -153,6 +153,39 @@ body.resource #content>h2:first-of-type+h3 {
     margin: 0px 0 5px;
 	
 }
+
+.item-set #search-page h2:nth-of-type(1)
+{
+	margin:0;
+	font-size:1.2em;
+}
+
+
+.item-set #search-page h3:nth-of-type(1)
+{
+	margin:0;
+	font-size:0.8em;
+}
+.item-set #search-page .metadata{
+	font-size:0.8em;
+}
+
+.item-set #search-page .resource-list li.items{
+	padding:1em;
+}
+
+.item-set #search-page .resource-list .resource-metadata h4{
+	font-size:1.1em;
+}
+.item-set #search-page .resource-list .resource-metadata .description{
+	font-size: 0.8em !important;
+}
+
+.item-set #search-page .resource-list .resource-metadata .tags{
+	font-size: 0.8em !important;
+}
+
+
 .item #content .media-embeds {
     width: 100%;
     float: none;
@@ -259,6 +292,11 @@ nav.pagination .row-count{
 .search-results-header .search-results-display {
 	display:none;
 }
+
+aside {
+	display:none;
+}
+
 
 .footer-wrapper{width:90%;}
 

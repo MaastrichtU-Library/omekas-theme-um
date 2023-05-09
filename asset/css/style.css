@@ -1317,8 +1317,15 @@
 		 width: 75%;
 		 display:block;
 		 }
-	
-	
+	.item-set #content h2:nth-of-type(1){
+		margin:0.6em 0;
+	}
+	.item-set .resource-list li.resource{
+		display:flex;
+	}
+	.item-set .resource-list li.resource .item-set-thumb{
+		margin-right:0.6em;
+	}
 	
 	#item-set-part>h3:nth-of-type(1){
 		font-size: 1.2em;
