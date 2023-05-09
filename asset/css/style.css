@@ -1635,17 +1635,17 @@
         padding-left: 3.38983%;
     }
     #total-results, #total-results .pagination {
-        display: inline-block;
-        font-size: 14px;
-        line-height: 1.5em;
+        display: inline;
+        font-size: 16px;
+        /* line-height: 1.5em; */
     }
     #total-results .pagination {
-        padding-top: 20px;
+        padding-top: 0px;
         padding-bottom: 0;
         margin-bottom: 0;
     }
     #total-results .pagination form, #total-results .pagination .previous, #total-results .pagination .next {
-        display: none;
+        /* display: none; */
     }
     #browse-footer-pagination .pagination {
         text-align: center;
