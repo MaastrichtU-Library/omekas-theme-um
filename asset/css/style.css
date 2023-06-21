@@ -1326,6 +1326,10 @@
 	.item-set .resource-list li.resource .item-set-thumb{
 		margin-right:0.6em;
 	}
+	.item-set .resource-list li.resource .item-set-thumb img{
+		width:250px;
+	}
+	
 	
 	#item-set-part>h3:nth-of-type(1){
 		font-size: 1.2em;
