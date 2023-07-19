@@ -66,12 +66,14 @@ $tagTerms =['schema:dateIssued'];
 	if($value->resource()->resourceClass()):
 	 $rcl=strtolower($value->resource()->resourceClass()->label()); //fetch the resource-label
 	 endif;
+	 if(isset($rcl)){
 	 if(str_contains($rcl,'publicationissue')):
 		$tagTerm=$tagTerms[0];
 		$fields=$value->resource()->values();
 		$pd=$fields[$tagTerm]['values'][0];
 		$altLabel=$pd;
 	endif;
+	 }
 	
 	?>
 	
