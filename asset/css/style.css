@@ -32,6 +32,7 @@
         height: 100%;
         color: #594D48;
     }
+	p {margin:0.1em;}
     a:link {
         text-decoration: none;
         color: #2C4C6B;
@@ -847,7 +848,7 @@
 	/* from here */
 	
 	.page #content {
-		padding: 3rem;
+		/* padding: 3rem; */
 	}
 	
 
@@ -922,7 +923,7 @@
         margin-right: auto;
 		margin-top: 40px;
         
-        margin-top: 170px;
+        margin-top: 180px;
         /* padding: 0 1.69492% 30px; */
         
         /*
@@ -1127,8 +1128,8 @@
         border-color: #dedede
     }
     .preview-block {
-        margin: 30px 0;
-        overflow: hidden
+        margin: 0;
+        overflow: hidden;
     }
     .resource-list.preview+a {
         background-color: #dedede;
@@ -1208,10 +1209,7 @@
         /* display: none; */
     }
     ul.resource-list .resource h4 {
-        margin-top: 0;
-        margin-bottom: 13px;
-       /* max-width: 560px; aanpassing verlengen titel versie zonder thumbnail*/
-        max-width: 1000px;
+        margin:0;
     }
     ul.resource-list .resource h4 a, ul.resource-list .resource h5 a {
         /* color: #E84E10; */
@@ -1229,7 +1227,7 @@
     ul.resource-list .resource .description {
         overflow: hidden;
         position: relative;
-        max-width: 560px;
+        /* max-width: 560px; */
     }
     ul.resource-list .resource p.element {
         margin-top: 0;
@@ -1799,10 +1797,10 @@
 		
     }
     #content .blocks:first-child {
-        margin-top:25px;
+        margin:0;
     }
     #content .blocks h2 {
-        margin-top: 48px;
+        margin: 0.5em 0;
     }
     /* reference module specific style */
     #primary.reference {
@@ -2150,13 +2148,13 @@
 	ul.resource-list .item-thumbnail img
 	{display:block;}
     ul.resource-list .resource img {
-        /* display: block;  */
+        display: block; 
 		/* Thumbnails weglaten 19-04 Joke */
-        /* width: 182px; */
-        /* height: auto; */
-        /* float: right; */
-        /* margin-left: 15px; */
-        /* box-shadow: 0 2px 3px 0 rgba(0,0,0,0.30); */
+        width: 182px;
+        height: auto;
+        float: left;
+        margin-right: 15px;
+        box-shadow: 0 2px 3px 0 rgba(0,0,0,0.30);
     }
     ul.resource-list .resource img:hover {
         box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
