@@ -153,6 +153,14 @@ $query = $this->params()->fromQuery();
 						</div>	
 					
 				</div>
+				
+			</div>
+			<div class="footer-bar">
+			<div class="footer-wrapper">
+			<?php if ($footerBar=$this->themeSetting('footerBar')): ?>
+			<?php echo $footerBar; ?>
+			<?php endif; ?>
+			</div>
 			</div>
             </footer>
         <?php //} ?> 
