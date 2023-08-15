@@ -85,3 +85,9 @@ aside.search-facets h4
     vertical-align: top;
 }
 
+.search-facets {
+    flex-basis: 25% !important;
+    order: -1 !important;
+    padding: 0 0.5em !important;
+    min-width: 22% !important;	
+}
