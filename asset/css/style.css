@@ -852,6 +852,7 @@
 	
 	.page #content {
 		/* padding: 3rem; */
+		min-height: 78%;
 	}
 	
 
@@ -1849,6 +1850,13 @@
     #content .blocks h2 {
         margin: 0.5em 0;
     }
+	
+	#content .blocks a:link {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+	}
+	
+	
     /* reference module specific style */
     #primary.reference {
         padding: 0 3.38983%;
