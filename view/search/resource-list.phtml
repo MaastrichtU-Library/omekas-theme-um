@@ -124,13 +124,14 @@ $defaultThumbnail = '<img src="' . $assetUrl('thumbnails/default.png', 'Omeka', 
     <li class="resource <?= $resourceType ?>">
        
         <div class="resource-metadata">
-            <h4><?= $resource->linkRaw($heading) ?></h4>
+            
 		<!-- MC, 7-6-2022: logic copied from themes/UM-A/view/omeka/site/item/browse.phtml-->
 		<!-- PV 16-01-2023 Altered the order Thumbnail -> Title to Title thumbnail. -->
 		<div class="resource-thumbnail">
 			<?= $hyperlink->raw($thumbnail, $resource->url(), ['class' => 'resource-link']) ?>
 			
         </div>
+		<h4><?= $resource->linkRaw($heading) ?></h4>
             <?php if ($body): ?>
                 <div class="description">
                   <?php echo $escape($body); ?>
