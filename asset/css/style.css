@@ -1244,6 +1244,10 @@
 	{
 		display:flex;
 	}
+	ul.resource-list .resource-metadata
+	{
+		width:100%;
+	}
     
     ul.resource-list .resource>*:last-child {
         margin-bottom: 0
@@ -2379,6 +2383,8 @@
     .gutter {
         width: 2%;
     }
+	
+	
     ul#results-grid.resource-list .resource {
         float: left;
         width: 32%;
