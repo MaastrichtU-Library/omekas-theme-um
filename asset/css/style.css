@@ -324,7 +324,7 @@
 		position: relative;
         width: 80%;
         background-color: #ffffff;
-        display: flex;
+        /* display: flex; */
 		flex-wrap: wrap;
         align-items: center;
         height:100px;
@@ -350,13 +350,12 @@
 	
 	#site-header-title { flex-grow: 0;}
 	#site-header-title h1 {
-		
 		/* font-family: 'Nunito', sans-serif;  */
 		/* font-weight:300;  */
 		/* letter-spacing:-.04rem; */
 		font-weight: 600;
 		font-size: 2.0rem;
-		margin:0;	
+		margin:-20px 0 0 57px;	
 		}
 	
        .site-title img {
@@ -1261,8 +1260,9 @@
     }
     ul.resource-list .resource h4 a, ul.resource-list .resource h5 a {
         /* color: #E84E10; */
-		text-decoration-color: #E84E10;
-		text-underline-offset: 5px;
+		text-decoration: underline 1px #E84E10 !important;
+		text-underline-offset: 5px !important;
+
     }
     ul.resource-list .resource h4 a:hover, ul.resource-list .resource h5 a:hover {
          color: #E84E10;
@@ -1354,9 +1354,11 @@
 		 margin:0;
 	 }
 	 .item-set .metadata  .property h5{
-		 margin:0; float:left;
-		 width: 25%;
-		 display:block;
+		margin: 0;
+		float: left;
+		/* width: 25%; */
+		display: block;
+		min-width: 22% !important;
 		 }
 	.item-set .metadata  .property .values{
 		 margin:0; float:left;
@@ -1364,7 +1366,7 @@
 		 display:block;
 		 }
 	.item-set #content h2:nth-of-type(1){
-		margin:0.6em 0;
+		margin:0.2em 0 0 0;
 	}
 	.item-set .resource-list li.resource{
 		display:flex;
@@ -1703,11 +1705,11 @@
     }
 	.item-set h3 {
 		color: #6982a4;
-		font-weight:600;
+		font-weight: 600;
+		font-style: italic;
 		font-size: 1.2rem;
 		line-height: normal;
-		
-		margin:0 0 0 0.8em;
+		margin: 0 0 0 0.4em;
 		
 		}
 	.item-set-items{clear:both;}
@@ -1935,7 +1937,8 @@
 		color: #e84e10;
 		font-weight: 600;
 		font-size: 1.1rem;
-		transition: color 0.5s, font-size 0.5s;
+		transition: color 0.5s, font-size 0.5s margin 0.5s;
+		margin:0;
 	}
 	
 	header.scroll #site-header-title img {

@@ -57,7 +57,7 @@ $query = $this->params()->fromQuery();
             <div id="top-bar">
                 <?php if ($this->themeSetting('logoLeft') && $this->themeSetting('logoRight')): ?>
                     <a id="institution-logo" href="<?php echo $site->url(); ?>"><img src="<?php echo $this->themeSettingAssetUrl('logoLeft'); ?>" title="Logo" /></a>
-					<div id="site-header-title"><?php echo $summary; ?></div>
+					<div id="site-header-title"><?php echo $title; ?></div>
                     <!--<a href="<?php //echo $site->url(); ?>" class="site-title"><img src="<?php //echo $this->themeSettingAssetUrl('logoRight'); ?>" title="Logo"></a>-->
                 <?php elseif ($this->themeSetting('logoLeft')): ?>
                     <a id="institution-logo" href="http://nonviolence.rutgers.edu/"><img src="<?php echo $this->themeSettingAssetUrl('logoLeft'); ?>" title="Logo" /></a>
