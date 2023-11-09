@@ -37,6 +37,7 @@ $defaultThumbnail = '<img src="' . $assetUrl('thumbnails/default.png', 'Omeka', 
 ?>
 
 <?php if ($title): ?>
+
 <h3><?= $escape($title) ?></h3>
 <?php endif; ?>
 <ul class="resource-list search-results-list<?= $gridListMode === 'list_only' ? ' list' : ($gridListMode === 'grid_only' ? ' grid' : '') ?>">
@@ -62,6 +63,8 @@ $defaultThumbnail = '<img src="' . $assetUrl('thumbnails/default.png', 'Omeka', 
         $vals = $resource->values();
 
         $tagHtml = '';
+		$searchEngine=$this->themeSetting('searchController') ;
+				
         foreach ($tagTerms as $tagTerm) {
             if(isset($vals[$tagTerm])) {
                 $tagLabel="";
@@ -96,16 +99,23 @@ $defaultThumbnail = '<img src="' . $assetUrl('thumbnails/default.png', 'Omeka', 
 
                     foreach ($fields as $val) {
                         try {
+							$test='';
                             $f_id = $val->property()->id();
+							$f_pid = $val->property()->label();
+							$f_pid2= $val->property()->localName();
+							$tt2=str_replace(':', '_', $tagTerm);
 							if($val)
 							{
 								if($tagTerm == "modsrdf:name" && $val->valueResource()) {    // The displayName for modsrdf:name is in the class method '$val->valueResource()->title()'. We need to test if it exists first.
 									// Query to make the field browsable with a link
-									$query = ['query' => ['Search' => '', 'property[0][property]' => $f_id, 'property[0][type]' => 'eq', 'property[0][text]' => strval($val->valueResource()->title())]];
-									$tagHtml .= $this->hyperlink(strval($val->valueResource()->title()), $this->url('site/resource', ['controller' => 'item', 'action' => 'browse'], $query, true), ['class' => 'tag'])." ";
+									$query = ['query' => [$searchEngine => '','property[0][property]' => $f_id, 'property[0][type]' => 'eq', 'property[0][text]' => strval($val->valueResource()->title())]];
+									//$tagHtml .= $this->hyperlink(strval($val->valueResource()->title()), $this->url('site/resource', ['controller' => 'find', 'action' => 'find'], $query, true), ['class' => 'tag'])." ";
+									$tagHtml .= $this->hyperlink(strval($val->valueResource()->title()), $this->url('site/resource',['controller' => 'item', 'action' => 'browse'] , $query, true), ['class' => 'tag'])." ";
+									
+									
 								} else {    // The displayName for all other tagTerms is in the default class method for value (= root of $val)
 									// Query to make the field browsable with a link
-									$query = ['query' => ['Search' => '', 'property[0][property]' => $f_id, 'property[0][type]' => 'eq', 'property[0][text]' => strval($val)]];
+									$query = ['query' => [$searchEngine => '', 'property[0][property]' => $f_id, 'property[0][type]' => 'eq', 'property[0][text]' => strval($val)]];
 									$tagHtml .= $this->hyperlink(strval($val), $this->url('site/resource', ['controller' => 'item', 'action' => 'browse'], $query, true), ['class' => 'tag'])." ";
 								}
 							}
@@ -113,8 +123,10 @@ $defaultThumbnail = '<img src="' . $assetUrl('thumbnails/default.png', 'Omeka', 
                             echo $th;
                         }
                     }
-
-                    $tagHtml .= '</div>';
+					
+					$tagHtml .= '</div>';
+                    
+					//$tagHtml .= '<div class="info">Property: '. $f_pid.' Property local name: '.$f_pid2.' Property local name: '.$tt2.'</div> ';
                 }
             }
         }
