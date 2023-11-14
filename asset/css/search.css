@@ -10,10 +10,6 @@
     flex-wrap: wrap;
 }
 
-.search-results-header .search-results-display{
-	
-}
-
 .search-results-header .search-results-display .search-view-type-grid{
 	margin: -2px;
     border-top-right-radius: 4px;
@@ -32,6 +28,15 @@ a.search-view-type.active{
 	background-color: #001c3d;
     color: #fff;
 }
+
+.search-results .resource-list.grid .resource {
+    min-width: 23%;
+    width: auto;
+    display: initial;
+    padding-top: 29px;
+    padding-right: 29px;
+}
+
 
 
 a.search-view-type {
