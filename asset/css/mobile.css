@@ -29,6 +29,11 @@ header #top-bar {display:flex;
   height: 40px;
   flex-wrap:nowrap;
   }
+
+  header #top-bar #Logo-div{
+    display: flex;
+  }
+
   header #top-bar #institution-logo{
 	width: 120px;
     margin: 4px 0 0 10px;
@@ -37,16 +42,19 @@ header #top-bar {display:flex;
   
 
 header #top-bar #institution-logo img{
-	height: 40px;
-	position:absolute;
-	top:-20px;
+	/* height: 40px; */
+	/* position:absolute; */
+	/* top:-20px; */
 	clip: rect(0px,175px,40px,0px );
 	transition: height 0.5s, width 0.5s;
 	width: 220px;
 }
 #site-header-title {
-	margin-right: 48px;
-}  
+    position: relative;
+    
+    flex-grow: 0;
+    margin: 0 0 0 0;
+   }  
   
 #site-header-title h1 {
     font-weight: 600;
@@ -58,6 +66,8 @@ header #header-main
 {
 	height:100%;
 }
+
+
 
 header nav
 {

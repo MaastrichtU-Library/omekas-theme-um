@@ -351,9 +351,9 @@
         height:100px;
     }
     header #top-bar #institution-logo {
-		position:relative;
-		top:-3px;
-        margin: 0 2vw -1vh 0;
+		/* position:relative; */
+		/* top:-3px; */
+        /* margin: 0 2vw -1vh 0; */
         flex-grow: 1;
     }
     header #top-bar #institution-logo img {
