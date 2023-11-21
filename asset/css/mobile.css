@@ -6,6 +6,10 @@
 	Reason for splitting: Keep track and portability.
 */
 
+
+
+
+
 @media screen and (max-width: 600px),
 screen and (max-height: 600px) {
 
@@ -27,8 +31,11 @@ screen and (max-height: 600px) {
     }
 
     h3 {
-        font-size: 1.4rem;
+        font-size: 1.0rem;
         margin: 0.2rem;
+        font-size: 1.0rem;
+        line-height: 29px;
+
     }
 
     h4 {
@@ -78,8 +85,8 @@ screen and (max-height: 600px) {
 
     header.scroll #site-header-title {
         position: relative;
-        top: 21px;
-        left: -20px;
+        top: 36px;
+        left: 0px;
     }
 
     header #top-bar #institution-logo img {
@@ -206,7 +213,7 @@ screen and (max-height: 600px) {
     }
 
 
-        .item-set #search-page h2:nth-of-type(1) {
+    .item-set #search-page h2:nth-of-type(1) {
         margin: 0;
         font-size: 1.2em;
     }
@@ -225,11 +232,18 @@ screen and (max-height: 600px) {
         padding: 1em;
     }
 
-    ul.resource-list .resource h4
-    {
+    ul.resource-list .resource h4 {
+        font-size: 1.2em;
+        line-height: 1.2em;
         margin-bottom: 0.3em;
-
     }
+
+    ul.resource-list .resource h4 a, ul.resource-list .resource h5 a {
+        text-underline-offset: 3px !important;
+    }
+    
+    
+
 
     .item-set #search-page .resource-list .resource-metadata h4 {
         font-size: 1.1em;
