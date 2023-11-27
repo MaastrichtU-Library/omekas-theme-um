@@ -11,6 +11,7 @@ $bodyTerm = $this->siteSetting('browse_body_property_term', 'dcterms:description
 $itemSetShow = isset($itemSet);
 $siteUrl = $site->url();
 $filters = $this->searchFilters();
+$searchEngine=$this->themeSetting('searchController') ;
 ?>
 
 
@@ -126,21 +127,30 @@ foreach ($items as $item):
 					$tagHtml .= '<span class="tag-label">'.$tagLabel.'</span>:&nbsp;';
                 }
                 foreach ($fields as $val)
-                {
-                    try
-                    {
-                        $f_id = $val->property()->id();
-                        if($val)
-                        {
-							// To make the field browsable with a link
-                            $query = ['query' => ['Search' => '', 'property[0][property]' => $f_id, 'property[0][type]' => 'eq', 'property[0][text]' => strval($val)]];
-                            //$tagHtml .= 'tt: '. count($tt) . '<br/>'. $this->hyperlink(strval($val), $this->url('site/resource', ['controller' => 'item', 'action' => 'browse'], $query, true), ['class' => 'tag'])." ";
-							$tagHtml .= $this->hyperlink(strval($val), $this->url('site/resource', ['controller' => 'item', 'action' => 'browse'], $query, true), ['class' => 'tag'])." ";
+                 try {
+                            $f_id = $val->property()->id();
+							$f_pid = $val->property()->label();
+							$f_pid2= $val->property()->localName();
+							$tt2=str_replace(':', '_', $tagTerm);
+							if($val)
+							{
+								if($tagTerm == "modsrdf:name" && $val->valueResource()) {    // The displayName for modsrdf:name is in the class method '$val->valueResource()->title()'. We need to test if it exists first.
+									// Query to make the field browsable with a link
+									$query = ['query' => [$searchEngine => '','property[0][property]' => $f_id, 'property[0][type]' => 'eq', 'property[0][text]' => strval($val->valueResource()->title())]];
+									$tagHtml .= $this->hyperlink(strval($val->valueResource()->title()), $this->url('site/resource', ['controller' => 'item', 'action' => 'browse'], $query, true), ['class' => 'tag'])." ";
+									
+									
+									
+								} else {    // The displayName for all other tagTerms is in the default class method for value (= root of $val)
+									// Query to make the field browsable with a link
+									$query = ['query' => [$searchEngine => '', 'property[0][property]' => $f_id, 'property[0][type]' => 'eq', 'property[0][text]' => strval($val)]];
+									$tagHtml .= $this->hyperlink(strval($val), $this->url('site/resource', ['controller' => 'item', 'action' => 'browse'], $query, true), ['class' => 'tag'])." ";
+								}
+							}
+                        } catch (\Throwable $th) {
+                            echo $th;
                         }
-                    } catch (\Throwable $th) {
-						echo $th;
-                    }
-                }
+                    
 				//$tagHtml .= " length : ". strlen($tagHtml);
                 $tagHtml .= '</div>';
             }

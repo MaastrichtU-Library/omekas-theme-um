@@ -24,7 +24,8 @@ $this->trigger('view.layout');
 $title = $this->pageTitle($site->title());
 //$summary = $this->pageTitle($site->summary());
 //$logo = $this->themeSettingAssetUrl('logo');
-$leftLogo = $this->assetUrl('img/left-logo-sample.png');
+$leftLogo = $this->assetUrl('img/logo-um.svg');
+//$leftLogo = $this->assetUrl('img/tresoar.png');
 $rightLogo = $this->assetUrl('img/right-logo-sample.png');
 $footerLogo = $this->assetUrl('img/footer-logo-sample.png');
 $facebookLogo=$this->assetUrl('img/facebook.png');
@@ -32,10 +33,12 @@ $instagramLogo=$this->assetUrl('img/Instagram.png');
 $twitterLogo=$this->assetUrl('img/Twitter.png');
 $linkedinLogo=$this->assetUrl('img/LinkedIn.png');
 $youtubeLogo=$this->assetUrl('img/Youtube.png');
+$topsite = "/";
 
-//if ($logo):
-//    $title = '<img src="' . $this->escapeHtml($logo) . '">';
-//endif;
+if($this->themeSetting('UMLogoLink')):
+	$topsite=$this->themeSetting('UMLogoLink');
+endif;
+
 $userBar = $this->partial('common/user-bar', ['site' => $site]);
 $query = $this->params()->fromQuery();
 ?>
@@ -55,24 +58,16 @@ $query = $this->params()->fromQuery();
         <header <?php 
         if (strlen($userBar) > 1){ echo "class='logged-in'"; } ?>>
             <div id="top-bar">
-                <?php if ($this->themeSetting('logoLeft') && $this->themeSetting('logoRight')): ?>
-                    <a id="institution-logo" href="<?php echo $site->url(); ?>"><img src="<?php echo $this->themeSettingAssetUrl('logoLeft'); ?>" title="Logo" /></a>
-					<div id="site-header-title"><?php echo $title; ?></div>
-                    <!--<a href="<?php //echo $site->url(); ?>" class="site-title"><img src="<?php //echo $this->themeSettingAssetUrl('logoRight'); ?>" title="Logo"></a>-->
-                <?php elseif ($this->themeSetting('logoLeft')): ?>
-                    <a id="institution-logo" href="http://nonviolence.rutgers.edu/"><img src="<?php echo $this->themeSettingAssetUrl('logoLeft'); ?>" title="Logo" /></a>
-                <?php elseif ($this->themeSetting('logoRight')): ?>
-                    <a href="<?php echo $site->url(); ?>" class="institution-logo"><?php echo $this->pageTitle($site->title()); ?></a>
-                    <a href="<?php echo $site->url(); ?>" class="site-title"><img src="<?php echo $this->themeSettingAssetUrl('logoRight'); ?>" title="Logo"></a>
-					
-                <?php else: ?>
-                    <a href="<?php echo $site->url(); ?>" class="institution-logo"><img src="<?php echo $leftLogo; ?>" title="Site logo"/></a>
-                    <a href="<?php echo $site->url(); ?>" class="site-title"><img src="<?php echo $rightLogo; ?>" title="Institutional logo"></a>
-					
-                <?php endif; ?>
-            </div>
-            
-            <div id="header-main">
+		    <div id="Logo-div">
+			<a id="institution-logo" 
+				href="<?php echo $topsite ?>"><img src="<?php echo $leftLogo ?>" title="Logo" />
+			</a>
+			<div id="site-header-title"><a href="<?php echo $site->url(); ?>"><?php echo $title; ?></a>
+			
+		
+		</div>	
+		</div>
+		<div id="header-main">
 			<div id="MsgDiv">test</div>
                 <nav>
                     <?php echo $site->publicNav()->menu()->renderMenu(null, [
@@ -111,6 +106,12 @@ $query = $this->params()->fromQuery();
 				</div>
             </div>
 		
+	
+	
+		</div>
+
+            
+           
 			
         </header>
       

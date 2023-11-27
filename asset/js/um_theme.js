@@ -10,10 +10,12 @@ function doSomething(scrollPos) {
     dochead=document.getElementsByTagName("HEADER");
 	if(lastKnownScrollPosition>100)
 	{
+    dochead[0].classList.remove("not-scroll");
 		dochead[0].classList.add("scroll");
 	}
 	else
 	{
+    dochead[0].classList.add("not-scroll");
 		dochead[0].classList.remove("scroll");
 	}
 	msgdiv.innerHTML="Scrolled by " + lastKnownScrollPosition;
