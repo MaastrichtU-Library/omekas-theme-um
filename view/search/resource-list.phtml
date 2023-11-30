@@ -88,7 +88,7 @@ $defaultThumbnail = '<img src="' . $assetUrl('thumbnails/default.png', 'Omeka', 
                               $tagLabel="Author";
                               break;
                             case "contributor":
-                              $tagLabel="Supervisor";
+                              $tagLabel=$fields[0]->property()->label();
                               break;
                             case "dateIssued":
                               $tagLabel="Publication date";
