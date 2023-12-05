@@ -61,6 +61,8 @@ $defaultThumbnail = '<img src="' . $assetUrl('thumbnails/default.png', 'Omeka', 
 		$tagTerms = ['modsrdf:name', 'modsrdf:subject',  'schema:dateIssued', 'schema:contributor', 'modsrdf:namePrincipal'];
         $showLabel = true;
         $vals = $resource->values();
+        $template = $resource->resourceTemplate();
+      
 
         $tagHtml = '';
 		$searchEngine=$this->themeSetting('searchController') ;
@@ -70,30 +72,18 @@ $defaultThumbnail = '<img src="' . $assetUrl('thumbnails/default.png', 'Omeka', 
                 $tagLabel="";
                 $fields = $vals[$tagTerm]['values'];
 
+                
+                $templateProperty = $template ? $template->resourceTemplateProperty($fields[0]->property()->id()) : null;
+                $altLabel = $templateProperty ? $templateProperty->alternateLabel() : null;
+
+
                 if(($fields!=null)&&(count($fields))) {
                     $tagHtml .= '<div class="tag-group ' . str_replace(':', '\:', $tagTerm) . '">';
 
                     if($showLabel) {
                         $label = $fields[0]->property()->label();
-                        $fv='props ';
+                        $label = $altLabel?$altLabel:$label;
                         $tagLabel=$label;
-                        switch($label) {
-							case "Name":
-                              $tagLabel="Faculty";
-                              break;
-							case "Subject":
-                              $tagLabel="Study discipline";
-                              break;
-                            case "Name -  Principle":
-                              $tagLabel="Author";
-                              break;
-                            case "contributor":
-                              $tagLabel=$fields[0]->property()->label();
-                              break;
-                            case "dateIssued":
-                              $tagLabel="Publication date";
-                              break;
-                        }
                         $tagHtml .= '<span class="tag-label">'.$tagLabel.'</span>:&nbsp;';
                     }
 
