@@ -13,6 +13,8 @@
 $resources = $response->getResources($resourceName);
 // A check is done: when page is not first, the resources may be empty even with results.
 if (!$resources) return;
+$customFieldList=str_replace(' ','',$this->themeSetting('CustomFieldList'));
+$tagTermList=explode(",", $customFieldList);
 
 $plugins = $this->getHelperPluginManager();
 $escape = $plugins->get('escapeHtml');
@@ -27,10 +29,8 @@ $filterLocale = (bool) $setting('filter_locale_values');
 $siteLang = $plugins->get('lang')();
 $lang = $filterLocale ? $siteLang : null;
 $langValue = $filterLocale ? [$siteLang, ''] : null;
-
 $headingTerm = $setting('browse_heading_property_term');
 $bodyTerm = $setting('browse_body_property_term');
-
 $gridListMode = $searchPage ? $searchPage->subSetting('display', 'grid_list_mode', 'auto') : 'auto';
 
 $defaultThumbnail = '<img src="' . $assetUrl('thumbnails/default.png', 'Omeka', true) . '" title="' . $translate('No media') . '"/>';
@@ -40,6 +40,9 @@ $defaultThumbnail = '<img src="' . $assetUrl('thumbnails/default.png', 'Omeka', 
 
 <h3><?= $escape($title) ?></h3>
 <?php endif; ?>
+<!--<p><?//php echo "tester: <br/>";
+//print_r($tagTermList); 
+?></p>-->
 <ul class="resource-list search-results-list<?= $gridListMode === 'list_only' ? ' list' : ($gridListMode === 'grid_only' ? ' grid' : '') ?>">
     <?php /** @var \Omeka\Api\Representation\AbstractResourceEntityRepresentation $resource */
     foreach ($resources as $resource):
@@ -54,11 +57,12 @@ $defaultThumbnail = '<img src="' . $assetUrl('thumbnails/default.png', 'Omeka', 
         $body = $bodyTerm ? $resource->value($bodyTerm, ['lang' => $langValue]) : null;
         $body = $body ? $body->asHtml() : $escape($resource->displayDescription(null, $lang));
 
-        # MC, 7-6-2022: Code copied and adapted from themes/UM-A/view/omeka/site/item/browse.phtml
+        
 		
         
 		# PV 15-6-2022: Order changed. Removed unused values;
-		$tagTerms = ['modsrdf:name', 'modsrdf:subject',  'schema:dateIssued', 'schema:contributor', 'modsrdf:namePrincipal'];
+		//$tagTerms = ['modsrdf:name', 'modsrdf:subject',  'schema:dateIssued', 'schema:contributor', 'modsrdf:namePrincipal'];
+        $tagTerms = $tagTermList;
         $showLabel = true;
         $vals = $resource->values();
         $template = $resource->resourceTemplate();
@@ -72,7 +76,7 @@ $defaultThumbnail = '<img src="' . $assetUrl('thumbnails/default.png', 'Omeka', 
                 $tagLabel="";
                 $fields = $vals[$tagTerm]['values'];
 
-                
+                //PV 2023-11-05: This piece of code gets the resource template fot the current field.
                 $templateProperty = $template ? $template->resourceTemplateProperty($fields[0]->property()->id()) : null;
                 $altLabel = $templateProperty ? $templateProperty->alternateLabel() : null;
 
@@ -120,7 +124,7 @@ $defaultThumbnail = '<img src="' . $assetUrl('thumbnails/default.png', 'Omeka', 
                 }
             }
         }
-        # END MC, 7-6-2022
+       
     ?>
 
     <li class="resource <?= $resourceType ?>">
