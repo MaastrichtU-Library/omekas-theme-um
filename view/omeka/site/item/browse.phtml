@@ -42,7 +42,7 @@ $searchEngine=$this->themeSetting('searchController') ;
 
 </div>
 -->
-<div id="tab-wrap">
+<div id="tab-wrap"> 
     <input type="radio" id="list-input" name="s" class="tab" checked />
     <input type="radio" id="grid-input" name="s" class="tab"  />
     <div id="button-bar">
@@ -118,7 +118,7 @@ foreach ($items as $item):
 							$tagLabel="Author";
 						break;
 						case "contributor":
-							$tagLabel="Supervisor";
+							$tagLabel=$fields[0]->property()->label();
 						break;
 						case "dateIssued":
 							$tagLabel="Publication date";

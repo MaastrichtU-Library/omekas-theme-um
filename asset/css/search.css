@@ -29,6 +29,13 @@ a.search-view-type.active{
     color: #fff;
 }
 
+#search-filters .filter select:nth-of-type(1) {
+    min-width: 64px !important;
+    margin-left: 0;
+}
+
+
+
 .search-results .resource-list.grid .resource {
     min-width: 23%;
     width: auto;
