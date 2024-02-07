@@ -18,6 +18,35 @@ $mediaTypes3D = [
 		"image/ktx2",
 		"model/mtl"
 		];
+
+// Code to determine the class of the resource
+if ($item->resourceClass()):
+    // Get the resource class label and replace spaces in order to use it in relevant element classes so that display can react.
+    $rc=str_replace(" ", "-", strtolower($item->resourceClass()->label()));
+else:
+    $rc="none";
+endif;
+
+$imc=count($itemMedia); //imc =item media count;
+$mbc="";
+if ($imc>1):
+    // if more than one media item, add 'split' to several element classes
+    // Note: Currently, only CSS class 'media-embeds.message.split' will be rendered side-by-side
+    $mbc = "split";
+    //$mbc=mediabox-class
+endif;
+
+# Check if this itemMedia contains 3D model
+if ($rc == "3dmodel"):
+    $model3d = True ;
+else:
+    $model3d = False ;
+endif;
+
+# Extract mediaTypes from all media attached to this item into an array
+$mediaTypes = array_map(function($child) {
+    return $child->mediaType();
+}, $itemMedia);
 ?>
 
 <div id="item-page">
@@ -27,67 +56,49 @@ $mediaTypes3D = [
 	
 	
 	<div id="item-page-media">
-	<?php
-	// Code to determine the class of the resource
-	if ($item->resourceClass()):
-		// Get the resource class label and replace spaces in order to use it in relevant element classes so that display can react.
-		$rc=str_replace(" ", "-", strtolower($item->resourceClass()->label()));
-	else:
-		$rc="none";
-	endif;
 
-	$imc=count($itemMedia); //imc =item media count;
-	$mbc="";
-	if ($imc>1):
-		// if more than one media item, add 'split' to several element classes
-		// Note: Currently, only CSS class 'media-embeds.message.split' will be rendered side-by-side
-		$mbc = "split";
-		//$mbc=mediabox-class
-	endif;
+    <?php if ($model3d): ?>
+        <!-- When 3D model data, render only the 3D itemMedia and skip all other media -->
+        <div class="media-embeds">
+        <?php foreach ($itemMedia as $media): ?>
+            <?php if (in_array($media->mediaType(), $mediaTypes3D)) : ?>
+                <div class="media-box <?php echo $rc;?>">
+                <div class="media-box-header">
+                    Media Title:&nbsp; <?php if ($media->displayTitle()): echo $media->displayTitle(); endif; ?>
+                </div>
+                <div class="media-box-content">
+                <?php echo $media->render();?>
+                </div>
+                </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        </div>
 
-	# Check if this itemMedia contains 3D model
-	if ($rc == "3dmodel"):
-		$model3d = True ;
-	else:
-		$model3d = False ;
-	endif;
-	?>
+    <?php elseif (in_array("application/pdf", $mediaTypes)) : ?>
+        <!-- Use the PDF viewer when any of the media is a PDF,  -->
+        <div class="media-embeds <?php echo $rc ." ".$mbc ;?>">
+            <?php foreach ($itemMedia as $media):?>
+                <div class="media-box <?php echo $rc;?>">
+                    <div class="media-box-header">
+                        Media Title:&nbsp; <?php if ($media->displayTitle()):echo $media->displayTitle(); endif; ?>
+                    </div>
+                    <div class="media-box-content">
+                        <?php echo $media->render(); ?>
+                    </div>
+                </div>
+            <?php endforeach;?>
+        </div>
 
-	<?php if ($embedMedia && $itemMedia): ?>
-
-		<?php if ($model3d): ?>
-			<!-- When 3D model data, render only the 3D itemMedia and skip all other media -->
-			<div class="media-embeds">
-			<?php foreach ($itemMedia as $media): ?>
-				<?php if (in_array($media->mediaType(), $mediaTypes3D)) : ?>
-					<div class="media-box <?php echo $rc;?>">
-					<div class="media-box-header">
-						Media Titel:&nbsp; <?php if ($media->displayTitle()): echo $media->displayTitle(); endif; ?>
-					</div>
-					<div class="media-box-content">
-					<?php echo $media->render();?>
-					</div>
-					</div>
-				<?php endif; ?>
-			<?php endforeach; ?>
-			</div>
-
-		<?php else: ?>
-			<!-- Render all itemMedia in all other cases -->
-			<div class="media-embeds <?php echo $rc ." ".$mbc ;?>">
-			<?php foreach ($itemMedia as $media):?>
-				<div class="media-box <?php echo $rc;?>">
-				<div class="media-box-header">
-					Media Titel:&nbsp; <?php if ($media->displayTitle()):echo $media->displayTitle(); endif; ?>
-				</div>
-				<div class="media-box-content">
-				<?php echo $media->render();?>
-				</div>
-				</div>
-			<?php endforeach;?>
-			</div>
-		<?php endif; ?>
-	<?php endif; ?>
+    <?php else: ?>
+        <!-- Use UniversalViewer in all other cases -->
+        <div class="media-embeds">
+            <div class="media-box <?php echo $rc;?>">
+            <div class="media-box-content">
+                <?php echo $this->universalViewer($item); ?>
+            </div>
+            </div>
+        </div>
+    <?php endif; ?>
 
 	</div> <!-- close div "item-page-media" -->
 	<div id="item-page-properties">
