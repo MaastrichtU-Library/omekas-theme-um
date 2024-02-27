@@ -398,6 +398,10 @@
         height: 100px;
     }
 
+    .small_image img
+    {
+        height: 140px;
+    }
     header #top-bar #institution-logo {
         /* position:relative; */
         /* top:-3px; */
@@ -2246,7 +2250,7 @@
     }
 
     header.not-scroll nav {
-        font-size: 1.0em;
+        font-size: 0.9em;
         transition: font-size 0.5s;
     }
 
