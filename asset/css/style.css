@@ -398,6 +398,10 @@
         height: 100px;
     }
 
+    .small_image img
+    {
+        height: 140px;
+    }
     header #top-bar #institution-logo {
         /* position:relative; */
         /* top:-3px; */
@@ -1637,6 +1641,11 @@
         height: 45px;
     }
 
+    .property .value  {
+            margin-bottom: 1em;
+            position: relative;
+        }
+    
     .property .value a {
         display: inline-block;
         vertical-align: middle;
@@ -1658,9 +1667,15 @@
     }
 
     .property .value .language {
+        position: absolute;
+        left: -3em;
+        height: 30px;
+        width: 30px;
         background-color: #d1d1d1;
-        padding: 3.75px;
-        font-size: 10px
+        text-align: center;
+        padding: 3px;
+        font-size: 12px;
+        /* margin: 0em 0em 0 -3em; */
     }
 
     #content .media.resource {
@@ -2246,7 +2261,7 @@
     }
 
     header.not-scroll nav {
-        font-size: 1.0em;
+        font-size: 0.9em;
         transition: font-size 0.5s;
     }
 
