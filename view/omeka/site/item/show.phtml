@@ -88,11 +88,17 @@ $mediaTypes = array_map(function($child) {
             </div>
 
         <?php else: ?>
-            <!-- Use UniversalViewer in all other cases -->
+            <!-- Use an IIIF viewer in all other cases -->
             <div class="media-embeds">
                 <div class="media-box <?php echo $rc;?>">
                     <div class="media-box-content">
-                        <?php echo $this->universalViewer($item); ?>
+                        <?php
+                            if ($this->themeSetting('IiifViewer') == "universal") {
+                                echo $this->universalViewer($item);
+                            } else {
+                                echo $this->mirador($item);
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
