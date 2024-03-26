@@ -95,8 +95,12 @@ $mediaTypes = array_map(function($child) {
                         <?php
                             if ($this->themeSetting('IiifViewer') == "universal") {
                                 echo $this->universalViewer($item);
-                            } else {
+                            } elseif ($this->themeSetting('IiifViewer') == "mirador") {
                                 echo $this->mirador($item);
+                            } else {
+                                foreach ($itemMedia as $media) {
+                                    echo $media->render();
+                                }
                             }
                         ?>
                     </div>
