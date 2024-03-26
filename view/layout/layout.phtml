@@ -121,6 +121,7 @@ $query = $this->params()->fromQuery();
             <?php } else { ?>         
                 <?php echo $this->content; ?>
             <?php } ?>
+
         </div>
         <?php //if($_SERVER['REQUEST_URI'] != $site->url()){ ?>
             <footer>
@@ -157,7 +158,7 @@ $query = $this->params()->fromQuery();
 				
 			</div>
 			<div class="footer-bar">
-			<div class="footer-wrapper">
+			<div class="footer-bar-wrapper">
 			<?php if ($footerBar=$this->themeSetting('footerBar')): ?>
 			<?php echo $footerBar; ?>
 			<?php endif; ?>
