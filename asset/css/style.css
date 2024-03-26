@@ -187,6 +187,12 @@
         letter-spacing: .45px;
     }
 
+    /* Set the font color for any button whose name starts with mirador */
+    /* i.e. the text displayed by the OCR helper plugin */
+    button[class^="mirador"] {
+        color: #282828;
+    }
+
     [type="submit"] {
         background-color: #001c3d;
         color: #F9F8F4;
