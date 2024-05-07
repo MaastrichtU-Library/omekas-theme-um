@@ -61,9 +61,6 @@ $mediaTypes = array_map(function($child) {
                 <?php foreach ($itemMedia as $media): ?>
                     <?php if (in_array($media->mediaType(), $mediaTypes3D)) : ?>
                         <div class="media-box <?php echo $rc;?>">
-                            <div class="media-box-header">
-                                Media Title:&nbsp; <?php if ($media->displayTitle()): echo $media->displayTitle(); endif; ?>
-                            </div>
                             <div class="media-box-content">
                                 <?php echo $media->render();?>
                             </div>
@@ -77,9 +74,6 @@ $mediaTypes = array_map(function($child) {
             <div class="media-embeds <?php echo $rc ." ".$mbc ;?>">
                 <?php foreach ($itemMedia as $media):?>
                     <div class="media-box <?php echo $rc;?>">
-                        <div class="media-box-header">
-                            Media Title:&nbsp; <?php if ($media->displayTitle()):echo $media->displayTitle(); endif; ?>
-                        </div>
                         <div class="media-box-content">
                             <?php echo $media->render(); ?>
                         </div>
@@ -111,11 +105,6 @@ $mediaTypes = array_map(function($child) {
 
     <div id="item-page-properties">
         <div class="properties">
-            <div class="resource-class property">
-                <?php if ( $item->resourceClass()): ?>
-		            <?php echo $escape($translate($item->resourceClass()->label())); ?>
-                <?php endif; ?>
-            </div>
 
             <?php echo $item->displayValues(); ?>
 
