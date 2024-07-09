@@ -8,7 +8,6 @@ In order to use, derive or co-develop this theme, it is highly recommended to al
 that are developed in coöperation with the metadata specialists at Maastricht University. Use of this vocabulary tries to enhance good data exchange in 
 the field of (digital) heritage collections and humanities and good indexing and crawlability in Google.
 
-Known issue: paging is not working correctly in Advanced Search module in test- and production environment.
 
 ## Acknowledgements
 Adapted from the [Omeka-S-ExploreGrid-Theme](https://github.com/hxsllc/Omeka-S-theme-ExploreGrid) by [hxsllc](https://github.com/hxsllc).
