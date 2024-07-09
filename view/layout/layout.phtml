@@ -19,7 +19,13 @@ $this->headScript()->prependFile($this->assetUrl('js/default.js'));
 $this->headScript()->prependFile($this->assetUrl('js/global.js', 'Omeka'));
 $this->headScript()->prependFile($this->assetUrl('vendor/jquery/jquery.min.js', 'Omeka'));
 
-
+global $socialCounter;
+$arrSocial=[$this->themeSetting('faceBookLink'),
+			$this->themeSetting('instaGramLink'),
+			$this->themeSetting('linkedInLink'),
+			$this->themeSetting('twitterLink'),
+			$this->themeSetting('youTubeLink')];
+CountSocials($arrSocial);
 $this->trigger('view.layout');
 $title = $this->pageTitle($site->title());
 //$summary = $this->pageTitle($site->summary());
@@ -35,6 +41,7 @@ $linkedinLogo=$this->assetUrl('img/LinkedIn.png');
 $youtubeLogo=$this->assetUrl('img/Youtube.png');
 $topsite = "/";
 
+
 if($this->themeSetting('UMLogoLink')):
 	$topsite=$this->themeSetting('UMLogoLink');
 endif;
@@ -45,6 +52,7 @@ $query = $this->params()->fromQuery();
 <?php echo $this->doctype(); ?>
 <?php echo $this->htmlElement('html'); ?>
     <head><meta charset="gb18030">
+
         <?php echo $this->headMeta(); ?>
         <?php echo $this->headTitle(); ?>
         <?php echo $this->headLink(); ?>
@@ -137,21 +145,16 @@ $query = $this->params()->fromQuery();
 						<?php echo $this->translate('Powered by Omeka S'); ?>
 					<?php endif; ?>
 					<div class="footer-col">
+				    <?php if($socialCounter>0):?>
 					<h3>Follow us on</h3>
 						<div class="social">
-						<a href="https://facebook.com/MaastrichtUniversityLibrary" target="_blank" rel="noopener">
-							<img decoding="async" loading="lazy" src="<?php echo $facebookLogo; ?>"/></a>
-						
-						<a href="https://www.instagram.com/maastrichtuniversitylibrary/" target="_blank" rel="noopener">
-							<img decoding="async" loading="lazy" src="<?php echo $instagramLogo; ?>"/></a>
-						<a href="https://www.linkedin.com/company/maastricht-university-library/?viewAsMember=true" target="_blank" rel="noopener">
-								<img decoding="async" loading="lazy" src="<?php echo $linkedinLogo; ?>"/></a>
-						<a href="https://twitter.com/um_library" target="_blank" rel="noopener">
-								<img decoding="async" loading="lazy" src="<?php echo $twitterLogo; ?>"/></a>
-						<a href="https://www.youtube.com/channel/UC4Wa2-Bx-TE3U3weAIAnfKw" target="_blank" rel="noopener">
-								<img decoding="async" loading="lazy" src="<?php echo $youtubeLogo; ?>"/></a>
-						
+						<?php echo SocialLink($this->themeSetting('faceBookLink'),$facebookLogo); ?>
+						<?php echo SocialLink($this->themeSetting('instaGramLink'),$instagramLogo); ?>
+						<?php echo SocialLink($this->themeSetting('linkedInLink'),$linkedinLogo); ?>
+						<?php echo SocialLink($this->themeSetting('twitterLink'),$twitterLogo); ?>
+						<?php echo SocialLink($this->themeSetting('youTubeLink'),$youtubeLogo); ?>
 						</div>
+						<?php endif ?>
 						</div>	
 					
 				</div>
@@ -168,3 +171,29 @@ $query = $this->params()->fromQuery();
         <?php //} ?> 
     </body>
 </html>
+<?php 
+
+
+
+function CountSocials($arrSocial)
+{
+	global $socialCounter;
+	$socialCounter=0;
+	foreach($arrSocial as $itm)
+	if($itm): $socialCounter+=1;
+	endif;
+
+}
+
+function SocialLink($ThemeSetting,$logoUrl)
+	{
+		$result='';
+		if ($ThemeSetting):
+			$result='<a href="'.$ThemeSetting .'" target="_blank" rel="noopener">'.
+			'<img decoding="async" loading="lazy" src="'. $logoUrl.'"/></a>';
+
+		endif;
+		return $result;
+	}	
+
+?>
