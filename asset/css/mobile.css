@@ -260,6 +260,8 @@ screen and (max-height: 600px) {
 
 
     .item #content .media-embeds {
+         
+        display: block !important;
         width: 100%;
         float: none;
     }
@@ -278,6 +280,11 @@ screen and (max-height: 600px) {
     .item #content .properties h5 {
         font-size: 0.9em;
     }
+
+    .item #content .message .media-box, .item #content .manuscript .media-box{
+        width: 100%;
+    }
+
 
     .media-box-header {
         font-size: 0.9em;
