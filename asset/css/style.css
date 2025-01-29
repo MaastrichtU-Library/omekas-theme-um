@@ -1128,8 +1128,9 @@ footer a:visited {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
+    gap: 1.2em;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap
 }
 
