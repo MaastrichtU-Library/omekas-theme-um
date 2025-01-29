@@ -2581,7 +2581,7 @@ a.metadata-browse-link:hover {
 
     ul.resource-list .item-thumbnail {
         display: block;
-        width: 90px;
+        width: 200px;
         height: auto;
         margin: 0 12px 0 0;
         float: left;
@@ -2594,7 +2594,7 @@ a.metadata-browse-link:hover {
 
     ul.resource-list .resource img {
         display: block;
-        width: 182px;
+        width: 200px;
         height: auto;
         float: left;
         margin-right: 30px;
