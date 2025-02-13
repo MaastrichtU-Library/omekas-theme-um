@@ -70,7 +70,7 @@ screen and (max-height: 600px) {
 
     header #site-header-title {
         position: relative;
-        top: 36px;
+        top: 34px;
         flex-grow: 0;
         margin: 0 0 0 0;
     }
@@ -89,7 +89,7 @@ screen and (max-height: 600px) {
 
     header.scroll #site-header-title {
         position: relative;
-        top: 19px;
+        top: 34px;
         left: 0px;
     }
 

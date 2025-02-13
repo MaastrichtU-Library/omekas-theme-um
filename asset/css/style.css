@@ -1134,6 +1134,11 @@ footer a:visited {
     flex-wrap: wrap
 }
 
+.item-showcase .item .resource{
+    position: relative;
+}
+
+
 .item-showcase h3 {
     position: absolute;
     margin: 0;
@@ -1173,11 +1178,13 @@ footer a:visited {
 
 .item-showcase .resource.item:only-child img {
     margin: 0 auto
+    
 }
 
 .item-showcase .resource.item:not(:only-child) {
     width: auto;
     clear: none;
+    position: relative;
     /* padding: 0 1.69492% */
 }
 
@@ -1966,7 +1973,6 @@ div#button-bar {
 #grid-wrapper {
     display: none;
 }
-
 /* collection AND item browse specific style - disabled this one...
 #total-results {
     padding-left: 3.38983%;

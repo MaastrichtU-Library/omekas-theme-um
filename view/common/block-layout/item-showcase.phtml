@@ -1,6 +1,9 @@
 <div class="item-showcase">
 <?php foreach ($attachments as $attachment): ?>
     <div class="item resource">
+    <!-- Change 2025-02-03 -->
+    <div class="resource-overlay">
+    </div>
     <?php
     $item = $attachment->item();
     if ($item):
@@ -28,6 +31,7 @@
     ?>
         <div class="caption"><?php echo $caption; ?></div>
     <?php endif; ?>
+    
     </div>
 <?php endforeach; ?>
 </div>
