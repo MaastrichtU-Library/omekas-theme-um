@@ -309,7 +309,7 @@ screen and (max-height: 600px) {
     }
 
     .pagination .button {
-        background-color: #001C3D;
+        /* background-color: #001C3D; */
         width: 25px;
         text-align: center;
         padding: 0px;
