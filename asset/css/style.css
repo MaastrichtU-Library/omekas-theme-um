@@ -1525,6 +1525,12 @@ ul.resource-list .resource p.element a {
     letter-spacing: .4px;
 }
 
+/* Adds a scrollbar when the facet contains a lot of values */
+.search-facet-items{
+    overflow: auto;
+    max-height: 150px;
+}
+
 
 .filter-label,
 .filter-value {
