@@ -607,7 +607,6 @@
 
     header nav ul a:hover~ul:before {
         color: #fff;
-
     }
 
     header nav>ul>li:last-child {
@@ -627,22 +626,6 @@
     header nav>ul ul:hover>li {
         height: auto;
         padding-top: -1px;
-
-    }
-
-    header nav>ul>li>ul>li.active>a {
-        color: #7BC0E1;
-    }
-
-    header nav>ul>li>ul>li.active>a:before {
-        display: inline-block;
-        width: 1.5em;
-        color: #fff;
-    }
-
-    header nav>ul>li>ul>li a {
-        font-weight: 500;
-        background-color: #152031;
     }
 
     header nav>ul>li>ul>li>ul>li a {
@@ -2439,11 +2422,9 @@ a.metadata-browse-link:hover {
         display: flex;
         -webkit-box-orient: horizontal;
         -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-        flex-direction: row;
-        -ms-flex-flow: row wrap;
-        flex-flow: row wrap;
-        z-index: -100
+        -ms-flex-direction: column;
+        flex-direction: column;
+        z-index: 100
     }
 
     header nav ul.navigation>li:hover>ul {
@@ -2461,13 +2442,12 @@ a.metadata-browse-link:hover {
         content: "";
         left: -9999px;
         right: -9999px;
-        background-color: #2C4C6B;
+        background-color: #FFFFFF;
         position: absolute;
         top: 0;
         bottom: 0;
         z-index: -10;
         box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.50);
-
     }
 
     header nav ul.navigation>li>ul>li {

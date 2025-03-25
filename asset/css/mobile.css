@@ -155,6 +155,16 @@ screen and (max-height: 600px) {
         display: block;
     }
 
+    header nav>ul>li>ul>li.active>a:before {
+        display: inline-block;
+        width: 1.5em;
+        color: #fff;
+    }
+
+    header nav>ul>li>ul>li a {
+        font-weight: 500;
+        background-color: #fff;
+    }
 
     #search-head {
         display: none;
