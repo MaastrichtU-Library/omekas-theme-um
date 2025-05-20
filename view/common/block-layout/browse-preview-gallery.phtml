@@ -109,18 +109,21 @@ $lang = $filterLocale ? $this->lang() : null;
 
                 if ($showBody):
                     $body = $resource->displayDescription(null, $lang);
-                    $body .= '<p>'
-                        . $translate('More information')
-                        . '<br/>'
-                        . $resource->linkPretty()
-                        . '</p>';
+                    $body .= '<h3>'
+                        . $resource->link("View this collection")
+                        . '</h3>';
                 else:
                     $body = '';
                 endif;
                 ?>
                 <li>
-                    <a href="#" data-largesrc="<?= $mediaLarge ?>" data-title="<?= $heading ?>" data-description="<?= $escapeAttr($body) ?>">
+                    <a  href="#"
+                        data-largesrc="<?= $mediaLarge ?>"
+                        data-title="<?= $heading ?>"
+                        data-description="<?= $escapeAttr($body) ?>">
                         <img class="medium-img" src="<?= $mediaThumbnail ?>" alt="<?= $heading ?>"/>
+                        <!-- Uncomment the following line to display the resource title below each gallery image -->
+                        <?= $heading ?>
                     </a>
                 </li>
             <?php endforeach; ?>
