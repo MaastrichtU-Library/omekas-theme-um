@@ -365,7 +365,8 @@ screen and (max-height: 600px) {
     }
 
     .search-results-wrapper {
-        display: block;
+        display: flex !important;
+        flex-direction: column;
     }
 
     #advanced-search-form {

@@ -98,19 +98,19 @@ $options = $searchConfig->setting('facet', []);
                             <!-- Enrich some facets with a search box -->
                             <!-- Many thanks to KU Leuven for sharing the code on which this is based -->
                             <?php if($facetLabel($name) == 'Resource class'):?>
-                                <input type="text" id="search-facet-resource-class" oninput="filterFacetOptions('search-facet-resource-class')" placeholder="Type to filter..." style="margin:5% 0%;">
+                                <input type="text" id="search-facet-resource-class" oninput="filterFacetOptions('search-facet-resource-class')" placeholder="Type to filter...">
                             <?php endif;?>
                             <?php if($facetLabel($name) == 'Resource template'):?>
-                                <input type="text" id="search-facet-resource-template" oninput="filterFacetOptions('search-facet-resource-template')" placeholder="Type to filter..." style="margin:5% 0%;">
+                                <input type="text" id="search-facet-resource-template" oninput="filterFacetOptions('search-facet-resource-template')" placeholder="Type to filter...">
                             <?php endif;?>
                             <?php if($facetLabel($name) == 'Collection'):?>
-                                <input type="text" id="search-facet-item-set" oninput="filterFacetOptions('search-facet-item-set')" placeholder="Type to filter..." style="margin:5% 0%;">
+                                <input type="text" id="search-facet-item-set" oninput="filterFacetOptions('search-facet-item-set')" placeholder="Type to filter..." >
                             <?php endif;?>
                             <?php if($facetLabel($name) == 'Author'):?>
-                                <input type="text" id="search-facet-author" oninput="filterFacetOptions('search-facet-author')" placeholder="Type to filter..." style="margin:5% 0%;">
+                                <input type="text" id="search-facet-author" oninput="filterFacetOptions('search-facet-author')" placeholder="Type to filter..." >
                             <?php endif;?>
                             <?php if($facetLabel($name) == 'Creator'):?>
-                                <input type="text" id="search-facet-creator" oninput="filterFacetOptions('search-facet-creator')" placeholder="Type to filter..." style="margin:5% 0%;">
+                                <input type="text" id="search-facet-creator" oninput="filterFacetOptions('search-facet-creator')" placeholder="Type to filter..." >
                             <?php endif;?>
 
                             <?php if ($facetType === 'Select'): ?>
