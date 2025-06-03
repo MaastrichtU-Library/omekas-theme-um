@@ -406,14 +406,15 @@ screen and (max-height: 600px) {
         display: none;
     }
 
-    aside {
-        display: none;
+    aside.search-facets {
+        flex-basis: 100% !important;
     }
 
     #footer-logo {
         max-width: 60% ;/*!important;*/
         margin-bottom: 2em;
     }
+    
 
 
 
