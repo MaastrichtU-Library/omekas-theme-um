@@ -387,7 +387,10 @@ screen and (max-height: 600px) {
         font-size: 14px;
         line-height: auto;
     }
-
+    .search-facets button {
+        height: 100%;
+        margin-bottom: 0.5em;
+    }
     nav.pagination .page-count {
         margin: 2px 0 0 0;
     }
