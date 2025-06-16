@@ -1216,19 +1216,16 @@ footer a:visited {
 
 .og-grid > li {
     /* display: inline-block; */
-    /* margin: 0;*/
+    margin: 0;
     vertical-align: top;
-    height: 250px;
+    height: auto;
 }
 
 .og-grid > li > a, .og-grid > li > a img {
-    border: none;
-    outline: none;
-    display: block;
-    position: relative;
     text-align: left;
     font-size: 18px;
     font-weight: bold;
+    width: 100%;
 }
 
 
