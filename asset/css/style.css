@@ -1121,7 +1121,7 @@ footer a:visited {
     -ms-flex-wrap: wrap;
     gap: 1.2em;
     flex-direction: row;
-    justify-content: center;
+    /* justify-content: center; */
     flex-wrap: wrap
 }
 
@@ -1131,10 +1131,12 @@ footer a:visited {
 
 
 .item-showcase h3 {
-    position: absolute;
+       /* position: absolute; */
     margin: 0;
     width: 100%;
-    bottom: 0 ;
+    bottom: 0;
+    width: 200px;
+    text-align: left;
 }
 
 .item.resource .caption {
@@ -1181,10 +1183,10 @@ footer a:visited {
 
 .item-showcase .resource.item:not(:only-child) h3 {
     clear: left;
-    font-size: 15px;
-    line-height: 30px;
+    font-size: 18px;
+    line-height: 26px;
     margin: 15px 0 0;
-    background-color: #ffffff85;
+    margin-top: 0;
 }
 
 .item-showcase .resource.item:not(:only-child) img {
@@ -1198,6 +1200,17 @@ footer a:visited {
 .right,
 .left {
     overflow: hidden
+}
+
+
+.og-grid {
+    list-style: none;
+    padding: 20px 0;
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .left .item.resource,
