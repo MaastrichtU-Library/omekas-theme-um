@@ -1205,13 +1205,33 @@ footer a:visited {
 
 .og-grid {
     list-style: none;
-    padding: 20px 0;
+    padding: 0;
     margin: 0 auto;
     text-align: center;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    gap: 1.2em; /* Same as Showcase */
 }
+
+.og-grid > li {
+    /* display: inline-block; */
+    /* margin: 0;*/
+    vertical-align: top;
+    height: 250px;
+}
+
+.og-grid > li > a, .og-grid > li > a img {
+    border: none;
+    outline: none;
+    display: block;
+    position: relative;
+    text-align: left;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
 
 .left .item.resource,
 .right .item.resource {
@@ -2230,7 +2250,7 @@ a.metadata-browse-link:hover {
 }
 
 #content .blocks a:link {
-    text-decoration: underline;
+    /* text-decoration: underline; */
     text-underline-offset: 3px;
 }
 
