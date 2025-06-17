@@ -1,8 +1,17 @@
+<div id="showcase-header">
+<?php if (!empty($heading)): // PV: restored 2025-6-17, no clue why this was missing... ?> 
+    <h2><?= $heading ?></h2>
+<?php endif; ?>
+</div>
 <div class="item-showcase">
+
+
+
+
 <?php foreach ($attachments as $attachment): ?>
     <div class="item resource">
     <!-- Change 2025-02-03 -->
-      <?php
+    <?php
     $item = $attachment->item();
     if ($item):
     ?>
