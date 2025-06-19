@@ -43,6 +43,9 @@ $facetElements = $isFacetModeButton ? $plugins->get('facetCheckboxes') : $plugin
 $facetSelect = $plugins->get('facetSelect');
 $facetSelectRange = $plugins->get('facetSelectRange');
 $facetElementsTree = $isFacetModeButton ? $plugins->get('facetCheckboxesTree') : $plugins->get('facetLinksTree');
+$FacetSearchList=str_replace(', ',',',$this->themeSetting('FacetSearchBox'));
+$FacetTagList=explode(",", $FacetSearchList);
+        
 
 // Don't display facets for item sets when browsing an item set.
 if (!empty($itemSet)) {
@@ -69,6 +72,9 @@ $options = $searchConfig->setting('facet', []);
         <?php if ($displayFacetButton): ?>
             <?= $this->hiddenInputsFromFilteredQuery(null, ['facet', 'page', 'limit', 'offset', 'per_page']) ?>
         <?php endif; ?>
+        
+       
+        
 
         <?php $r = ($displayReset === 'above' || $displayReset === 'both'); ?>
         <?php $s = ($displayFacetButton && ($displaySubmit === 'above' || $displaySubmit === 'both')); ?>
@@ -94,12 +100,11 @@ $options = $searchConfig->setting('facet', []);
                             <summary>
                                 <h4 style="display: inline"><?= $translate($facetLabel($name)) ?></h4>
                             </summary>
-                            <?php 
-                                $FacetSearchList=str_replace(', ',',',$this->themeSetting('FacetSearchBox'));
-                                $FacetTagList=explode(",", $FacetSearchList);
-                            ?>
+                           
                             <!-- Enrich some facets with a search box -->
                             <!-- Many thanks to KU Leuven for sharing the code on which this is based -->
+                            <!-- Facet search field is added to theme and loaded in the top
+                                 of this page in array $FacetTagList. -->
                             <?php if(in_array($facetLabel($name),$FacetTagList)):?>
                                 <input type="text" id="search-facet-resource-class" oninput="filterFacetOptions('search-facet-resource-class')" placeholder="Type to filter...">
                             <?php endif;?>
