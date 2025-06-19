@@ -1195,12 +1195,12 @@ footer a:visited {
     width: auto;
     float: none;
     margin-right: 0;
-    vertical-align: top
+    vertical-align: top;
 }
 
 .right,
 .left {
-    overflow: hidden
+    overflow: hidden;
 }
 
 
@@ -1217,7 +1217,7 @@ footer a:visited {
 
 .og-grid > li {
     /* display: inline-block; */
-    margin: 0;
+    margin: 0 !important;
     vertical-align: top;
     height: auto;
 }
