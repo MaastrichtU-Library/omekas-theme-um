@@ -95,7 +95,7 @@ $options = $searchConfig->setting('facet', []);
                                 <h4 style="display: inline"><?= $translate($facetLabel($name)) ?></h4>
                             </summary>
                             <?php 
-                                $FacetSearchList=str_replace(', ',',',$this->themeSetting('FacetSearchList'));
+                                $FacetSearchList=str_replace(', ',',',$this->themeSetting('FacetSearchBox'));
                                 $FacetTagList=explode(",", $FacetSearchList);
                             ?>
                             <!-- Enrich some facets with a search box -->
