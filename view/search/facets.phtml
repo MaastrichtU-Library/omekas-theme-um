@@ -43,8 +43,13 @@ $facetElements = $isFacetModeButton ? $plugins->get('facetCheckboxes') : $plugin
 $facetSelect = $plugins->get('facetSelect');
 $facetSelectRange = $plugins->get('facetSelectRange');
 $facetElementsTree = $isFacetModeButton ? $plugins->get('facetCheckboxesTree') : $plugins->get('facetLinksTree');
-$FacetSearchList=str_replace(', ',',',$this->themeSetting('FacetSearchBox'));
-$FacetTagList=explode(",", $FacetSearchList);
+$facetSearchList=str_replace(', ',',',$this->themeSetting('FacetSearchBox'));
+$facetTagList=explode(",", $facetSearchList);
+$facetTypes= json_encode($facets);
+
+
+
+
         
 
 // Don't display facets for item sets when browsing an item set.
@@ -57,6 +62,7 @@ $options = $searchConfig->setting('facet', []);
 ?>
 
 <aside class="search-facets">
+    <?php //echo "test". implode($facetTagList) ;?>
 
     <?php if ($facetsLabel = $searchConfig->subSetting('facet', 'label', $translate('Facets'))): ?>
         <h3><?= $escape($facetsLabel) ?></h3>
@@ -94,6 +100,13 @@ $options = $searchConfig->setting('facet', []);
         <?php else: ?>
             <ul class="search-facets-list">
                 <?php foreach ($facets as $name => $facetValues): ?>
+                    <?php 
+                        $facetFieldName= 'search-facet-'.$name;   
+                        
+                        //echo "test". $facetFieldName;
+                        
+                        
+                    ?>
                     <?php $facetType = empty($options['facets'][$name]['type']) ? 'Checkbox' : $options['facets'][$name]['type']; ?>
                     <li class="search-facet">
                         <details>
@@ -105,8 +118,9 @@ $options = $searchConfig->setting('facet', []);
                             <!-- Many thanks to KU Leuven for sharing the code on which this is based -->
                             <!-- Facet search field is added to theme and loaded in the top
                                  of this page in array $FacetTagList. -->
-                            <?php if(in_array($facetLabel($name),$FacetTagList)):?>
-                                <input type="text" id="search-facet-resource-class" oninput="filterFacetOptions('search-facet-resource-class')" placeholder="Type to filter...">
+                            <?php if(in_array($facetLabel($name),$facetTagList)):?>
+                                
+                                <input type="text" id="<?php echo $facetFieldName?>" oninput="filterFacetOptions('<?php echo $facetFieldName?>')" placeholder="Type to filter...">
                             <?php endif;?>
                             <?php if ($facetType === 'Select'): ?>
                                 <?= $facetSelect($name, $facetValues, $options) ?>
