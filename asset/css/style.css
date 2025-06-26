@@ -1203,6 +1203,31 @@ footer a:visited {
     overflow: hidden;
 }
 
+/* Blocks-plus-styling */
+.left-33
+{
+    width: 33%;
+    float: left;
+}
+.right-33
+{
+    float: right;
+    width: 33%;
+}
+.right-66
+{
+    float: right;
+    width: 66%;
+    padding-left: 2em;
+}
+.left-66
+{
+    width: 66%;
+    float: left;
+    padding-right: 2em;
+}
+
+
 
 .og-grid {
     list-style: none;
@@ -1214,6 +1239,11 @@ footer a:visited {
     flex-wrap: wrap;
     gap: 1.2em; /* Same as Showcase */
 }
+
+.preview-grid .og-grid > li {
+    height: auto;
+}
+
 
 .og-grid > li {
     /* display: inline-block; */
