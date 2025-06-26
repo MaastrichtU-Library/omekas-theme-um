@@ -1226,6 +1226,9 @@ footer a:visited {
     float: left;
     padding-right: 2em;
 }
+.left-66 h2, .right-66 h2{
+    margin-top: 0 !important;
+}
 
 
 
