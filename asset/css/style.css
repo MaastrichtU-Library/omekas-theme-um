@@ -2952,3 +2952,40 @@ a.metadata-browse-link:hover {
         width: 100%;
     }
 }
+
+/* Grid layout for BlockPlus's Asset widget for showing content in a 4-column grid on large screens and below each other on mobile */
+.block-asset.assets {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.asset {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.link-title {
+    margin-top: 0.5em;
+    display: block;
+    text-align: center;
+}
+
+.asset img {
+    width: 230px;
+    height: 230px;
+    object-fit: cover;
+    display: block;
+}
+
+@media (max-width: 800px) {
+    .block-asset.assets {
+        grid-template-columns: 1fr;
+    }
+    .asset img {
+        width: 100%;
+        max-width: 350px;
+        height: auto;
+    }
+}
