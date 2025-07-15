@@ -1131,15 +1131,17 @@ footer a:visited {
 
 
 .item-showcase h3 {
-       /* position: absolute; */
-    margin: 0;
-    width: 100%;
-    bottom: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+
     width: 300px;
-    text-align: left;
+  /* font-size: 14px; */
+  text-align: left;
+  font-weight: 500;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
 }
 
 .item.resource .caption {
