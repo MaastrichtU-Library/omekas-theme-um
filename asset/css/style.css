@@ -34,7 +34,7 @@
 */
 
 .page-header {
-    width: 100vw;
+    width: 99vw;
     margin-left: 50%;
     transform: translateX(-50%);
     margin-top: -15px;
