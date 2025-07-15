@@ -1135,7 +1135,10 @@ footer a:visited {
     margin: 0;
     width: 100%;
     bottom: 0;
-    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 300px;
     text-align: left;
 }
 
