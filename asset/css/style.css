@@ -1425,8 +1425,26 @@ ul.resource-list {
     padding-left: 0;
     margin-top: 0;
 }
+.search-results .resource-list.list .resource {
+    display: block !important;
+}
+.search-results .resource-list.list .resource-thumbnail {
+    margin: 0 1em 0.5em 0.5em !important;
+}
+
+
+.search-results .resource-list.list .resource-thumbnail .resource-link img {
+    max-width: none !important;
+    max-height: none !important;
+    width: 200px !important;
+    height: auto;
+    margin: 0 2em 0 auto;
+    padding: 0;
+}
+
 
 ul.resource-list .resource {
+    flex-flow: row nowrap !important;
     padding: 29px 3.38983%;
     margin: 0;
     overflow: hidden;
