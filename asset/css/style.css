@@ -1055,16 +1055,12 @@ footer a:visited {
     margin-top: 115px;
 
 }
-.block-showcase{
-    display:flex;
-    gap:1.2em;
-}
 .block-showcase .layout-horizontal{
+    display: flex;
     flex-direction: row;
+    gap: 1.2em;
 }
-.block-showcase .caption{
-    display: none;
-}
+
 .block-showcase img{
     height: 300px;
     width: auto;
@@ -1183,6 +1179,23 @@ footer a:visited {
     margin-top: 0 !important;
 }
 
+.og-expander{
+    width: 80vw !important;
+}
+.og-expander-inner{
+    width: 80vw;
+}
+
+.og-fullimg {
+    width: 30% !important;
+}
+.og-details {
+    width: 60% !important;
+}
+
+.og-details h3{
+    font-size: 20px !important;
+}
 
 
 .og-grid {
@@ -1197,6 +1210,7 @@ footer a:visited {
 }
 
 .preview-grid .og-grid > li {
+    position: relative;
     height: auto;
 }
 
