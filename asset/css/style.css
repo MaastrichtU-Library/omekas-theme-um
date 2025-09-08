@@ -34,7 +34,7 @@
 */
 
 .page-header {
-    width: 100vw;
+    width: 99vw;
     margin-left: 50%;
     transform: translateX(-50%);
     margin-top: -15px;
@@ -1193,8 +1193,21 @@ footer a:visited {
     width: 60% !important;
 }
 
+.og-grid .og-details h3{
+    font-size: 20px !important;
+    font-weight: 600 !important;
+}
+
 .og-details h3{
     font-size: 20px !important;
+    font-weight: 600;
+}
+.og-details p, .og-details div{
+    font-size: 16px !important;
+    line-height: 1.5em !important; 
+    margin: 0.5em 0 !important;
+    color: #000000 !important;    
+
 }
 
 
@@ -1738,10 +1751,14 @@ body.resource #content>h2:first-of-type+h3 {
 }
 
 .item-set .metadata .resource-link img {
-    height: 45px;
+    height: 75px;
+    width: 75px;
+    object-fit: cover;
+    
 }
 
 #item-page-properties .resource-link img {
+    
     height: 45px;
 }
 

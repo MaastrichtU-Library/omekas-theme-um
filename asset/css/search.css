@@ -108,3 +108,9 @@ aside.search-facets h4
 .search-facet-item input[type=checkbox] {
     vertical-align: middle;
 }
+
+.search-results .resource-list.grid .resource {
+    display: block !important;
+    text-align: center;
+    padding: 0.5em !important;
+}
