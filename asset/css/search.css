@@ -108,9 +108,46 @@ aside.search-facets h4
 .search-facet-item input[type=checkbox] {
     vertical-align: middle;
 }
+.search-results .resource-list.list .resource-thumbnail
+{
+    margin: 10px !important;
+}
+
+.search-results .resource-list.list .resource-thumbnail .resource-link img {
+    max-width: 120px !important;
+    max-height: unset !important;
+    width: auto;
+    height: auto;
+    margin: 0 0 0 auto;
+    padding: 0;
+}
+
+.search-results .resource-list.list .resource {
+    display: flex;
+    flex-flow: row !important;
+    padding: 6px 0 5px;
+}
+.search-results .resource-list.list .resource   .resource-thumbnail {
+    width: 120px;
+    margin-right: 1em;
+    flex-shrink: 0;
+}
 
 .search-results .resource-list.grid .resource {
-    display: block !important;
+    flex-flow: column ;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 20px 12px 4px 12px !important;
+}
+.search-results .resource-list.grid .resource-heading {
+     width: 240px;
+    
     text-align: center;
-    padding: 0.5em !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 }

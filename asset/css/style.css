@@ -48,7 +48,7 @@
 
 @media screen {
     * {
-        box-sizing: border-box
+        box-sizing: border-box;
     }
 
     html {
@@ -135,7 +135,7 @@
         /*aangepast van 600 naar 900*/
         letter-spacing: .39px;
         /*line-height: 1.4em;*/
-        line-height: 0 em;
+        line-height: 1em;
     }
 
     img {
@@ -622,7 +622,7 @@
     }
 
     header nav>ul li.active ul {
-        background-color: #FFFFFFF;
+        background-color: #FFFFFF;
     }
 
     header nav>ul ul li {
@@ -1055,34 +1055,8 @@ footer a:visited {
     margin-top: 115px;
 
 }
-.block-showcase .layout-horizontal{
-    display: flex;
-    flex-direction: row;
-    gap: 1.2em;
-}
 
-.block-showcase img{
-    height: 300px;
-    width: auto;
-    float: none;
-    margin-right: 0;
-    vertical-align: top;
-}
 
-.block-showcase h3{
-    width: 300px;
-    /* font-size: 14px; */
-    text-align: left;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin: 0;
-    font-size: 1.2em;
-    line-height: 1.2em;
-
-}
 
 #item-page h3 {
     font-size: 1.2rem;
@@ -1132,6 +1106,43 @@ footer a:visited {
 }
 
 
+.item-showcase {
+    position: relative;
+    margin: 0;
+    border-top: none;
+    border-bottom: none;
+    /* padding: 29px 0 0; */
+    overflow: hidden;
+    text-align: center;
+    clear: both;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    gap: 1.2em;
+    flex-direction: row;
+    /* justify-content: center; */
+    flex-wrap: wrap
+}
+
+.item-showcase .item .resource{
+    position: relative;
+}
+
+
+.item-showcase h3 {
+
+    width: 300px;
+  /* font-size: 14px; */
+  text-align: left;
+   display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
+
 .item.resource .caption {
     font-size: 15px;
     line-height: 30px
@@ -1145,7 +1156,51 @@ footer a:visited {
     margin-bottom: 0
 }
 
+.item-showcase .resource.item {
+    position: relative;
+    vertical-align:middle;
+    margin-bottom: 0px;
+    object-fit: cover;
+    
+}
 
+.item-showcase .resource.item img {
+    /* margin-right: 15px */
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    
+    
+}
+
+.item-showcase .resource.item:only-child img {
+    margin: 0 auto
+    
+}
+
+.item-showcase .resource.item:not(:only-child) {
+    width: auto;
+    clear: none;
+    position: relative;
+    /* padding: 0 1.69492% */
+}
+
+.item-showcase .resource.item:not(:only-child) h3 {
+    clear: left;
+    font-size: 18px;
+    line-height: 26px;
+    margin: 15px 0 0;
+    margin-top: 0;
+}
+
+.item-showcase .resource.item:not(:only-child) img {
+    /* max-height: 210px; */
+    height:300px;
+    width: auto;
+    float: none;
+    margin-right: 0;
+    vertical-align: top;
+}
 
 .right,
 .left {
@@ -1179,36 +1234,6 @@ footer a:visited {
     margin-top: 0 !important;
 }
 
-.og-expander{
-    width: 80vw !important;
-}
-.og-expander-inner{
-    width: 80vw;
-}
-
-.og-fullimg {
-    width: 30% !important;
-}
-.og-details {
-    width: 60% !important;
-}
-
-.og-grid .og-details h3{
-    font-size: 20px !important;
-    font-weight: 600 !important;
-}
-
-.og-details h3{
-    font-size: 20px !important;
-    font-weight: 600;
-}
-.og-details p, .og-details div{
-    font-size: 16px !important;
-    line-height: 1.5em !important; 
-    margin: 0.5em 0 !important;
-    color: #000000 !important;    
-
-}
 
 
 .og-grid {
@@ -1223,7 +1248,6 @@ footer a:visited {
 }
 
 .preview-grid .og-grid > li {
-    position: relative;
     height: auto;
 }
 
@@ -1452,26 +1476,8 @@ ul.resource-list {
     padding-left: 0;
     margin-top: 0;
 }
-.search-results .resource-list.list .resource {
-    display: block !important;
-}
-.search-results .resource-list.list .resource-thumbnail {
-    margin: 0 1em 0.5em 0.5em !important;
-}
-
-
-.search-results .resource-list.list .resource-thumbnail .resource-link img {
-    max-width: none !important;
-    max-height: none !important;
-    width: 200px !important;
-    height: auto;
-    margin: 0 2em 0 auto;
-    padding: 0;
-}
-
 
 ul.resource-list .resource {
-    flex-flow: row nowrap !important;
     padding: 29px 3.38983%;
     margin: 0;
     overflow: hidden;
@@ -1757,8 +1763,8 @@ body.resource #content>h2:first-of-type+h3 {
     
 }
 
+
 #item-page-properties .resource-link img {
-    
     height: 45px;
 }
 
