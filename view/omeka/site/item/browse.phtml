@@ -12,6 +12,11 @@ $itemSetShow = isset($itemSet);
 $siteUrl = $site->url();
 $filters = $this->searchFilters();
 $searchEngine=$this->themeSetting('searchController') ;
+
+# addition 2025-01-29
+$customFieldList=str_replace(' ','',$this->themeSetting('CustomFieldList'));
+$tagTermList=explode(",", $customFieldList);
+# end addition 2025-01-29
 ?>
 
 
@@ -72,7 +77,7 @@ $searchEngine=$this->themeSetting('searchController') ;
     <?php $this->trigger('view.browse.before'); ?>
     <div class="sections">
         <ul class="resource-list" id="results-list">
-        <hr class="decorative-hr" />
+        <!-- <hr class="decorative-hr" /> -->
        <?php
 foreach ($items as $item):
     //$heading = $headingTerm ? $item->value($headingTerm, ['default' => $translate('[Untitled]')]) : $item->displayTitle();
@@ -82,11 +87,13 @@ foreach ($items as $item):
 	// Show tags
 	//Todo Cleanup 'schema:sourceOrganization',
 	//'modsrdf:name',
-	
-    $tagTerms = ['modsrdf:subject',  'dcterms:temporal','umnl:author_lastName', 'modsrdf:name', 'modsrdf:namePrincipal','schema:contributor',  'schema:dateIssued'];
-	$showLabel = true;
+
+    #  $tagTerms = ['modsrdf:subject',  'dcterms:temporal','umnl:author_lastName', 'modsrdf:name', 'modsrdf:namePrincipal','schema:contributor',  'schema:dateIssued'];
+    $tagTerms = $tagTermList;
+    $showLabel = true;
     $tester="";
     $vals = $item->values();
+    $template = $item->resourceTemplate();
 	
     $tagHtml = '';
     foreach ($tagTerms as $tagTerm)
@@ -95,15 +102,19 @@ foreach ($items as $item):
         {
 			$tagLabel="";
             $fields = $vals[$tagTerm]['values'];
-			
+			//PV 2023-11-05: This piece of code gets the resource template fot the current field.
+            $templateProperty = $template ? $template->resourceTemplateProperty($fields[0]->property()->id()) : null;
+            $altLabel = $templateProperty ? $templateProperty->alternateLabel() : null;
+
+
             if(($fields!=null)&&(count($fields)))
             {
                 $tagHtml .= '<div class="tag-group ' . str_replace(':', '\:', $tagTerm) . '">';
                 if($showLabel)
                 {
-					
-					$label = $fields[0]->property()->label();
-					
+                    $label = $fields[0]->property()->label();
+                    $label = $altLabel?$altLabel:$label;
+                    $tagLabel=$label;
 					
 					$fv='props ';
 					//$tt=$vals[$tagTerm][0]->properties();
@@ -162,6 +173,7 @@ foreach ($items as $item):
 	
 ?>
        <li class="item resource">
+    
 	   <?php echo $item->linkRaw($this->thumbnail($item, 'medium'), null, ['class' => 'item-thumbnail']); ?>
         <div class="item-meta">
             <h4><?php echo $item->link($heading); ?></h4>

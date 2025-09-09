@@ -1,23 +1,34 @@
+<div id="showcase-header">
+<?php if (!empty($heading)): // PV: restored 2025-6-17, no clue why this was missing... ?> 
+    <h2><?= $heading ?></h2>
+<?php endif; ?>
+</div>
 <div class="item-showcase">
+
+
+
+
 <?php foreach ($attachments as $attachment): ?>
     <div class="item resource">
+    <!-- Change 2025-02-03 -->
     <?php
     $item = $attachment->item();
     if ($item):
     ?>
         
-        <?php $showTitleOption = $this->showTitleOption; ?>
-        <?php if ($showTitleOption == 'item_title'): ?>
-        <h3><?php echo $item->link($item->displayTitle()); ?></h3>
-        <?php elseif ($showTitleOption == 'file_name'): ?>
-        <h3><?php echo $media->displayTitle(); ?></h3>
-        <?php endif; ?>
+       
 		<?php
         $media = $attachment->media() ?: $item->primaryMedia();
         if ($media):
             echo $item->linkRaw($this->thumbnail($media, $this->thumbnailType));
         endif;
         ?>
+         <?php $showTitleOption = $this->showTitleOption; ?>
+        <?php if ($showTitleOption == 'item_title'): ?>
+        <h3><?php echo $item->link($item->displayTitle()); ?></h3>
+        <?php elseif ($showTitleOption == 'file_name'): ?>
+        <h3><?php echo $media->displayTitle(); ?></h3>
+        <?php endif; ?>
 		
 		
     <?php endif; ?>
@@ -28,6 +39,7 @@
     ?>
         <div class="caption"><?php echo $caption; ?></div>
     <?php endif; ?>
+    
     </div>
 <?php endforeach; ?>
 </div>

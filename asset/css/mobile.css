@@ -52,13 +52,17 @@ screen and (max-height: 600px) {
     header.scroll #top-bar {
         height: 40px;
     }
+    header.scroll #top-bar #institution-logo img {
+        left: 0;
+    }
+
 
     header #top-bar #Logo-div {
         display: flex;
     }
 
     header #top-bar #institution-logo {
-        margin: 4px 0 0 10px;
+        margin: 4px 0 0 120px;
         flex-grow: 1;
     }
 
@@ -66,7 +70,7 @@ screen and (max-height: 600px) {
 
     header #site-header-title {
         position: relative;
-        top: 36px;
+        top: 34px;
         flex-grow: 0;
         margin: 0 0 0 0;
     }
@@ -85,7 +89,7 @@ screen and (max-height: 600px) {
 
     header.scroll #site-header-title {
         position: relative;
-        top: 36px;
+        top: 34px;
         left: 0px;
     }
 
@@ -151,6 +155,16 @@ screen and (max-height: 600px) {
         display: block;
     }
 
+    header nav>ul>li>ul>li.active>a:before {
+        display: inline-block;
+        width: 1.5em;
+        color: #fff;
+    }
+
+    header nav>ul>li>ul>li a {
+        font-weight: 500;
+        background-color: #fff;
+    }
 
     #search-head {
         display: none;
@@ -161,7 +175,7 @@ screen and (max-height: 600px) {
     }
 
     .search-page #content {
-        margin: 26px auto 0 auto;
+        margin: 42px auto 0 auto;
     }
 
 
@@ -305,12 +319,12 @@ screen and (max-height: 600px) {
     }
 
     .pagination .button {
-        background-color: #001C3D;
+        /* background-color: #001C3D; */
         width: 25px;
         text-align: center;
         padding: 0px;
         border-radius: 2px;
-        color: white;
+        /* color: white; */
         line-height: 20px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     }
@@ -351,7 +365,8 @@ screen and (max-height: 600px) {
     }
 
     .search-results-wrapper {
-        display: block;
+        display: flex !important;
+        flex-direction: column;
     }
 
     #advanced-search-form {
@@ -372,7 +387,10 @@ screen and (max-height: 600px) {
         font-size: 14px;
         line-height: auto;
     }
-
+    .search-facets button {
+        height: 100%;
+        margin-bottom: 0.5em;
+    }
     nav.pagination .page-count {
         margin: 2px 0 0 0;
     }
@@ -391,9 +409,15 @@ screen and (max-height: 600px) {
         display: none;
     }
 
-    aside {
-        display: none;
+    aside.search-facets {
+        flex-basis: 100% !important;
     }
+
+    #footer-logo {
+        max-width: 60% ;/*!important;*/
+        margin-bottom: 2em;
+    }
+    
 
 
 
@@ -412,4 +436,16 @@ screen and (max-height: 600px) {
     }
 
 
+}
+@media screen and (max-width: 400px),
+screen and (max-height: 400px) 
+{
+    header #top-bar #institution-logo {
+        margin: 4px 0 0 0px;
+        flex-grow: 1;
+    }
+    #footer-logo {
+        max-width: 100%;
+        margin-bottom: 2em;
+    }
 }
