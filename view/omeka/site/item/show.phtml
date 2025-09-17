@@ -70,16 +70,23 @@ $mediaTypes = array_map(function($child) {
             </div>
 
         <?php elseif (in_array("application/pdf", $mediaTypes)) : ?>
-            <!-- Use the PDF viewer when any of the media is a PDF,  -->
-            <div class="media-embeds <?php echo $rc ." ".$mbc ;?>">
-                <?php foreach ($itemMedia as $media):?>
-                    <div class="media-box <?php echo $rc;?>">
-                        <div class="media-box-content">
-                            <?php echo $media->render(); ?>
-                        </div>
+        <div class="media-embeds <?php echo $rc ." ".$mbc ;?>">
+            <?php foreach ($itemMedia as $media): ?>
+                <div class="media-box <?php echo $rc; ?>">
+                    <div class="media-box-content">
+<!--                        <iframe-->
+<!--                                src="/modules/PdfViewer/asset/vendor/pdf.js/web/viewer.html?file=--><?php //echo rawurlencode($media->originalUrl()); ?><!--"-->
+<!--                                width="100%"-->
+<!--                                height="600px"-->
+<!--                                style="border:none"-->
+<!--                                >-->
+<!--                        </iframe>-->
+                        <?php echo $media->render();?>
                     </div>
-                <?php endforeach;?>
-            </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
 
         <?php else: ?>
             <!-- Use an IIIF viewer in all other cases -->
