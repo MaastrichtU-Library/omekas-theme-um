@@ -1,4 +1,9 @@
 <?php
+
+// Customized version of 'results-header-footer.phtml' from module 'AdvancedSearch'
+// Customizations:
+// - custom feature list-grid icons: icons next to the list|grid links on the search results page
+
 /**
  * @var \Laminas\View\Renderer\PhpRenderer $this
  * @var \Omeka\Api\Representation\SiteRepresentation|null $site
@@ -92,8 +97,13 @@ $multiMode = isset($displayParts['grid_list']) && !in_array($gridListMode, ['lis
 
 <?php if ($multiMode): ?>
     <div class="search-results-display">
-        <a class="search-view-type search-view-type-list<?= $gridListMode === 'list' ? ' active' : '' ?>" href="#"><?= $translate('list') ?></a>
-        |
-        <a class="search-view-type search-view-type-grid<?= $gridListMode === 'grid' ? ' active' : '' ?>" href="#"><?= $translate('grid') ?></a>
+        <?php // BEGIN custom feature list-grid icons ?>
+        <a class="search-view-type search-view-type-list<?= $gridListMode === 'list' ? ' active' : '' ?>" href="#">
+            <i class="fas fa-list"></i> &nbsp <?= $translate('list') ?>
+        </a>
+        <a class="search-view-type search-view-type-grid<?= $gridListMode === 'grid' ? ' active' : '' ?>" href="#">
+            <i class="fas fa-grip-horizontal"></i> &nbsp <?= $translate('grid') ?>
+        </a>
+        <?php // END custom feature list-grid icons ?>
     </div>
 <?php endif; ?>
