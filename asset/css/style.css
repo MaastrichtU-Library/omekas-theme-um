@@ -2955,7 +2955,7 @@ a.metadata-browse-link:hover {
 }
 
 @media (max-width: 800px) {
-    .column-33, .column-50 .column-66 {
+    .column-33, .column-50, .column-66 {
         width: 100%;
     }
 }
