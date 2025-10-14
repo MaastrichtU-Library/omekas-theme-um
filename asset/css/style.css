@@ -622,7 +622,7 @@
     }
 
     header nav>ul li.active ul {
-        background-color: #FFFFFFF;
+        background-color: #FFFFFF;
     }
 
     header nav>ul ul li {
@@ -1137,6 +1137,7 @@ footer a:visited {
   text-align: left;
    display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1536,6 +1537,7 @@ ul.resource-list .resource h5 a {
     line-height: 1.3rem;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -3015,6 +3017,7 @@ a.metadata-browse-link:hover {
     line-height: 1.4rem;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
