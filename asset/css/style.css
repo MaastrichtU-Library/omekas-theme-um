@@ -1195,8 +1195,8 @@ footer a:visited {
 
 .item-showcase .resource.item:not(:only-child) img {
     /* max-height: 210px; */
-    height:300px;
-    width: 200px;
+    height:200px;
+    width: 300px;
     float: none;
     margin-right: 0;
     vertical-align: top;
@@ -1263,7 +1263,7 @@ footer a:visited {
     text-align: left;
     font-size: 18px;
     font-weight: bold;
-    width: 250px;
+    width: 300px;
     margin: 0 0 0.4em 0;
     font-size: 1rem;
     font-weight: bold;
