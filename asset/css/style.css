@@ -1187,16 +1187,15 @@ footer a:visited {
 
 .item-showcase .resource.item:not(:only-child) h3 {
     clear: left;
-    font-size: 18px;
-    line-height: 26px;
-    margin: 15px 0 0;
-    margin-top: 0;
+    font-size: 1.1rem;
+    line-height: 1.6rem;
+    margin: 2px 0 0;
 }
 
 .item-showcase .resource.item:not(:only-child) img {
     /* max-height: 210px; */
     height:300px;
-    width: auto;
+    width: 200px;
     float: none;
     margin-right: 0;
     vertical-align: top;
@@ -1249,7 +1248,7 @@ footer a:visited {
 
 .preview-grid .og-grid > li {
     height: auto;
-    width: 250px;
+    width: 300px;
 }
 
 
@@ -2992,7 +2991,7 @@ a.metadata-browse-link:hover {
     }
 }
 .block-asset.assets, .og-grid {
-    gap: 3em;
+    gap: 1em;
 }
 /* Grid layout for BlockPlus's Asset widget for showing content in a 4-column grid on large screens and below each other on mobile */
 .block-asset.assets {
