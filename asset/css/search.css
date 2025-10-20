@@ -63,7 +63,7 @@ a.search-view-type svg.icon{
 }
 
 .search-results .resource-list.grid .resource .tags{
-	display:flex;
+	display:none;
 	
 }
 .search-results .resource-list.grid .resource-thumbnail {
@@ -72,7 +72,7 @@ a.search-view-type svg.icon{
     /* display: block; */
 	/* clear:both; */
     /* justify-content: center; */
-    /* padding: 29px 0; */
+    padding: 0 0 52px 0 !important;
 }
 
 aside.search-facets h3, h4{
