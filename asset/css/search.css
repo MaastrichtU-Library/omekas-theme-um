@@ -105,6 +105,12 @@ aside.search-facets h4
     padding: 0 0.5em !important;
     min-width: 22% !important;	
 }
+
+.search-facet-items{
+    overflow: auto;     /* Adds a scrollbar when the facet contains a lot of values */
+    max-height: 150px;
+}
+
 .search-facet-item input[type=checkbox] {
     vertical-align: middle;
 }
