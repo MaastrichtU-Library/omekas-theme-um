@@ -1,0 +1,122 @@
+/* Block Plus module specific styles */
+
+.left-33
+{
+    width: 33%;
+    float: left;
+}
+.right-33
+{
+    float: right;
+    width: 33%;
+}
+.right-66
+{
+    float: right;
+    width: 66%;
+    padding-left: 2em;
+}
+.left-66
+{
+    width: 66%;
+    float: left;
+    padding-right: 2em;
+}
+.left-66 h2, .right-66 h2{
+    margin-top: 0 !important;
+}
+
+.og-grid {
+    list-style: none;
+    padding: 0 !important;
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.preview-grid .og-grid > li {
+    height: auto;
+    width: 300px;
+}
+
+.preview-grid #og-grid img.medium-img {
+    height: 200px;
+}
+
+.og-grid > li {
+    margin: 0 !important;
+    vertical-align: top;
+    height: auto;
+}
+
+.og-grid > li > a, .og-grid > li > a img {
+    text-align: left;
+    font-weight: bold;
+    width: 300px;
+    margin: 0 0 0.4em 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: left;
+    line-height: 1.6rem;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Grid layout for BlockPlus's Asset widget for showing content in a 4-column grid on large screens and below each other on mobile */
+.block-asset.assets {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.asset {
+    align-items: center;
+}
+
+.asset .link-title {
+    width: 250px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: left;
+    line-height: 1.4rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.link-title {
+    margin-top: 0.5em;
+    display: block;
+    text-align: center;
+}
+
+.asset img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+@media (max-width: 800px) {
+    .block-asset.assets {
+        grid-template-columns: 1fr;
+    }
+
+    .block-asset.assets, .og-grid {
+        gap: 1em;
+    }
+
+    .asset img {
+        width: 100%;
+        max-width: 350px;
+        height: auto;
+    }
+}

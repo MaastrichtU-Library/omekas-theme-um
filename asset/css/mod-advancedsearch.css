@@ -1,3 +1,5 @@
+/* Advanced Search module specific styles */
+
 .search-results .resource-list {
     display: flex;
     flex-direction: column;
@@ -155,4 +157,14 @@ aside.search-facets h4
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.search-results .search-filters .filter a::after {
+    content: "x";
+    float: right;
+    margin: 0 9px 0 1px;
+    font-size: 0.8em;
+    font-weight: normal;
+    bottom: 5px;
+    position: relative;
 }

@@ -1,0 +1,43 @@
+/* Reference module specific styles */
+
+#primary.reference {
+    padding: 0 3.38983%;
+}
+
+#primary.reference h2 {
+    margin-top: 48px;
+    line-height: 1.1em;
+}
+
+.reference-pagination li.pagination-range {
+    color: #7b6a64;
+}
+
+.reference-pagination li.pagination-range a {
+    border: none !important;
+    background-color: #E9C46A;
+    border-radius: 4px;
+    margin-right: 5px !important;
+    margin-bottom: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.reference-pagination li.pagination-range a:hover {
+    background-color: #fadb6a !important;
+}
+
+
+@media screen and (min-width: 800px) {
+    #reference-headings {
+        column-count: 2;
+    }
+
+    #browse-facets-container #reference-headings {
+        column-count: 1;
+    }
+
+    #reference-headings h3 {
+        display: inline-block;
+        width: 100%;
+    }
+}

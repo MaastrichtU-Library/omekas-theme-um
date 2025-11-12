@@ -7,8 +7,11 @@ $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1')
 $this->headTitle($this->setting('installation_title', 'Omeka S'))->setSeparator(' · ');
 $this->headLink()->prependStylesheet($this->assetUrl('css/mobile.css')); // Responsive styles for mobile devices
 $this->headLink()->prependStylesheet($this->assetUrl('css/style.css')); // Generic (institutional?) Style elements
-$this->headLink()->prependStylesheet($this->assetUrl('css/search.css')); // Modified styles for Advanced Search module
-$this->headLink()->prependStylesheet($this->assetUrl('css/mirador.css')); // Modified styles for Mirador module
+$this->headLink()->prependStylesheet($this->assetUrl('css/mod-advancedsearch.css')); // Modified styles for Advanced Search module
+$this->headLink()->prependStylesheet($this->assetUrl('css/mod-blockplus.css')); // Modified styles for Block Plus module
+$this->headLink()->prependStylesheet($this->assetUrl('css/mod-mirador.css')); // Modified styles for Mirador module
+$this->headLink()->prependStylesheet($this->assetUrl('css/mod-reference.css')); // Modified styles for Reference module
+$this->headLink()->prependStylesheet($this->assetUrl('css/page-multi-col.css')); // Modified styles for Pages with multiple columns. This is hacked into Omeka 4.0.4 and probably not needed anymore in 4.1.x
 $this->headLink()->prependStylesheet($this->assetUrl('css/iconfonts.css', 'Omeka'));
 $this->headLink()->prependStylesheet('//fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700italic,700');
 $this->headLink()->prependStylesheet('//fonts.googleapis.com/css?family=Nunito:wght@300&display=swap');
