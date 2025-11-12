@@ -71,10 +71,11 @@ a.search-view-type svg.icon{
 .search-results .resource-list.grid .resource-thumbnail {
 	width:100%;
 	float: none;
-    /* display: block; */
-	/* clear:both; */
-    /* justify-content: center; */
     padding: 0 0 52px 0 !important;
+}
+
+.facet-button.expand, .facet-button.collapse {
+    color: #001C3d;     /* Overrides the font color that would otherwise be set by the 'button' class in style.css */
 }
 
 aside.search-facets h3, h4{
