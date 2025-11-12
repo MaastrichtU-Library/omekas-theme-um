@@ -1,30 +1,36 @@
+<?php
+// Customized version of 'application/view/common/pagination.phtml' from Omeka S core code.
+// Customizations:
+// - None: just copy-pasted the original file into the theme so that the UI elements (input box, next and previous buttons) are rendered as inline-blocks by the theme's CSS.
+
+$translate = $this->plugin('translate');
+?>
 <nav class="pagination" role="navigation">
-<?php if ($totalCount): ?>
+    <?php if ($totalCount): ?>
+        <form method="GET" action="">
+            <?php echo $this->queryToHiddenInputs(['page']); ?>
+            <input type="text" name="page" class="page-input-top" value="<?php echo $currentPage; ?>" size="4" <?php echo ($pageCount == 1) ? 'readonly' : ''; ?> aria-label="<?php echo $translate('Page'); ?>">
+            <span class="page-count"><?php echo sprintf($translate('of %s'), $pageCount); ?></span>
+        </form>
 
-    <?php if ($currentPage != 1): ?>
-    <?php echo $this->hyperlink('', $previousPageUrl, ['class' => 'previous o-icon-prev button', 'title' => $this->translate('Previous')]); ?>
+        <?php if ($currentPage != 1): ?>
+            <?php echo $this->hyperlink('', $previousPageUrl, ['class' => 'previous o-icon-prev button', 'title' => $translate('Previous'), 'aria-label' => $translate('Previous')]); ?>
+        <?php else: ?>
+            <span class="previous o-icon-prev button inactive"></span>
+        <?php endif; ?>
+
+        <?php if ($currentPage < $pageCount): ?>
+            <?php echo $this->hyperlink('', $nextPageUrl, ['class' => 'next o-icon-next button', 'title' => $translate('Next'), 'aria-label' => $translate('Next')]); ?>
+        <?php else: ?>
+            <span class="next o-icon-next button inactive"></span>
+        <?php endif; ?>
+
+        <?php
+        $from = $offset + 1;
+        $to = ($currentPage < $pageCount) ? $offset + $perPage : $totalCount;
+        ?>
+        <span class="row-count"><?php echo sprintf($translate('%1$s–%2$s of %3$s'), $from, $to, $totalCount); ?></span>
     <?php else: ?>
-    <span class="previous o-icon-prev button inactive"></span>
+        <?php echo $translate('0 results'); ?>
     <?php endif; ?>
-
-    <form method="GET" action="">
-        <?php echo $this->queryToHiddenInputs(['page']); ?>
-        <input type="text" name="page" class="page-input-top" value="<?php echo $currentPage; ?>" size="4" <?php echo ($pageCount == 1) ? 'readonly' : ''; ?>>
-        <span class="page-count"><?php echo sprintf($this->translate('of %s'), $pageCount); ?></span>
-    </form>
-
-    <?php if ($currentPage < $pageCount): ?>
-    <?php echo $this->hyperlink('', $nextPageUrl, ['class' => 'next o-icon-next button', 'title' => $this->translate('Next')]); ?>
-    <?php else: ?>
-    <span class="next o-icon-next button inactive"></span>
-    <?php endif; ?>
-
-    <?php
-    $from = $offset + 1;
-    $to = ($currentPage < $pageCount) ? $offset + $perPage : $totalCount;
-    ?>
-    <span class="row-count"><?php echo sprintf($this->translate('%s–%s of %s'), $from, $to, $totalCount); ?></span>
-<?php else: ?>
-    <?php echo $this->translate('0 results'); ?>
-<?php endif; ?>
 </nav>
