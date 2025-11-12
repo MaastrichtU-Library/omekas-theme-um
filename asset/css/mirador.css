@@ -1,9 +1,3 @@
-/* Set the font color for any button whose name starts with mirador */
-/* i.e. the text displayed by the OCR helper plugin */
-/*button[class^="mirador"] {*/
-/*    color: #282828;*/
-/*}*/
-
 /* Set the font color for any button whose name starts with 'ocr-line mirador' */
 /* i.e. the text displayed by the OCR helper plugin */
 button[class^="ocr-line mirador"] {
