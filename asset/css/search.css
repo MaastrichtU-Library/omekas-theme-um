@@ -75,6 +75,17 @@ a.search-view-type svg.icon{
     padding: 0 0 52px 0 !important;
 }
 
+.search-results .resource-list.grid .resource-thumbnail img {
+    height: auto;
+    max-height: 200px;
+    max-width: 150px !important;
+    width: 100%;
+    max-width: 200px;
+    margin: 0;
+    padding: 0;
+
+}
+
 aside.search-facets h3, h4{
 	color: #001c3d;
     margin: 0 !important;
