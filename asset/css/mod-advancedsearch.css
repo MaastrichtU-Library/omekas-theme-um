@@ -35,6 +35,12 @@ a.search-view-type.active{
     min-width: 64px !important;
     margin-left: 0;
 }
+.form-search button.search-submit {
+    float: right;
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+}
 
 
 
