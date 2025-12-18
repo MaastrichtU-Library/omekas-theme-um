@@ -68,12 +68,12 @@ $showBody = in_array('resource-body', $components);
 $CSS = <<<'CSS'
 CSS;
 //--- Start feature: Removed CSS from this file ---
-$this->headLink()
-    // Require two divs with classes container and main above the og-grid.
-    // ->appendStylesheet($assetUrl('vendor/thumbnail-grid-expanding-preview/css/default.css'))
-    ->appendStylesheet($assetUrl('css/component.css'));
+// $this->headLink()
+//     // Require two divs with classes container and main above the og-grid.
+//     // ->appendStylesheet($assetUrl('vendor/thumbnail-grid-expanding-preview/css/default.css'))
+//     ->appendStylesheet($assetUrl('css/component.css'));
 
-    //$this->headStyle()->appendStyle($css);
+//     //$this->headStyle()->appendStyle($css);
 
 $this->headScript()
 //-- Start feature: Corrected javascript file ---
@@ -143,9 +143,9 @@ $this->headScript()
 
                 if ($showBody):
                     $body = $resource->displayDescription(null, $lang);
-                    $body .= '<h3>'
+                    $body .= '<br/><span class="secondary-button">'
                         . $resource->link("View this collection")
-                        . '</h3>';
+                        . '</span>';
                 else:
                     $body = '';
                 endif;
