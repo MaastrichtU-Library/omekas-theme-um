@@ -1,4 +1,9 @@
-<?php 
+<?php
+// Override for the stub page 'application/view/omeka/site/index/index.phtml' from Omeka S core version 4.1.1
+// Customizations:
+// - custom feature Customized homepage: The original page from Omeka's core code has a simple echo saying 'This site has no pages.'.
+// This customization renders a rich page with a search box and highlighted images
+
 $query = $this->params()->fromQuery();
 $heroimg = $this->assetUrl('img/10krantlezen.jpg');
 $sg = $this->assetUrl('img/JacquesEnPeter.png');
