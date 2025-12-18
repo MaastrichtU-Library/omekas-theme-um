@@ -1,7 +1,26 @@
 <?php
+// Customized version of 'application/view/omeka/site/item/show.phtml' from Omeka S core version 4.1.1
+// Customizations:
+// - custom feature Show item sets: Show the item sets to which the item belongs in the metadata section
+// - custom feature Disable resourcePageBlocks: Do not render resource page blocks by default, but leave this to the theme code in this file
+// - custom feature Differentiate on resourceClass: Use a different layout and viewer based on the resource class of the item
+
 $translate = $this->plugin('translate');
+// BEGIN custom feature Show item sets
 $escape = $this->plugin('escapeHtml');
+//END custom feature Show item sets
+
+// BEGIN custom feature Disable resourcePageBlocks
+//$this->headLink()->appendStylesheet($this->assetUrl('css/resource-page-blocks.css', 'Omeka'));
+// END custom feature Disable resourcePageBlocks
+
 $this->htmlElement('body')->appendAttribute('class', 'item resource show');
+$filterLocale = (bool) $this->siteSetting('filter_locale_values');
+$lang = $this->lang();
+$valueLang = $filterLocale ? [$lang, ''] : null;
+
+
+// BEGIN custom feature Differentiate on resourceClass
 $itemMedia = $item->media();
 
 // Array of MIME-types supported by ModelViewer.
@@ -49,7 +68,7 @@ $mediaTypes = array_map(function($child) {
 ?>
 
 <div id="item-page">
-    <?php echo $this->pageTitle($item->displayTitle(), 2); ?>
+    <?php echo $this->pageTitle($item->displayTitle(null, $valueLang), 2); ?>
     <h3><?php echo $translate('Item'); ?></h3>
     <?php $this->trigger('view.show.before'); ?>
 
@@ -108,8 +127,8 @@ $mediaTypes = array_map(function($child) {
 
             <?php echo $item->displayValues(); ?>
 
+            <!-- BEGIN custom feature Show item sets -->
             <div class="property">
-                <!--span style="background-color:red; color:white">values</span-->
                 <?php $itemSets = $item->itemSets(); ?>
                 <?php if (count($itemSets) > 0): ?>
                     <h4><?php echo $translate('Item sets'); ?></h4>
@@ -120,9 +139,9 @@ $mediaTypes = array_map(function($child) {
                     </div>
                 <?php endif; ?>
             </div>
+            <!-- END custom feature Show item sets -->
         </div>
     </div>
-
 
     <div id="resources-linked" class="section">
         <?php
@@ -141,10 +160,14 @@ $mediaTypes = array_map(function($child) {
         <?php endif; ?>
     </div>
 </div>
+<?php
+// END custom feature Differentiate on resourceClass
+?>
 
+
+<?php
+// BEGIN custom feature Disable resourcePageBlocks
+//echo $this->resourcePageBlocks($item)->getBlocks();
+// END custom feature Disable resourcePageBlocks
+?>
 <?php $this->trigger('view.show.after'); ?>
-<script type="text/javascript">
-    jQuery(document).ready(function() {
-        jQuery(document).trigger('enhance.tablesaw');
-    });
-</script>
