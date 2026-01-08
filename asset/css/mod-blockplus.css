@@ -344,11 +344,37 @@
 	outline: none;
 }
 
+.og-details .secondary-button a {
+	border: none;
+	border-radius: 3px;
+	background-color: #d2460f;
+	color: #fff;
+
+
+}
+.og-details .secondary-button a:after {
+    content: "\f061";
+    font-family: "Font Awesome 5 Free";
+    position: relative;
+    margin-left: 1em;
+    float: right;
+    text-align: center;
+    text-indent: 0;
+    color: #fff;
+}
+
+.og-details .secondary-button a:hover {
+	background-color: #001c3d;
+	color: #fff;
+	text-decoration: none;
+}
+
+/* 
 .og-details a::before {
 	content: '\2192';
 	display: inline-block;
 	margin-right: 10px;
-}
+} */
 
 .og-details a:hover {
 	border-color: #999;
