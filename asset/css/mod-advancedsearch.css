@@ -10,6 +10,7 @@
 	display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    /* font-size: 0.9rem; */
 }
 
 .search-results-header .search-results-display .search-view-type-grid{
@@ -24,7 +25,16 @@
     border-bottom-left-radius: 4px;
     padding-right: 13px;
 }
+.search-results-header select
+{
+    margin-left: 8px;
+    min-width: 120px;
+    /* font-size: 0.9rem; */
+}
 
+.search-results-header div{
+    display: inline-flex;
+}
 
 a.search-view-type.active{
 	background-color: #001c3d;

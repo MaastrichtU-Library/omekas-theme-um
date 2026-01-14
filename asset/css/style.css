@@ -635,7 +635,9 @@
     }
 
     .pagination input {
-        width: 60px
+        width: 60px;
+        /* font-size: 0.9rem; */
+        padding: 0.2rem;
     }
 
     .row-count {
