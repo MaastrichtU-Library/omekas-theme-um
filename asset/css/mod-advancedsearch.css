@@ -125,12 +125,12 @@ aside.search-facets h4
     min-width: 22% !important;	
 }
 
-.search-facet-items{
+.facet-items{
     overflow: auto;     /* Adds a scrollbar when the facet contains a lot of values */
     max-height: 150px;
 }
 
-.search-facet-item input[type=checkbox] {
+.facet-item input[type=checkbox] {
     vertical-align: middle;
 }
 .search-results .resource-list.list .resource-thumbnail
