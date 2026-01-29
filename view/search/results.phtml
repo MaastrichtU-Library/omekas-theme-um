@@ -152,19 +152,20 @@ $tagTermList=explode(",", $customFieldList);
                     <?= $hyperlink->raw($escapeValueOrGetHtml($heading), $resourceUrl, ['class' => 'resource-link']) ?>
                 </div>
             <?php // END custom feature 'Title after/below thumbnail' ?>
-
+            <?php // BEGIN custom feature 'Custom field values in search results' ?>
                 <div class="resource-body resource-metadata">
-                    <?php if (strlen($tagHtml)): ?>
+                    <?php if (strlen($tagHtml)||strlen($body)): ?>
                         <div class="description">
+                            <?php //$body omvat of site of resource item description. ?>                
                             <?php if (strlen($body)): ?>
                             <?= $escapeValueOrGetHtml($body, $allowHtml) ?>
                             <?php endif;?>
-                            <?php // BEGIN custom feature 'Custom field values in search results' ?>
                             <?= $tagHtml ?>
-                            <?php // END custom feature 'Custom field values in search results' ?>
+            
                         </div>
                     <?php endif; ?>
                 </div>
+            <?php // END custom feature 'Custom field values in search results' ?>
             <?php // BEGIN custom feature 'Title after/below thumbnail' ?>
             </div>
             <?php // END custom feature 'Title after/below thumbnail' ?>
