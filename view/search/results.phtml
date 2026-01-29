@@ -128,7 +128,8 @@ $tagTermList=explode(",", $customFieldList);
         }
         // END custom feature 'Custom field values in search results'
 
-        $body = $bodyTerm ? $resource->value($bodyTerm, ['lang' => $langValue, 'default' => '']) : $resource->displayDescription(null, $langValue);
+        $body = $bodyTerm ? $resource->value($bodyTerm, ['lang' => $langValue, 'default' => ' ']) : $resource->displayDescription(null, $langValue);
+        
         ?>
         <li class="resource <?= $resourceType ?>" data-id="<?= $resource->id() ?>">
             <?php
@@ -153,9 +154,11 @@ $tagTermList=explode(",", $customFieldList);
             <?php // END custom feature 'Title after/below thumbnail' ?>
 
                 <div class="resource-body resource-metadata">
-                    <?php if (strlen($body)): ?>
+                    <?php if (strlen($tagHtml)): ?>
                         <div class="description">
+                            <?php if (strlen($body)): ?>
                             <?= $escapeValueOrGetHtml($body, $allowHtml) ?>
+                            <?php endif;?>
                             <?php // BEGIN custom feature 'Custom field values in search results' ?>
                             <?= $tagHtml ?>
                             <?php // END custom feature 'Custom field values in search results' ?>
