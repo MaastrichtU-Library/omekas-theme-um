@@ -1,0 +1,181 @@
+<?php
+// Customized version of 'results.phtml' from module 'Advanced Search' version 3.4.54
+// Customizations:
+// - custom feature 'Custom field values in search results': Displays the values of an indicated set of metadata fields on the search results card. Configurable in the theme settings.
+// - custom feature 'Title after/below thumbnail': Displays the hyperlinked title (class "resource-heading") after the thumbnail (in grid mode: below the thumbnail).
+
+/**
+ * @var \Laminas\View\Renderer\PhpRenderer $this
+ * @var \Omeka\Api\Representation\SiteRepresentation|null $site
+ * @var \AdvancedSearch\Api\Representation\SearchConfigRepresentation $searchConfig
+ * @var \AdvancedSearch\Query $query
+ * @var \AdvancedSearch\Response $response
+ * @var ?string $resourceType The resource type may be "resources" or a specific one.
+ * @var \Omeka\Api\Representation\ItemSetRepresentation|null $itemSet
+ */
+
+// A check is done: when page is not first, the resources may be empty even with results.
+$resources = $response->getResources($resourceType);
+if (!$resources) return;
+
+$plugins = $this->getHelperPluginManager();
+$assetUrl = $plugins->get('assetUrl');
+$translate = $plugins->get('translate');
+$hyperlink = $plugins->get('hyperlink');
+$thumbnail = $plugins->get('thumbnail');
+$escapeValueOrGetHtml = $plugins->get('escapeValueOrGetHtml');
+
+$selectionButton = $site && $plugins->has('selectionButton') && $this->siteSetting('selection_append_items_browse_individual') ? $plugins->get('selectionButton') : null;
+$contactUsSelector = $site && $plugins->has('contactUsSelector') && $this->siteSetting('contactus_append_items_browse_individual') ? $plugins->get('contactUsSelector') : null;
+
+// Can be simplified in a public theme.
+$setting = $plugins->get(isset($site) ? 'siteSetting' : 'setting');
+
+$siteSlug = isset($site) ? $site->slug() : null;
+
+$filterLocale = (bool) $setting('filter_locale_values');
+$lang = $plugins->get('lang')();
+$langValue = $filterLocale ? [$lang, ''] : null;
+
+$untitled = $translate('[Untitled]');
+
+$headingTerm = $setting('browse_heading_property_term');
+$bodyTerm = $setting('browse_body_property_term');
+
+$gridListMode = $searchConfig->subSetting('results', 'grid_list_mode', 'auto');
+
+// A list does not have html-code in a consistant user interface.
+$allowHtml = (bool) $searchConfig->subSetting('results', 'allow_html');
+
+$thumbnailMode = $searchConfig->subSetting('results', 'thumbnail_mode', 'default');
+$noThumbnail = $thumbnailMode === 'none';
+$allThumbnail = $thumbnailMode === 'all';
+$defaultThumbnail = $allThumbnail
+    ? sprintf('<img loading="lazy" src="%1$s" title="%2$s"/>', $assetUrl('thumbnails/default.png', 'Omeka', true), $translate('No media'))
+    : '';
+
+$thumbnailType = $searchConfig->subSetting('results', 'thumbnail_type', 'medium');
+
+// BEGIN custom feature 'Custom field values in search results'
+$customFieldList=str_replace(' ','',$this->themeSetting('CustomFieldList'));
+$tagTermList=explode(",", $customFieldList);
+// END custom feature 'Custom field values in search results'
+?>
+
+<ul class="resource-list search-result-list<?= $gridListMode === 'list_only' ? ' list' : ($gridListMode === 'grid_only' ? ' grid' : '') ?>">
+    <?php /** @var \Omeka\Api\Representation\AbstractResourceEntityRepresentation $resource */
+    foreach ($resources as $resource):
+        $resourceUrl = isset($site) ? $resource->siteUrl($siteSlug) : $resource->adminUrl();
+        $resourceType = $resource->getControllerName();
+        $heading = $headingTerm ? $resource->value($headingTerm, ['default' => $untitled, 'lang' => $langValue]) : $resource->displayTitle($untitled, $langValue);
+
+        // BEGIN custom feature 'Custom field values in search results'
+        $tagTerms = $tagTermList;
+        $showLabel = true;
+        $vals = $resource->values();
+        $template = $resource->resourceTemplate();
+        $tagHtml = '';
+		$searchEngine=$this->themeSetting('searchController') ;
+				
+        foreach ($tagTerms as $tagTerm) {
+            if(isset($vals[$tagTerm])) {
+                $tagLabel="";
+                $fields = $vals[$tagTerm]['values'];
+
+                //PV 2023-11-05: This piece of code gets the resource template for the current field.
+                $templateProperty = $template ? $template->resourceTemplateProperty($fields[0]->property()->id()) : null;
+                $altLabel = $templateProperty ? $templateProperty->alternateLabel() : null;
+
+                if(($fields!=null)&&(count($fields))) {
+                    $tagHtml .= '<div class="tag-group ' . str_replace(':', '\:', $tagTerm) . '">';
+
+                    if($showLabel) {
+                        $label = $fields[0]->property()->label();
+                        $label = $altLabel?$altLabel:$label;
+                        $tagLabel=$label;
+                        $tagHtml .= '<span class="tag-label">'.$tagLabel.'</span>:&nbsp;';
+                    }
+
+                    foreach ($fields as $val) {
+                        try {
+							$test='';
+                            $f_id = $val->property()->id();
+							$f_pid = $val->property()->label();
+							$f_pid2= $val->property()->localName();
+							$tt2=str_replace(':', '_', $tagTerm);
+							if($val)
+							{
+								if($tagTerm == "modsrdf:name" && $val->valueResource()) {    // The displayName for modsrdf:name is in the class method '$val->valueResource()->title()'. We need to test if it exists first.
+									// Query to make the field browsable with a link
+									$query = ['query' => [$searchEngine => '','property[0][property]' => $f_id, 'property[0][type]' => 'eq', 'property[0][text]' => strval($val->valueResource()->title())]];
+									$tagHtml .= $this->hyperlink(strval($val->valueResource()->title()), $this->url('site/resource',['controller' => 'item', 'action' => 'browse'] , $query, true), ['class' => 'tag'])." ";
+									
+									
+								} else {    // The displayName for all other tagTerms is in the default class method for value (= root of $val)
+									// Query to make the field browsable with a link
+									$query = ['query' => [$searchEngine => '', 'property[0][property]' => $f_id, 'property[0][type]' => 'eq', 'property[0][text]' => strval($val)]];
+									$tagHtml .= $this->hyperlink(strval($val), $this->url('site/resource', ['controller' => 'item', 'action' => 'browse'], $query, true), ['class' => 'tag'])." ";
+								}
+							}
+                        } catch (\Throwable $th) {
+                            echo $th;
+                        }
+                    }
+					
+					$tagHtml .= '</div>';
+                }
+            }
+        }
+        // END custom feature 'Custom field values in search results'
+
+        $body = $bodyTerm ? $resource->value($bodyTerm, ['lang' => $langValue, 'default' => ' ']) : $resource->displayDescription(null, $langValue);
+        
+        ?>
+        <li class="resource <?= $resourceType ?>" data-id="<?= $resource->id() ?>">
+            <?php
+            // BEGIN custom feature 'Title after/below thumbnail'
+            // 3 lines removed
+            // END custom feature 'Title after/below thumbnail'
+            ?>
+            <?php if (!$noThumbnail): ?>
+                <?php $resourceThumbnail = $thumbnail($resource, $thumbnailType); ?>
+                <div class="resource-thumbnail<?= $resourceThumbnail ? '' : ($allThumbnail ? ' default-thumbnail' : '') ?>">
+                    <?php if ($resourceThumbnail || $allThumbnail): ?>
+                    <?= $hyperlink->raw($resourceThumbnail ?: $defaultThumbnail, $resourceUrl, ['class' => 'resource-link']) ?>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+
+            <?php // BEGIN custom feature 'Title after/below thumbnail' ?>
+            <div class="item-meta">
+                <div class="resource-heading">
+                    <?= $hyperlink->raw($escapeValueOrGetHtml($heading), $resourceUrl, ['class' => 'resource-link']) ?>
+                </div>
+            <?php // END custom feature 'Title after/below thumbnail' ?>
+            <?php // BEGIN custom feature 'Custom field values in search results' ?>
+                <div class="resource-body resource-metadata">
+                    <?php if (strlen($tagHtml)||strlen($body)): ?>
+                        <div class="description">
+                            <?php //$body omvat of site of resource item description. ?>                
+                            <?php if (strlen($body)): ?>
+                            <?= $escapeValueOrGetHtml($body, $allowHtml) ?>
+                            <?php endif;?>
+                            <?= $tagHtml ?>
+            
+                        </div>
+                    <?php endif; ?>
+                </div>
+            <?php // END custom feature 'Custom field values in search results' ?>
+            <?php // BEGIN custom feature 'Title after/below thumbnail' ?>
+            </div>
+            <?php // END custom feature 'Title after/below thumbnail' ?>
+
+            <?php if ($selectionButton): ?>
+                <?= $selectionButton($resource) ?>
+            <?php endif; ?>
+            <?php if ($contactUsSelector): ?>
+                <?= $contactUsSelector($resource) ?>
+            <?php endif; ?>
+        </li>
+    <?php endforeach; ?>
+</ul>

@@ -1,0 +1,24 @@
+/* Column layouts for showing content side-by-side on large screens and below each other on mobile */
+/* TODO: These are possibly obsolete since Omeka S 4.1.x introduced the grid templating system introduced. Consider to remove the styles and refactor site pages where necessary */
+.two-column-layout {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.column-33 {
+    width: 33%;
+}
+
+.column-50 {
+    width: 50%;
+}
+
+.column-66 {
+    width: 66%;
+}
+
+@media (max-width: 800px) {
+    .column-33, .column-50, .column-66 {
+        width: 100%;
+    }
+}

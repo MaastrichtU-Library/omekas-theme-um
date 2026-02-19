@@ -1,58 +1,87 @@
 <?php
+// Customized version of 'application/view/omeka/site/item/browse.phtml' from Omeka S core version 4.1.1
+// Customizations:
+// - custom feature Display CustomFields: gets a list of custom fields from theme settings and displays them in the browse result for each item
+// - custom feature Custom SearchController: gets the search controller name from theme settings
+// - custom feature Disable some browse controls: disable the advanced search link and sort selector
+// - custom feature Add item set name to browse controls: when browsing an item set, show its name next to the total results
+// - custom feature Grid layout: adds a grid view for the browse results (next to the default list view)
+
+$translate = $this->plugin('translate');
 $escape = $this->plugin('escapeHtml');
+$thumbnail = $this->plugin('thumbnail');
 $this->htmlElement('body')->appendAttribute('class', 'item resource browse');
+
+$filterLocale = (bool)$this->siteSetting('filter_locale_values');
+$lang = $this->lang();
+$valueLang = $filterLocale ? [$lang, ''] : null;
+
 $query = $this->params()->fromQuery();
-if (isset($itemSet)):
+
+$itemSetShow = isset($itemSet);
+if ($itemSetShow):
+    $this->headLink()->appendStylesheet($this->assetUrl('css/resource-page-blocks.css', 'Omeka'));
     $this->htmlElement('body')->appendAttribute('class', 'item-set');
     $query['item_set_id'] = $itemSet->id();
 endif;
-$headingTerm = $this->siteSetting('browse_heading_property_term', 'dcterms:title');
-$bodyTerm = $this->siteSetting('browse_body_property_term', 'dcterms:description');
-$itemSetShow = isset($itemSet);
-$siteUrl = $site->url();
-$filters = $this->searchFilters();
-$searchEngine=$this->themeSetting('searchController') ;
 
-# addition 2025-01-29
-$customFieldList=str_replace(' ','',$this->themeSetting('CustomFieldList'));
-$tagTermList=explode(",", $customFieldList);
-# end addition 2025-01-29
+// BEGIN custom feature Custom SearchController
+$searchEngine = $this->themeSetting('searchController');
+// END custom feature Custom SearchController
+
+// BEGIN custom feature Display CustomFields
+$customFieldList = str_replace(' ', '', $this->themeSetting('CustomFieldList'));
+$tagTermList = explode(",", $customFieldList);
+// END custom feature Display CustomFields
+
+$filters = $this->searchFilters();
 ?>
 
+<?php if ($itemSetShow): ?>
+    <?php echo $this->pageTitle($itemSet->displayTitle(null, $valueLang), 2); ?>
+    <h3><?php //echo $translate('Item set'); ?></h3>
+    <div class="metadata">
+        <?php echo $this->resourcePageBlocks($itemSet)->getBlocks(); ?>
+    </div>
+    <div class="item-set-items">
+        <?php echo '<h3>' . $escape($translate('Items')) . '</h3>'; ?>
+<?php else: ?>
+    <?php //echo $this->pageTitle($translate('Items'), 2); ?>
+<?php endif; ?>
 
-
-<div id="total-results">
+<div class="browse-controls" id="total-results">
     <?php echo $this->pagination(); ?>
-    <?php if($filters || isset($itemSet)){
+    <?php
+    // BEGIN custom feature Disable some browse controls
+    // echo $this->hyperlink($translate('Advanced search'), $this->url('site/resource', ['controller' => 'item', 'action' => 'search'], ['query' => $query], true), ['class' => 'advanced-search']);
+    // echo $this->browse()->renderSortSelector('items');
+    // END custom feature Disable some browse controls
+    ?>
+
+    <?php
+    // BEGIN custom feature Add item set name to browse controls
+    if ($filters || isset($itemSet)) {
         echo " for ";
-    } 
-    if($filters){
+    }
+    if ($filters) {
         echo $filters;
     }
-    if(isset($itemSet)){?>
-        <span class="browse-item-set-title"><?php echo $itemSet->value("dcterms:title"); ?></span>
-    <?php }?>
-    
-    <?php //echo $this->pageTitle($this->translate('Items'), 0); ?>
+    if (isset($itemSet)) {
+        ?>
+        <span class="browse-item-set-title"><?php echo $itemSet->displayTitle(null, $valueLang); ?></span>
+    <?php }
+    // END custom feature Add item set name to browse controls
+    ?>
 </div>
+
+<!-- BEGIN custom feature Grid layout -->
 <div id="browse-container">
-<!--
-<div id="browse-facets-container">
-    <h5>Refine your search</h5>
-
-    <blockquote>
-    <?php //echo $this->partial('common/refine-list', ['site' => $site]); ?>
-    </blockquote>
-
-
-</div>
--->
-<div id="tab-wrap"> 
-    <input type="radio" id="list-input" name="s" class="tab" checked />
-    <input type="radio" id="grid-input" name="s" class="tab"  />
-    <div id="button-bar">
-        <label for="grid-input" id="grid" class="button-bar-button">
-            <svg class="icon icon-view-grid">
+    <div id="tab-wrap">
+        <input type="radio" id="list-input" name="s" class="tab" checked/>
+        <input type="radio" id="grid-input" name="s" class="tab"/>
+        <div id="button-bar">
+            <label for="grid-input" id="grid" class="button-bar-button">
+                <svg class="icon icon-view-grid">
                     <use xlink:href="#icon-view-grid">
                         <svg id="icon-view-grid" viewBox="0 0 26 27" width="100%" height="100%">
                             <path d="M 9.091 10.909 h -8.636 q -0.202 0 -0.328 -0.126 t -0.126 -0.328 v -8.636 q 0 -0.202 0.126 -0.328 t 0.328 -0.126 h 8.636 q 0.202 0 0.328 0.126 t 0.126 0.328 v 8.636 q 0 0.202 -0.126 0.328 t -0.328 0.126 Z M 21.364 10.909 h -8.636 q -0.202 0 -0.328 -0.126 t -0.126 -0.328 v -8.636 q 0 -0.202 0.126 -0.328 t 0.328 -0.126 h 8.636 q 0.202 0 0.328 0.126 t 0.126 0.328 v 8.636 q 0 0.202 -0.126 0.328 t -0.328 0.126 Z M 9.091 23.182 h -8.636 q -0.202 0 -0.328 -0.126 t -0.126 -0.328 v -8.636 q 0 -0.202 0.126 -0.328 t 0.328 -0.126 h 8.636 q 0.202 0 0.328 0.126 t 0.126 0.328 v 8.636 q 0 0.202 -0.126 0.328 t -0.328 0.126 Z M 21.364 23.182 h -8.636 q -0.202 0 -0.328 -0.126 t -0.126 -0.328 v -8.636 q 0 -0.202 0.126 -0.328 t 0.328 -0.126 h 8.636 q 0.202 0 0.328 0.126 t 0.126 0.328 v 8.636 q 0 0.202 -0.126 0.328 t -0.328 0.126 Z"></path>
@@ -60,9 +89,9 @@ $tagTermList=explode(",", $customFieldList);
                     </use>
                 </svg>
                 Grid
-        </label>
-        <label for="list-input" id="list" class="button-bar-button">
-            <svg class="icon icon-view-list">
+            </label>
+            <label for="list-input" id="list" class="button-bar-button">
+                <svg class="icon icon-view-list">
                     <use xlink:href="#icon-view-list">
                         <svg id="icon-view-list" viewBox="0 0 26 27" width="100%" height="100%">
                             <path d="M 3.636 18.636 v 2.727 q 0 0.202 -0.126 0.328 t -0.328 0.126 h -2.727 q -0.202 0 -0.328 -0.126 t -0.126 -0.328 v -2.727 q 0 -0.202 0.126 -0.328 t 0.328 -0.126 h 2.727 q 0.202 0 0.328 0.126 t 0.126 0.328 Z M 3.636 10.909 v 2.727 q 0 0.202 -0.126 0.328 t -0.328 0.126 h -2.727 q -0.202 0 -0.328 -0.126 t -0.126 -0.328 v -2.727 q 0 -0.202 0.126 -0.328 t 0.328 -0.126 h 2.727 q 0.202 0 0.328 0.126 t 0.126 0.328 Z M 3.636 3.182 v 2.727 q 0 0.202 -0.126 0.328 t -0.328 0.126 h -2.727 q -0.202 0 -0.328 -0.126 t -0.126 -0.328 v -2.727 q 0 -0.202 0.126 -0.328 t 0.328 -0.126 h 2.727 q 0.202 0 0.328 0.126 t 0.126 0.328 Z M 21.818 18.636 v 2.727 q 0 0.202 -0.126 0.328 t -0.328 0.126 h -15.455 q -0.202 0 -0.328 -0.126 t -0.126 -0.328 v -2.727 q 0 -0.202 0.126 -0.328 t 0.328 -0.126 h 15.455 q 0.202 0 0.328 0.126 t 0.126 0.328 Z M 21.818 10.909 v 2.727 q 0 0.202 -0.126 0.328 t -0.328 0.126 h -15.455 q -0.202 0 -0.328 -0.126 t -0.126 -0.328 v -2.727 q 0 -0.202 0.126 -0.328 t 0.328 -0.126 h 15.455 q 0.202 0 0.328 0.126 t 0.126 0.328 Z M 21.818 3.182 v 2.727 q 0 0.202 -0.126 0.328 t -0.328 0.126 h -15.455 q -0.202 0 -0.328 -0.126 t -0.126 -0.328 v -2.727 q 0 -0.202 0.126 -0.328 t 0.328 -0.126 h 15.455 q 0.202 0 0.328 0.126 t 0.126 0.328 Z"></path>
@@ -70,145 +99,135 @@ $tagTermList=explode(",", $customFieldList);
                     </use>
                 </svg>
                 List
-        </label>
-    </div>
-    
-    
-    <?php $this->trigger('view.browse.before'); ?>
-    <div class="sections">
-        <ul class="resource-list" id="results-list">
-        <!-- <hr class="decorative-hr" /> -->
-       <?php
-foreach ($items as $item):
-    //$heading = $headingTerm ? $item->value($headingTerm, ['default' => $translate('[Untitled]')]) : $item->displayTitle();
-	$heading = $headingTerm ? $item->value($headingTerm): $item->displayTitle();
-    $body = $bodyTerm ? $item->value($bodyTerm) : $item->displayDescription();
-	
-	// Show tags
-	//Todo Cleanup 'schema:sourceOrganization',
-	//'modsrdf:name',
+            </label>
+        </div>
+<!-- END custom feature Grid layout -->
 
-    #  $tagTerms = ['modsrdf:subject',  'dcterms:temporal','umnl:author_lastName', 'modsrdf:name', 'modsrdf:namePrincipal','schema:contributor',  'schema:dateIssued'];
-    $tagTerms = $tagTermList;
-    $showLabel = true;
-    $tester="";
-    $vals = $item->values();
-    $template = $item->resourceTemplate();
-	
-    $tagHtml = '';
-    foreach ($tagTerms as $tagTerm)
-    {
-        if(isset($vals[$tagTerm]))
-        {
-			$tagLabel="";
-            $fields = $vals[$tagTerm]['values'];
-			//PV 2023-11-05: This piece of code gets the resource template fot the current field.
-            $templateProperty = $template ? $template->resourceTemplateProperty($fields[0]->property()->id()) : null;
-            $altLabel = $templateProperty ? $templateProperty->alternateLabel() : null;
-
-
-            if(($fields!=null)&&(count($fields)))
-            {
-                $tagHtml .= '<div class="tag-group ' . str_replace(':', '\:', $tagTerm) . '">';
-                if($showLabel)
-                {
-                    $label = $fields[0]->property()->label();
-                    $label = $altLabel?$altLabel:$label;
-                    $tagLabel=$label;
-					
-					$fv='props ';
-					//$tt=$vals[$tagTerm][0]->properties();
-					$tagLabel=$label;
-					
-					switch($label)
-					{
-						case "Subject":
-							$tagLabel="Study discipline";
-						break;	
-						case "Name -  Principle":
-							$tagLabel="Author";
-						break;
-						case "contributor":
-							$tagLabel=$fields[0]->property()->label();
-						break;
-						case "dateIssued":
-							$tagLabel="Publication date";
-						break;
-					}
-					$tagHtml .= '<span class="tag-label">'.$tagLabel.'</span>:&nbsp;';
-                }
-                foreach ($fields as $val)
-                 try {
-                            $f_id = $val->property()->id();
-							$f_pid = $val->property()->label();
-							$f_pid2= $val->property()->localName();
-							$tt2=str_replace(':', '_', $tagTerm);
-							if($val)
-							{
-								if($tagTerm == "modsrdf:name" && $val->valueResource()) {    // The displayName for modsrdf:name is in the class method '$val->valueResource()->title()'. We need to test if it exists first.
-									// Query to make the field browsable with a link
-									$query = ['query' => [$searchEngine => '','property[0][property]' => $f_id, 'property[0][type]' => 'eq', 'property[0][text]' => strval($val->valueResource()->title())]];
-									$tagHtml .= $this->hyperlink(strval($val->valueResource()->title()), $this->url('site/resource', ['controller' => 'item', 'action' => 'browse'], $query, true), ['class' => 'tag'])." ";
-									
-									
-									
-								} else {    // The displayName for all other tagTerms is in the default class method for value (= root of $val)
-									// Query to make the field browsable with a link
-									$query = ['query' => [$searchEngine => '', 'property[0][property]' => $f_id, 'property[0][type]' => 'eq', 'property[0][text]' => strval($val)]];
-									$tagHtml .= $this->hyperlink(strval($val), $this->url('site/resource', ['controller' => 'item', 'action' => 'browse'], $query, true), ['class' => 'tag'])." ";
-								}
-							}
-                        } catch (\Throwable $th) {
-                            echo $th;
-                        }
-                    
-				//$tagHtml .= " length : ". strlen($tagHtml);
-                $tagHtml .= '</div>';
-            }
-        }        
-    }
-
-	
-	
-	
-?>
-       <li class="item resource">
-    
-	   <?php echo $item->linkRaw($this->thumbnail($item, 'medium'), null, ['class' => 'item-thumbnail']); ?>
-        <div class="item-meta">
-            <h4><?php echo $item->link($heading); ?></h4>
-            <?php if ($body): ?>
-            <div class="description"><?php echo $escape($body); ?></div>
-            <?php endif; ?>
-			 <?php if(!empty($tagHtml)){ ?> <div class="tags"><?php echo $tagHtml; ?></div> <?php } ?>
-			 </div>
-        
-    </li>
-        <?php endforeach; ?> 
-        </ul>
-        <ul class="resource-list" id="results-grid" >
-            <div id="grid-wrapper" >
-                <div class="grid-sizer"></div>
-                <div class="gutter"></div>
+        <?php $this->trigger('view.browse.before'); ?>
+        <div class="sections">
+            <ul class="resource-list" id="results-list">
                 <?php
-            foreach ($items as $item):
-                $heading = $headingTerm ? $item->value($headingTerm): $item->displayTitle();
-			?>
-                <li class="item resource">
-                    <?php echo $item->linkRaw($this->thumbnail($item, 'medium')); ?>
-                    <h4 style="padding:0 20px 20px 20px;"><?php echo $item->link($heading); ?></h4>
-                </li>
+                $headingTerm = $this->siteSetting('browse_heading_property_term', 'dcterms:title');
+                $bodyTerm = $this->siteSetting('browse_body_property_term', 'dcterms:description');
+
+                foreach ($items as $item):
+                    $heading = $headingTerm ? $item->value($headingTerm, ['default' => $translate('[Untitled]'), 'lang' => $valueLang]) : $item->displayTitle(null, $valueLang);
+                    $body = $bodyTerm ? $item->value($bodyTerm, ['lang' => $valueLang]) : $item->displayDescription(null, $valueLang);
+
+                    // BEGIN custom feature Display CustomFields
+                    // Show tags
+                    $tagTerms = $tagTermList;
+                    $showLabel = true;
+                    $tester = "";
+                    $vals = $item->values();
+                    $template = $item->resourceTemplate();
+
+                    $tagHtml = '';
+                    foreach ($tagTerms as $tagTerm) {
+                        if (isset($vals[$tagTerm])) {
+                            $tagLabel = "";
+                            $fields = $vals[$tagTerm]['values'];
+                            //PV 2023-11-05: This piece of code gets the resource template for the current field.
+                            $templateProperty = $template ? $template->resourceTemplateProperty($fields[0]->property()->id()) : null;
+                            $altLabel = $templateProperty ? $templateProperty->alternateLabel() : null;
+
+
+                            if (($fields != null) && (count($fields))) {
+                                $tagHtml .= '<div class="tag-group ' . str_replace(':', '\:', $tagTerm) . '">';
+                                if ($showLabel) {
+                                    $label = $fields[0]->property()->label();
+                                    $label = $altLabel ? $altLabel : $label;
+                                    $tagLabel = $label;
+
+                                    $fv = 'props ';
+                                    $tagLabel = $label;
+
+                                    switch ($label) {
+                                        case "Subject":
+                                            $tagLabel = "Study discipline";
+                                            break;
+                                        case "Name -  Principle":
+                                            $tagLabel = "Author";
+                                            break;
+                                        case "contributor":
+                                            $tagLabel = $fields[0]->property()->label();
+                                            break;
+                                        case "dateIssued":
+                                            $tagLabel = "Publication date";
+                                            break;
+                                    }
+                                    $tagHtml .= '<span class="tag-label">' . $tagLabel . '</span>:&nbsp;';
+                                }
+                                foreach ($fields as $val)
+                                    try {
+                                        $f_id = $val->property()->id();
+                                        $f_pid = $val->property()->label();
+                                        $f_pid2 = $val->property()->localName();
+                                        $tt2 = str_replace(':', '_', $tagTerm);
+                                        if ($val) {
+                                            if ($tagTerm == "modsrdf:name" && $val->valueResource()) {    // The displayName for modsrdf:name is in the class method '$val->valueResource()->title()'. We need to test if it exists first.
+                                                // Query to make the field browsable with a link
+                                                $query = ['query' => [$searchEngine => '', 'property[0][property]' => $f_id, 'property[0][type]' => 'eq', 'property[0][text]' => strval($val->valueResource()->title())]];
+                                                $tagHtml .= $this->hyperlink(strval($val->valueResource()->title()), $this->url('site/resource', ['controller' => 'item', 'action' => 'browse'], $query, true), ['class' => 'tag']) . " ";
+
+
+                                            } else {    // The displayName for all other tagTerms is in the default class method for value (= root of $val)
+                                                // Query to make the field browsable with a link
+                                                $query = ['query' => [$searchEngine => '', 'property[0][property]' => $f_id, 'property[0][type]' => 'eq', 'property[0][text]' => strval($val)]];
+                                                $tagHtml .= $this->hyperlink(strval($val), $this->url('site/resource', ['controller' => 'item', 'action' => 'browse'], $query, true), ['class' => 'tag']) . " ";
+                                            }
+                                        }
+                                    } catch (\Throwable $th) {
+                                        echo $th;
+                                    }
+
+                                $tagHtml .= '</div>';
+                            }
+                        }
+                    }
+                    // END custom feature Display CustomFields
+                    ?>
+
+                    <li class="item resource">
+                        <!-- BEGIN custom feature Display CustomFields -->
+                        <?php echo $item->linkRaw($this->thumbnail($item, 'medium'), null, ['class' => 'item-thumbnail']); ?>
+                        <div class="item-meta">
+                            <h4><?php echo $item->link($heading); ?></h4>
+                            <?php if ($body): ?>
+                                <div class="description"><?php echo $escape($body); ?></div>
+                            <?php endif; ?>
+                            <?php if (!empty($tagHtml)) { ?>
+                                <div class="tags"><?php echo $tagHtml; ?></div> <?php } ?>
+                        </div>
+                        <!-- END custom feature Display CustomFields -->
+                    </li>
                 <?php endforeach; ?>
-            </div>
-        </ul>
-    </div>
+            </ul>
+            <!-- BEGIN custom feature Grid layout -->
+            <ul class="resource-list" id="results-grid">
+                <div id="grid-wrapper">
+                    <div class="grid-sizer"></div>
+                    <div class="gutter"></div>
+                    <?php
+                    foreach ($items as $item):
+                        $heading = $headingTerm ? $item->value($headingTerm) : $item->displayTitle();
+                        ?>
+                        <li class="item resource">
+                            <?php echo $item->linkRaw($this->thumbnail($item, 'medium')); ?>
+                            <h4 style="padding:0 20px 20px 20px;"><?php echo $item->link($heading); ?></h4>
+                        </li>
+                    <?php endforeach; ?>
+                </div>
+            </ul>
+            <!-- END custom feature Grid layout -->
+        </div>
 
-
-    <?php $this->trigger('view.browse.after'); ?>
-    <div id="browse-footer-pagination">
-        <?php echo $this->pagination(); ?>
+        <?php echo ($itemSetShow) ? '</div></div>' : ''; ?>
+        <?php $this->trigger('view.browse.after'); ?>
+        <div id="browse-footer-pagination">
+            <?php echo $this->pagination(); ?>
+        </div>
     </div>
-</div>
 </div>
 <div class="clear"></div>
 

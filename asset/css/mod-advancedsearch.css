@@ -1,3 +1,5 @@
+/* Advanced Search module specific styles */
+
 .search-results .resource-list {
     display: flex;
     flex-direction: column;
@@ -8,6 +10,7 @@
 	display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    /* font-size: 0.9rem; */
 }
 
 .search-results-header .search-results-display .search-view-type-grid{
@@ -22,7 +25,16 @@
     border-bottom-left-radius: 4px;
     padding-right: 13px;
 }
+.search-results-header select
+{
+    margin-left: 8px;
+    min-width: 120px;
+    /* font-size: 0.9rem; */
+}
 
+.search-results-header div{
+    display: inline-flex;
+}
 
 a.search-view-type.active{
 	background-color: #001c3d;
@@ -32,6 +44,12 @@ a.search-view-type.active{
 #search-filters .filter select:nth-of-type(1) {
     min-width: 64px !important;
     margin-left: 0;
+}
+.form-search button.search-submit {
+    float: right;
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
 }
 
 
@@ -69,21 +87,11 @@ a.search-view-type svg.icon{
 .search-results .resource-list.grid .resource-thumbnail {
 	width:100%;
 	float: none;
-    /* display: block; */
-	/* clear:both; */
-    /* justify-content: center; */
     padding: 0 0 52px 0 !important;
 }
 
-.search-results .resource-list.grid .resource-thumbnail img {
-    height: auto;
-    max-height: 200px;
-    max-width: 150px !important;
-    width: 100%;
-    max-width: 200px;
-    margin: 0;
-    padding: 0;
-
+.facet-button.expand, .facet-button.collapse {
+    color: #001C3d;     /* Overrides the font color that would otherwise be set by the 'button' class in style.css */
 }
 
 aside.search-facets h3, h4{
@@ -116,6 +124,64 @@ aside.search-facets h4
     padding: 0 0.5em !important;
     min-width: 22% !important;	
 }
-.search-facet-item input[type=checkbox] {
+
+.facet-items{
+    overflow: auto;     /* Adds a scrollbar when the facet contains a lot of values */
+    max-height: 150px;
+}
+
+.facet-item input[type=checkbox] {
     vertical-align: middle;
+}
+.search-results .resource-list.list .resource-thumbnail
+{
+    margin: 10px !important;
+}
+
+.search-results .resource-list.list .resource-thumbnail .resource-link img {
+    max-width: 120px !important;
+    max-height: unset !important;
+    width: auto;
+    height: auto;
+    margin: 0 0 0 auto;
+    padding: 0;
+}
+
+.search-results .resource-list.list .resource {
+    display: flex;
+    flex-flow: row !important;
+    padding: 6px 0 5px;
+}
+.search-results .resource-list.list .resource   .resource-thumbnail {
+    width: 120px;
+    margin-right: 1em;
+    flex-shrink: 0;
+}
+
+.search-results .resource-list.grid .resource {
+    flex-flow: column ;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 20px 12px 4px 12px !important;
+}
+.search-results .resource-list.grid .resource-heading {
+     width: 240px;
+
+    text-align: center;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.search-results .search-filters .filter a::after {
+    content: "x";
+    float: right;
+    margin: 0 9px 0 1px;
+    font-size: 0.8em;
+    font-weight: normal;
+    bottom: 5px;
+    position: relative;
 }
