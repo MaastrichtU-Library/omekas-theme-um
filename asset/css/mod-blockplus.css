@@ -206,16 +206,37 @@
     margin: -9px 0 0 -15px;
 }
 
+.horizontal .og-grid > li.og-expanded > button::after {
+	top: auto;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-bottom-color: #ddd;
+	border-width: 15px;
+	left: 50%;
+	margin: -8px 0 0 -15px;
+}
+
+
+
 
 
 /* Grid layout for BlockPlus's Asset widget for showing content in a 4-column grid on large screens and below each other on mobile */
-.block-asset.assets {
+.block-asset .assets {
     display: flex;
-    flex-wrap: wrap;
+	flex-wrap: nowrap;	
+	gap: 2em;	
+	justify-content: space-between;	
 }
 
 .asset {
     align-items: center;
+}
+.asset img {
+	max-width: none !important;
 }
 
 .asset .link-title {
@@ -232,25 +253,20 @@
     text-overflow: ellipsis;
 }
 
-.link-title {
-    margin-top: 0.5em;
+.assets .link-title {
+	color: #001c3d;
     display: block;
-    text-align: center;
+    font-size: 1.1rem !important;
+    font-weight: bold;
 }
 
-.asset img {
-    width: 250px;
-    height: 250px;
-    object-fit: cover;
-    display: block;
-}
 
 @media (max-width: 800px) {
     .block-asset.assets {
         grid-template-columns: 1fr;
     }
 
-    .block-asset.assets, .og-grid {
+    .block-asset.assets, .og-grid {100%;
         gap: 1em;
     }
 
@@ -421,7 +437,10 @@
 	.og-expander p { font-size: 13px; }
 	.og-expander a { font-size: 12px; }
 
+
+
 }
+
 
 
 .og-details {
@@ -429,6 +448,49 @@
 }
 
 @media screen and (max-width: 650px) {
+
+.page-layout-normal .block-layout-alignment-block-right, .page-layout-normal .block-layout-alignment-block-left {
+	max-width: 100%;
+	width: 100%;
+	float: none;
+	padding: 0;
+}
+
+.preview-grid .og-grid{
+	display: block;
+	width: 95vw;
+}
+
+
+.preview-grid .og-grid li button {
+	height: auto;
+	width: 100%;
+}
+
+
+	.block-asset .assets {
+		display: flex;
+		flex-wrap: wrap;
+		width: 95vw;
+		gap: 0;	
+
+	}
+	.asset {
+		width: 100vw !important;
+		text-align: center;
+	}
+	.asset img {
+		width: 60vw !important;
+		height: auto;
+		margin: 0 auto;
+	}
+
+	.assets .link-title {
+    	display: block;
+    	font-size: 1.1rem;
+    	font-weight: bold;
+    	margin: 0;
+	}
 
 	.og-expander {
 		overflow-y: auto;
