@@ -128,7 +128,7 @@ $tagTermList=explode(",", $customFieldList);
         }
         // END custom feature 'Custom field values in search results'
 
-        $body = $bodyTerm ? $resource->value($bodyTerm, ['lang' => $langValue, 'default' => ' ']) : $resource->displayDescription(null, $langValue);
+        $body = $bodyTerm ? $resource->value($bodyTerm, ['lang' => $langValue, 'default' => '']) : $resource->displayDescription(null, $langValue);
         
         ?>
         <li class="resource <?= $resourceType ?>" data-id="<?= $resource->id() ?>">
@@ -156,7 +156,7 @@ $tagTermList=explode(",", $customFieldList);
                 <div class="resource-body resource-metadata">
                     <?php if (strlen($tagHtml)||strlen($body)): ?>
                         <div class="description">
-                            <?php //$body omvat of site of resource item description. ?>                
+                            <?php //$body contains site or resource item description. ?>                
                             <?php if (strlen($body)): ?>
                             <?= $escapeValueOrGetHtml($body, $allowHtml) ?>
                             <?php endif;?>
