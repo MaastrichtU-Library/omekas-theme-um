@@ -231,7 +231,7 @@
 	flex-wrap: wrap;
 	width: 80vw;
 	gap: 2em;	
-	justify-content: space-between;	
+	justify-content: left;	
 }
 
 .asset {
