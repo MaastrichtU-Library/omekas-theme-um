@@ -3,7 +3,7 @@
 // Customizations:
 // - custom feature Show item sets: Show the item sets to which the item belongs in the metadata section
 // - custom feature Disable resourcePageBlocks: Do not render resource page blocks by default, but leave this to the theme code in this file
-// - custom feature Differentiate on resourceClass: Use a different layout and viewer based on the resource class of the item
+// - custom feature Differentiate on mediaType: Render Audio and Video (AV), 3D and PDF media directly; use configured IIIF viewer for all other cases
 
 $translate = $this->plugin('translate');
 // BEGIN custom feature Show item sets
@@ -20,10 +20,10 @@ $lang = $this->lang();
 $valueLang = $filterLocale ? [$lang, ''] : null;
 
 
-// BEGIN custom feature Differentiate on resourceClass
+// BEGIN custom feature Differentiate on mediaType
 $itemMedia = $item->media();
 
-// Array of MIME-types supported by ModelViewer.
+// Array of MIME-types supported by ModelViewer, i.e. 3D media types
 // For a complete list, see https://github.com/Daniel-KM/Omeka-S-module-ModelViewer#media-types-and-security-issue
 $mediaTypes3D = [
     "application/octet-stream",
@@ -36,6 +36,36 @@ $mediaTypes3D = [
     "image/ktx2",
     "model/mtl"
 ];
+
+// Array of Audio and Video (AV) MIME-types
+$mediaTypesAV = [
+        "audio/midi",
+        "audio/mp4",
+        "audio/mpeg",
+        "audio/ogg",
+        "audio/x-aac",
+        "audio/x-aiff",
+        "audio/x-ms-wma",
+        "audio/x-ms-wax",
+        "audio/x-realaudio",
+        "audio/x-wav",
+        "video/divx",
+        "video/mp4",
+        "video/mpeg",
+        "video/ogg",
+        "video/quicktime",
+        "video/webm",
+        "video/x-ms-asf",
+        "video/x-msvideo",
+        "video/x-ms-wmv"
+];
+
+// Array of PDF MIME-types
+$mediaTypesPDF = ['application/pdf'];
+
+// Concatenate all non-IIIF media types into a single array
+$nonIiifMediaTypes = array_merge($mediaTypes3D, $mediaTypesAV, $mediaTypesPDF);
+
 
 // Code to determine the class of the resource
 if ($item->resourceClass()):
@@ -54,17 +84,19 @@ if ($imc>1):
     //$mbc=mediabox-class
 endif;
 
-# Check if this itemMedia contains 3D model
-if ($rc == "3dmodel"):
-    $model3d = True ;
-else:
-    $model3d = False ;
-endif;
-
 # Extract mediaTypes from all media attached to this item into an array
 $mediaTypes = array_map(function($child) {
     return $child->mediaType();
 }, $itemMedia);
+
+// Determine if any media requires direct rendering without IIIF viewer (this is true for AV, 3D, or PDF)
+$renderWithIiif = true;
+foreach ($itemMedia as $media) {
+    if (in_array($media->mediaType(), $nonIiifMediaTypes)) {
+        $renderWithIiif = false;
+        break;
+    }
+}
 ?>
 
 <div id="item-page">
@@ -72,38 +104,24 @@ $mediaTypes = array_map(function($child) {
     <h3><?php echo $translate('Item'); ?></h3>
     <?php $this->trigger('view.show.before'); ?>
 
-
     <div id="item-page-media">
-        <?php if ($model3d): ?>
-            <!-- When 3D model data, render only the 3D itemMedia and skip all other media -->
-            <div class="media-embeds">
+        <?php if (!$renderWithIiif): ?>
+            <div class="media-embeds <?php echo $rc ." ". $mbc; ?>">
                 <?php foreach ($itemMedia as $media): ?>
-                    <?php if (in_array($media->mediaType(), $mediaTypes3D)) : ?>
-                        <div class="media-box <?php echo $rc;?>">
+                    <?php if (in_array($media->mediaType(), $nonIiifMediaTypes)): ?>
+                        <div class="media-box <?php echo $rc; ?>">
                             <div class="media-box-content">
-                                <?php echo $media->render();?>
+                                <?php echo $media->render(); ?>
                             </div>
                         </div>
                     <?php endif; ?>
                 <?php endforeach; ?>
             </div>
 
-        <?php elseif (in_array("application/pdf", $mediaTypes)) : ?>
-            <!-- Use the PDF viewer when any of the media is a PDF,  -->
-            <div class="media-embeds <?php echo $rc ." ".$mbc ;?>">
-                <?php foreach ($itemMedia as $media):?>
-                    <div class="media-box <?php echo $rc;?>">
-                        <div class="media-box-content">
-                            <?php echo $media->render(); ?>
-                        </div>
-                    </div>
-                <?php endforeach;?>
-            </div>
-
         <?php else: ?>
             <!-- Use an IIIF viewer in all other cases -->
             <div class="media-embeds">
-                <div class="media-box <?php echo $rc;?>">
+                <div class="media-box <?php echo $rc; ?>">
                     <div class="media-box-content">
                         <?php
                             if ($this->themeSetting('IiifViewer') == "universal") {
@@ -161,7 +179,7 @@ $mediaTypes = array_map(function($child) {
     </div>
 </div>
 <?php
-// END custom feature Differentiate on resourceClass
+// END custom feature Differentiate on mediaType
 ?>
 
 
