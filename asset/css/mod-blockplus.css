@@ -225,11 +225,13 @@
 
 
 /* Grid layout for BlockPlus's Asset widget for showing content in a 4-column grid on large screens and below each other on mobile */
-.block-asset .assets {
-    display: flex;
-	flex-wrap: nowrap;	
+
+.block-asset.grid .assets {
+	display: flex;
+	flex-wrap: wrap;
+	width: 80vw;
 	gap: 2em;	
-	justify-content: space-between;	
+	justify-content: left;	
 }
 
 .asset {
