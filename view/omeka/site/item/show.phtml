@@ -3,7 +3,7 @@
 // Customizations:
 // - custom feature Show item sets: Show the item sets to which the item belongs in the metadata section
 // - custom feature Disable resourcePageBlocks: Do not render resource page blocks by default, but leave this to the theme code in this file
-// - custom feature Differentiate on mediaType: Render Audio and Video (AV), 3D and PDF media directly; use configured IIIF viewer for all other cases
+// - custom feature Differentiate on mediaType: Render Audio and Video (AV), 3D and PDF media directly; use the IIIF viewer configured in the theme for all other cases
 
 $translate = $this->plugin('translate');
 // BEGIN custom feature Show item sets
@@ -23,7 +23,7 @@ $valueLang = $filterLocale ? [$lang, ''] : null;
 // BEGIN custom feature Differentiate on mediaType
 $itemMedia = $item->media();
 
-// Array of MIME-types supported by ModelViewer, i.e. 3D media types
+// Array of 3D MIME-types supported by ModelViewer module
 // For a complete list, see https://github.com/Daniel-KM/Omeka-S-module-ModelViewer#media-types-and-security-issue
 $mediaTypes3D = [
     "application/octet-stream",
