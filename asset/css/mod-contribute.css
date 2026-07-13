@@ -1,0 +1,38 @@
+.contribution+.contribute {
+  position: relative;
+  margin-top: 2em;
+  min-height: 400px;
+}
+
+.contribute {
+  background-color: #d4d4d4;
+  padding: 20px;
+
+ 
+}
+
+.contribute h3 {
+  margin: 0 !important;
+  line-height: 2em;
+}
+
+a.contribute-edit  {
+    margin: 0;
+    display: inline-block;
+    font-size: larger;
+    color: #fff !important;
+    border-radius: 12px;
+    padding: 1.5em;
+    background-color: #d2460f;
+}
+
+
+.contribute-resource .property {
+  margin: 0;
+  padding: 0;
+}   
+
+.contribute-resource .property .values .value {
+  margin: 0 !important;
+
+}   
