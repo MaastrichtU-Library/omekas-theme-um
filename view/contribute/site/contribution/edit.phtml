@@ -1,0 +1,136 @@
+<?php
+// Customized version of 'view/contribute/site/contribution/edit.phtml' from module Contribute version 3.4.39
+// Customizations:
+// - custom feature Render item media: Renders the item media in the specified viewer in the Edit Contribution view
+
+/**
+ * @var \Laminas\View\Renderer\PhpRenderer $this
+ * @var \Omeka\Api\Representation\SiteRepresentation $site
+ * @var \Omeka\Entity\User|null $user
+ * @var \Contribute\Form\ContributeForm $form
+ * @var \AdvancedResourceTemplate\Api\Representation\ResourceTemplateRepresentation|null $resourceTemplate
+ * @var \Contribute\Api\Representation\ContributionRepresentation|null $contribution
+ * @var \Omeka\Api\Representation\AbstractResourceEntityRepresentation|null $resource
+ * @var array $fields
+ * @var \Omeka\Api\Representation\ResourceTemplateRepresentation|null $templateMedia A sub template for media may have no fields.
+ * @var array $fieldsByMedia
+ * @var array $fieldsMediaBase
+ * @var string $action "add" or "edit" or "show"
+ * @var string $mode "read" (for template select or for show readonly form before submit) or "write"
+ * @var string $space "default" or "guest"
+ */
+
+$plugins = $this->getHelperPluginManager();
+$setting = $plugins->get('setting');
+$escape = $plugins->get('escapeHtml');
+$translate = $plugins->get('translate');
+$contributionForm = $plugins->get('contributionForm');
+
+$this->htmlElement('body')->appendAttribute('class', 'edit items ' . $this->params()->fromRoute('resource') . ' resource');
+
+if ($form) $form->prepare();
+
+$mapLabels = [
+    'contributions' => 'item',
+    'items' => 'item',
+    'media' => 'media',
+    'item_sets' => 'item set',
+];
+?>
+
+<!-- BEGIN custom feature 'Render item media' -->
+<div class="media-box">
+    <div class="media-box-content">
+        <?php
+            if ($this->themeSetting('IiifViewer') == "universal") {
+                echo $this->universalViewer($resource);
+            } elseif ($this->themeSetting('IiifViewer') == "mirador") {
+                echo $this->mirador($resource);
+            } else {
+                foreach ($resource->media() as $media) {
+                    echo $media->render();
+                }
+            }
+        ?>
+    </div>
+</div>
+<!-- END custom feature 'Render item media' -->
+
+
+
+<div class="contribute-resource conbribute-<?= $action ?> container <?= $space && $space !== 'default' ? $space : '' ?>">
+
+    <?= $this->pageTitle($resource ? $escape($resource->displayTitle()) : sprintf($translate('Add %s'), $translate($mapLabels['items'])), 2) ?>
+    <h3><?= $resource ? sprintf($translate('Edit %s'), $translate($mapLabels[$resource->resourceName()])) : sprintf($translate('New %s'), $translate($mapLabels['items'])) ?></h3>
+
+    <div class="messages">
+        <?= $this->messages() ?>
+    </div>
+
+    <?php if (count($fields) && $form):
+        // The two lists of fields are merged in one form by default.
+        $this->trigger("view.$action.before");
+        echo $contributionForm([
+            'site' => $site,
+            'user' => $user,
+            'form' => $form,
+            'resourceTemplate' => $resourceTemplate,
+            'contribution' => $contribution,
+            'resource' => $resource,
+            'fields' => $fields,
+            'templateMedia' => $templateMedia,
+            'fieldsByMedia' => $fieldsByMedia,
+            'fieldsMediaBase' => $fieldsMediaBase,
+            'action' => $action,
+            'mode' => $mode,
+            'space' => $space,
+            'submitLabel' => $action === 'add'
+                && (
+                    $resourceTemplate && $resourceTemplate->dataValue('contribute_template_contributable') === 'specific'
+                        ? $resourceTemplate->dataValue('contribute_allow_edit_until')
+                        : $setting('contribute_allow_edit_until')
+                    ) !== 'no'
+                ? $translate('Add')
+                : $translate('Submit'),
+            'cancelLabel' => $translate('Cancel'),
+            'isMainForm' => true,
+            'skipContributeCss' => false,
+        ]);
+        $this->trigger("view.$action.after");
+
+    elseif ($action === 'add' && $form): // First step form to select a resource template.
+        $acceptation = $setting('contribute_message_accept');
+        $acceptationAtStart = $acceptation
+            && $setting('contribute_accept_step') === 'start';
+        if ($mode === 'read') {
+            $form->remove('submit');
+            echo $this->form($form);
+        } elseif (!$acceptationAtStart) {
+            $form->get('submit')->setValue('Select'); // @translate
+            echo $this->form($form);
+        } else {
+            $formElement = $plugins->get('formElement');
+            $form->prepare();
+            $form->get('submit')->setValue('Select'); // @translate
+            echo $this->form()->openTag($form);
+            echo $formElement($form->get('template'));
+            echo '<div class="warn-acceptation">'
+                . '<input type="checkbox" required="required" name="accept_rights" id="accept_rights" form="edit-resource" value=""/>'
+                . ' <label for="accept_rights">' . $acceptation . '</label>'
+                . '</div>';
+            echo $formElement($form->get('step'));
+            echo $formElement($form->get('next'));
+            echo $formElement($form->get('mode'));
+            echo $formElement($form->get('csrf'));
+            echo $formElement($form->get('submit'));
+            echo $this->form()->closeTag();
+        }
+
+    else: ?>
+    <div class="messages">
+        <p><?= $translate('A template with fields is required to submit a document. Ask the administrator for more information.') ?></p>
+    </div>
+
+    <?php endif; ?>
+
+</div>
