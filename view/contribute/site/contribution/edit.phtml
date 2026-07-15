@@ -57,7 +57,8 @@ $mapLabels = [
 <!-- END custom feature 'Render item media' -->
 
 
-
+<div id="dragDiv">
+<div id="dragDivheader">Click here to move</div>
 <div class="contribute-resource conbribute-<?= $action ?> container <?= $space && $space !== 'default' ? $space : '' ?>">
 
     <?= $this->pageTitle($resource ? $escape($resource->displayTitle()) : sprintf($translate('Add %s'), $translate($mapLabels['items'])), 2) ?>
@@ -133,4 +134,5 @@ $mapLabels = [
 
     <?php endif; ?>
 
+</div>
 </div>
