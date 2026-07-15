@@ -11,9 +11,24 @@
  
 }
 
+.contribute .remove-value {
+  display: inline-block;
+    height: 40px;
+    background-color: #024474;
+}
+
+
 .contribute h3 {
   margin: 0 !important;
   line-height: 2em;
+}
+
+.contribute textarea{
+  width: 90%;
+  min-height: 100px;
+  height: auto; 
+  field-sizing: content;
+  margin-bottom: 1em;
 }
 
 a.contribute-edit  {
