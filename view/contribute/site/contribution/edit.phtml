@@ -2,6 +2,7 @@
 // Customized version of 'view/contribute/site/contribution/edit.phtml' from module Contribute version 3.4.39
 // Customizations:
 // - custom feature Render item media: Renders the item media in the specified viewer in the Edit Contribution view
+// - custom feature Hide properties: Hide the properties configured in the 'Hide Properties' module, the same way they are hidden on the item/show page
 
 /**
  * @var \Laminas\View\Renderer\PhpRenderer $this
@@ -36,6 +37,19 @@ $mapLabels = [
     'media' => 'media',
     'item_sets' => 'item set',
 ];
+
+// BEGIN custom feature Hide properties
+// Get the list of properties configured in the Hide Properties module (setting 'hidden_properties_properties')
+// and hide them from this Contribution Edit form.
+$hiddenProperties = $setting('hidden_properties_properties', []);
+if ($hiddenProperties) {
+    $fields = array_diff_key($fields, array_flip($hiddenProperties));
+    foreach ($fieldsByMedia as $key => $mediaFields) {
+        $fieldsByMedia[$key] = array_diff_key($mediaFields, array_flip($hiddenProperties));
+    }
+    $fieldsMediaBase = array_diff_key($fieldsMediaBase, array_flip($hiddenProperties));
+}
+// END custom feature Hide properties
 ?>
 
 <!-- BEGIN custom feature 'Render item media' -->
