@@ -39,21 +39,7 @@ $mapLabels = [
 ?>
 
 <!-- BEGIN custom feature 'Render item media' -->
-<div class="media-box">
-    <div class="media-box-content">
-        <?php
-            if ($this->themeSetting('IiifViewer') == "universal") {
-                echo $this->universalViewer($resource);
-            } elseif ($this->themeSetting('IiifViewer') == "mirador") {
-                echo $this->mirador($resource);
-            } else {
-                foreach ($resource->media() as $media) {
-                    echo $media->render();
-                }
-            }
-        ?>
-    </div>
-</div>
+<?php echo $this->partial('um-common/render-item-media', ['item' => $resource]); ?>
 <!-- END custom feature 'Render item media' -->
 
 

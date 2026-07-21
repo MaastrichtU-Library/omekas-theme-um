@@ -21,51 +21,6 @@ $valueLang = $filterLocale ? [$lang, ''] : null;
 
 
 // BEGIN custom feature Differentiate on mediaType
-$itemMedia = $item->media();
-
-// Array of 3D MIME-types supported by ModelViewer module
-// For a complete list, see https://github.com/Daniel-KM/Omeka-S-module-ModelViewer#media-types-and-security-issue
-$mediaTypes3D = [
-    "application/octet-stream",
-    "application/vnd.threejs+json",
-    "model/gltf-binary",
-    "model/gltf+json",
-    "model/obj",
-    "model/vnd.collada+xml",
-    "model/vnd.filmbox",
-    "image/ktx2",
-    "model/mtl"
-];
-
-// Array of Audio and Video (AV) MIME-types
-$mediaTypesAV = [
-        "audio/midi",
-        "audio/mp4",
-        "audio/mpeg",
-        "audio/ogg",
-        "audio/x-aac",
-        "audio/x-aiff",
-        "audio/x-ms-wma",
-        "audio/x-ms-wax",
-        "audio/x-realaudio",
-        "audio/x-wav",
-        "video/divx",
-        "video/mp4",
-        "video/mpeg",
-        "video/ogg",
-        "video/quicktime",
-        "video/webm",
-        "video/x-ms-asf",
-        "video/x-msvideo",
-        "video/x-ms-wmv"
-];
-
-// Array of PDF MIME-types
-$mediaTypesPDF = ['application/pdf'];
-
-// Concatenate all non-IIIF media types into a single array
-$nonIiifMediaTypes = array_merge($mediaTypes3D, $mediaTypesAV, $mediaTypesPDF);
-
 
 // Code to determine the class of the resource
 if ($item->resourceClass()):
@@ -75,7 +30,7 @@ else:
     $rc="none";
 endif;
 
-$imc=count($itemMedia); //imc =item media count;
+$imc=count($item->media()); //imc : item media count;
 $mbc="";
 if ($imc>1):
     // if more than one media item, add 'split' to several element classes
@@ -84,19 +39,6 @@ if ($imc>1):
     //$mbc=mediabox-class
 endif;
 
-# Extract mediaTypes from all media attached to this item into an array
-$mediaTypes = array_map(function($child) {
-    return $child->mediaType();
-}, $itemMedia);
-
-// Determine if any media requires direct rendering without IIIF viewer (this is true for AV, 3D, or PDF)
-$renderWithIiif = true;
-foreach ($itemMedia as $media) {
-    if (in_array($media->mediaType(), $nonIiifMediaTypes)) {
-        $renderWithIiif = false;
-        break;
-    }
-}
 ?>
 
 <div id="item-page">
@@ -105,39 +47,7 @@ foreach ($itemMedia as $media) {
     <?php $this->trigger('view.show.before'); ?>
 
     <div id="item-page-media">
-        <?php if (!$renderWithIiif): ?>
-            <div class="media-embeds <?php echo $rc ." ". $mbc; ?>">
-                <?php foreach ($itemMedia as $media): ?>
-                    <?php if (in_array($media->mediaType(), $nonIiifMediaTypes)): ?>
-                        <div class="media-box <?php echo $rc; ?>">
-                            <div class="media-box-content">
-                                <?php echo $media->render(); ?>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </div>
-
-        <?php else: ?>
-            <!-- Use an IIIF viewer in all other cases -->
-            <div class="media-embeds">
-                <div class="media-box <?php echo $rc; ?>">
-                    <div class="media-box-content">
-                        <?php
-                            if ($this->themeSetting('IiifViewer') == "universal") {
-                                echo $this->universalViewer($item);
-                            } elseif ($this->themeSetting('IiifViewer') == "mirador") {
-                                echo $this->mirador($item);
-                            } else {
-                                foreach ($itemMedia as $media) {
-                                    echo $media->render();
-                                }
-                            }
-                        ?>
-                    </div>
-                </div>
-            </div>
-        <?php endif; ?>
+        <?php echo $this->partial('um-common/render-item-media', ['item' => $item, 'rc' => $rc, 'mbc' => $mbc]); ?>
     </div>
 
     <div id="item-page-properties">
