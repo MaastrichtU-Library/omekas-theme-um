@@ -16,6 +16,10 @@ $mbc = $mbc ?? '';
 
 $itemMedia = $item->media();
 
+
+
+
+
 // Array of 3D MIME-types supported by ModelViewer module
 // For a complete list, see https://github.com/Daniel-KM/Omeka-S-module-ModelViewer#media-types-and-security-issue
 $mediaTypes3D = [
@@ -29,6 +33,9 @@ $mediaTypes3D = [
     "image/ktx2",
     "model/mtl"
 ];
+
+
+
 
 // Array of Audio and Video (AV) MIME-types
 $mediaTypesAV = [
@@ -56,6 +63,8 @@ $mediaTypesAV = [
 // Array of PDF MIME-types
 $mediaTypesPDF = ['application/pdf'];
 
+$mediaTypesYouTube = ['application/youtube'];
+
 // Concatenate all non-IIIF media types into a single array
 $nonIiifMediaTypes = array_merge($mediaTypes3D, $mediaTypesAV, $mediaTypesPDF);
 
@@ -67,7 +76,25 @@ foreach ($itemMedia as $media) {
         break;
     }
 }
+
+// Customization for youtube movies:
+//     Youtube assets in Omeka-S lack mediaType.
+//     Check for media source. If the source  contains youtube string, it's probably youtube...;-)
+//
+
+
+foreach($itemMedia as $media)
+    {
+        $mediaSource=$media->source();
+        if (str_contains($mediaSource, 'youtube'))
+        $mediaSource = 'I should be watching '. $mediaSource;
+        //echo 'Hello  World!'. $mediaSource;
+        $renderWithIiif=false;
+        break;
+    }
+
 ?>
+
 <?php if (!$renderWithIiif): ?>
     <div class="media-embeds <?php echo trim($rc . " " . $mbc); ?>">
         <?php foreach ($itemMedia as $media): ?>
@@ -78,6 +105,19 @@ foreach ($itemMedia as $media) {
                     </div>
                 </div>
             <?php endif; ?>
+            <!-- Custom code for youtube -->
+             
+            <?php
+                $mediaSource=strtolower($media->source());
+            if (str_contains($mediaSource,'youtube')): ?>
+                <div class="media-box <?php echo $rc; ?>">
+                    <div class="media-box-content">
+                        <?php echo $media->render(); ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+
         <?php endforeach; ?>
     </div>
 
