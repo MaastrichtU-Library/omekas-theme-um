@@ -59,10 +59,16 @@ $mediaTypesPDF = ['application/pdf'];
 // Concatenate all non-IIIF media types into a single array
 $nonIiifMediaTypes = array_merge($mediaTypes3D, $mediaTypesAV, $mediaTypesPDF);
 
-// Determine if any media requires direct rendering without IIIF viewer (this is true for AV, 3D, or PDF)
+// Media that is rendered directly without IIIF viewer (AV, 3D, PDF and YouTube)
+$isNonIiifMedia = function ($media) use ($nonIiifMediaTypes) {
+    return in_array($media->mediaType(), $nonIiifMediaTypes)
+        || $media->ingester() === 'youtube';
+};
+
+// Determine if any media requires direct rendering without IIIF viewer
 $renderWithIiif = true;
 foreach ($itemMedia as $media) {
-    if (in_array($media->mediaType(), $nonIiifMediaTypes)) {
+    if ($isNonIiifMedia($media)) {
         $renderWithIiif = false;
         break;
     }
@@ -70,8 +76,8 @@ foreach ($itemMedia as $media) {
 ?>
 <?php if (!$renderWithIiif): ?>
     <div class="media-embeds <?php echo trim($rc . " " . $mbc); ?>">
-        <?php foreach ($itemMedia as $media): ?>
-            <?php if (in_array($media->mediaType(), $nonIiifMediaTypes)): ?>
+        <?php foreach ($itemMedia as $media):?>
+            <?php if ($isNonIiifMedia($media)): ?>
                 <div class="media-box <?php echo $rc; ?>">
                     <div class="media-box-content">
                         <?php echo $media->render(); ?>
