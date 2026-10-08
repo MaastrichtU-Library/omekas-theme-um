@@ -6,7 +6,7 @@
 
 .contribute {
   background-color: #d4d4d4;
-  padding: 0px;
+  padding: 17px;
 }
 
 
@@ -20,14 +20,17 @@
   text-align: left;
   padding: 20px;
 }
-.contribute-resource h2,h3{
+
+.contribute-resource h2,
+h3 {
   margin: 0 !important;
-  padding: 0; 
+  padding: 0;
 }
 
-.contribute-resource h2{
+.contribute-resource h2 {
   font-size: 1.5rem;
 }
+
 .contribute-resource h3 {
   font-size: 1.3rem;
   font-weight: normal;
@@ -38,14 +41,16 @@
   font-size: 1.2rem;
   margin: 0;
 }
+
 .contribute-resource .property {
   width: auto;
   float: none;
 }
+
 #dragDiv {
   position: absolute;
   z-index: 10000;
-  top:150px;
+  top: 150px;
   left: 150px;
   background-color: #f1f1f1;
   border: 1px solid #d3d3d3;
@@ -60,6 +65,12 @@
   text-align: center;
 }
 
+
+ul.actions.resource-edit-remove-value {
+    display: none !important;
+}
+
+
 .contribute .remove-value {
   display: inline-block;
   height: 40px;
@@ -67,39 +78,58 @@
 }
 
 
-.contribute h3 {
-  margin: 0 !important;
-  line-height: 2em;
+.contribute.main-form {
+    padding: 0;
 }
 
-.contribute textarea{
+.contribute.main-form div#page-actions {
+    padding: 0 10px 10px 10px;
+}
+
+
+
+fieldset.contribute-resource.main-form {
+    padding: 10px;
+}
+
+.actions button::before {
+    margin-right: 0px !important;
+}
+
+.contribute h3 {
+  margin: 0 0 10px 0 !important;
+  line-height: 1em;
+}
+
+.contribute textarea {
   width: 90%;
   min-height: 100px;
-  height: auto; 
+  height: auto;
   field-sizing: content;
   margin-bottom: 1em;
 }
 
-a.contribute-edit  {
-    margin: 0;
-    display: inline-block;
-    font-size: larger;
-    color: #fff !important;
-    border-radius: 12px;
-    padding: 1.5em;
-    background-color: #d2460f;
+a.contribute-edit {
+  margin: 0;
+  display: inline-block;
+  font-size: larger;
+  color: #fff !important;
+  border-radius: 12px;
+  padding: 1.5em;
+  background-color: #d2460f;
 }
 
 
 .contribute-resource .property {
   margin: 0;
   padding: 0;
-}   
+}
 
 .contribute-resource .property .values .value {
   margin: 0 !important;
   line-height: 1;
 }
-.add-values{
-  margin-top:6px;
+
+.add-values {
+  margin-top: 6px;
 }
