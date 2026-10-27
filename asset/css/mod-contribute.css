@@ -1,0 +1,135 @@
+.contribution+.contribute {
+  position: relative;
+  margin-top: 2em;
+  min-height: 400px;
+}
+
+.contribute {
+  background-color: #d4d4d4;
+  padding: 17px;
+}
+
+
+.contribute-resource {
+  border: none;
+  font-size: 1.1rem;
+  /* color: #000; */
+  width: fit-content;
+  min-width: 30vw;
+  position: relative;
+  text-align: left;
+  padding: 20px;
+}
+
+.contribute-resource h2,
+h3 {
+  margin: 0 !important;
+  padding: 0;
+}
+
+.contribute-resource h2 {
+  font-size: 1.5rem;
+}
+
+.contribute-resource h3 {
+  font-size: 1.3rem;
+  font-weight: normal;
+  line-height: 1.3em;
+}
+
+.contribute-resource .property h4 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.contribute-resource .property {
+  width: auto;
+  float: none;
+}
+
+#dragDiv {
+  position: absolute;
+  z-index: 10000;
+  top: 150px;
+  left: 150px;
+  background-color: #f1f1f1;
+  border: 1px solid #d3d3d3;
+}
+
+#dragDivheader {
+  padding: 10px;
+  cursor: move;
+  z-index: 10;
+  background-color: #2196F3;
+  color: #fff;
+  text-align: center;
+}
+
+
+ul.actions.resource-edit-remove-value {
+    display: none !important;
+}
+
+
+.contribute .remove-value {
+  display: inline-block;
+  height: 40px;
+  background-color: #024474;
+}
+
+
+.contribute.main-form {
+    padding: 0;
+}
+
+.contribute.main-form div#page-actions {
+    padding: 0 10px 10px 10px;
+}
+
+
+
+fieldset.contribute-resource.main-form {
+    padding: 10px;
+}
+
+.actions button::before {
+    margin-right: 0px !important;
+}
+
+.contribute h3 {
+  margin: 0 0 10px 0 !important;
+  line-height: 1em;
+}
+
+.contribute textarea {
+  width: 90%;
+  min-height: 100px;
+  height: auto;
+  field-sizing: content;
+  margin-bottom: 1em;
+}
+
+a.contribute-edit {
+  margin: 0;
+  display: inline-block;
+  font-size: larger;
+  color: #fff !important;
+  border-radius: 12px;
+  padding: 1.5em;
+  background-color: #d2460f;
+}
+
+
+.contribute-resource .property {
+  margin: 0;
+  padding: 0;
+}
+
+.contribute-resource .property .values .value {
+  margin: 0 !important;
+  line-height: 1;
+}
+
+.add-values {
+  margin-top: 6px;
+}
